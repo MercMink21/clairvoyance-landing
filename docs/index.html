@@ -487,15 +487,25 @@ body::after{
 <!-- ══ Nav ═════════════════════════════════════════════════ -->
 <nav>
   <a href="https://clairvoyanceengine.info" class="nav-brand">
-    <!-- Inline eye glyph — nav size -->
+    <!-- Inline eye glyph — nav size, matches hero logo -->
     <svg class="nav-eye" viewBox="0 0 60 60" fill="none">
-      <ellipse cx="30" cy="30" rx="29" ry="10" stroke="#00f0ff" stroke-width="1.2" opacity=".8"/>
-      <circle  cx="30" cy="30" r="13"         stroke="#cc00ff" stroke-width="2"   opacity=".9"/>
-      <circle  cx="30" cy="30" r="7"          fill="#0c0820"/>
-      <circle  cx="30" cy="30" r="5"          fill="#cc00ff"   opacity=".8"/>
-      <circle  cx="30" cy="30" r="2"          fill="#e8b8ff"/>
-      <line x1="0"  y1="30" x2="7"  y2="30"  stroke="#00f0ff" stroke-width="1" opacity=".6"/>
-      <line x1="53" y1="30" x2="60" y2="30"  stroke="#00f0ff" stroke-width="1" opacity=".6"/>
+      <!-- Outer orbital ellipse -->
+      <ellipse cx="30" cy="30" rx="29" ry="9.5" stroke="#00f0ff" stroke-width="1.2" opacity=".7"/>
+      <!-- HUD tick marks — L/R/T/B -->
+      <line x1="0"  y1="30" x2="6"  y2="30" stroke="#00f0ff" stroke-width="1" opacity=".65"/>
+      <line x1="54" y1="30" x2="60" y2="30" stroke="#00f0ff" stroke-width="1" opacity=".65"/>
+      <line x1="30" y1="18" x2="30" y2="22" stroke="#00f0ff" stroke-width="1" opacity=".5"/>
+      <line x1="30" y1="38" x2="30" y2="42" stroke="#00f0ff" stroke-width="1" opacity=".5"/>
+      <!-- Inner dashed ring -->
+      <circle cx="30" cy="30" r="19" stroke="#cc00ff" stroke-width=".7" stroke-dasharray="4 3.5" opacity=".35"/>
+      <!-- Iris ring -->
+      <circle cx="30" cy="30" r="14" stroke="#cc00ff" stroke-width="2" opacity=".9"/>
+      <!-- Dark pupil -->
+      <circle cx="30" cy="30" r="9"  fill="#06030e" opacity=".85"/>
+      <!-- Pupil glow -->
+      <circle cx="30" cy="30" r="7"  fill="#cc00ff" opacity=".45"/>
+      <!-- Core dot -->
+      <circle cx="30" cy="30" r="2.5" fill="#f0d8ff"/>
     </svg>
     <span class="nav-name">CLAIRVOYANCE</span>
   </a>
@@ -601,6 +611,50 @@ body::after{
   </div>
 
 </section>
+
+<div class="divider"></div>
+
+<!-- ══ Waitlist ════════════════════════════════════════════ -->
+<div id="waitlist" class="full-width-section">
+<div class="waitlist-center">
+  <span class="waitlist-label">// EXCLUSIVE ACCESS</span>
+  <span class="waitlist-badge">⬡ &nbsp;INVITE ONLY</span>
+  <h2 class="waitlist-title reveal">Join The Discord Waitlist</h2>
+  <p class="waitlist-sub reveal">
+    An exclusive Discord community is coming — reserved for a limited group of members
+    who want direct access to model outputs, real-time signals, and deeper breakdowns
+    beyond what's posted publicly. Submit your email to be considered for early access.
+  </p>
+
+  <form class="waitlist-form reveal" id="waitlistForm" onsubmit="handleWaitlist(event)" novalidate>
+    <!-- Honeypot — hidden from real users, bots fill this in -->
+    <input type="text" name="website" id="hp_field" autocomplete="off"
+           style="position:absolute;left:-9999px;opacity:0;pointer-events:none;tab-index:-1"
+           tabindex="-1" aria-hidden="true">
+    <input
+      class="waitlist-input"
+      type="email"
+      id="waitlistEmail"
+      placeholder="your@email.com"
+      required
+      autocomplete="email"
+      maxlength="254"
+      inputmode="email"
+    />
+    <button class="waitlist-submit" type="submit" id="waitlistBtn">
+      REQUEST ACCESS
+    </button>
+  </form>
+
+  <div class="waitlist-success" id="waitlistSuccess">
+    ✓ &nbsp;You're on the list. We'll be in touch when access opens.
+  </div>
+
+  <p class="waitlist-note reveal">
+    No spam. Access is limited and by invitation only.
+  </p>
+</div>
+</div>
 
 <div class="divider"></div>
 
@@ -940,50 +994,6 @@ body::after{
     <strong>What you get:</strong> Morning preview 10 AM &nbsp;·&nbsp; Midday adjustments 2 PM
     &nbsp;·&nbsp; Pre-game reads 4:45 PM &nbsp;·&nbsp; Live updates 7 PM &nbsp;·&nbsp; Full recap 10 PM.
     All Mountain Time. All data shown.
-  </p>
-</div>
-</div>
-
-<div class="divider"></div>
-
-<!-- ══ Waitlist ════════════════════════════════════════════ -->
-<div id="waitlist" class="full-width-section">
-<div class="waitlist-center">
-  <span class="waitlist-label">// 07 — EXCLUSIVE ACCESS</span>
-  <span class="waitlist-badge">⬡ &nbsp;INVITE ONLY</span>
-  <h2 class="waitlist-title reveal">Join The Discord Waitlist</h2>
-  <p class="waitlist-sub reveal">
-    An exclusive Discord community is coming — reserved for a limited group of members
-    who want direct access to model outputs, real-time signals, and deeper breakdowns
-    beyond what's posted publicly. Submit your email to be considered for early access.
-  </p>
-
-  <form class="waitlist-form reveal" id="waitlistForm" onsubmit="handleWaitlist(event)" novalidate>
-    <!-- Honeypot — hidden from real users, bots fill this in -->
-    <input type="text" name="website" id="hp_field" autocomplete="off"
-           style="position:absolute;left:-9999px;opacity:0;pointer-events:none;tab-index:-1"
-           tabindex="-1" aria-hidden="true">
-    <input
-      class="waitlist-input"
-      type="email"
-      id="waitlistEmail"
-      placeholder="your@email.com"
-      required
-      autocomplete="email"
-      maxlength="254"
-      inputmode="email"
-    />
-    <button class="waitlist-submit" type="submit" id="waitlistBtn">
-      REQUEST ACCESS
-    </button>
-  </form>
-
-  <div class="waitlist-success" id="waitlistSuccess">
-    ✓ &nbsp;You're on the list. We'll be in touch when access opens.
-  </div>
-
-  <p class="waitlist-note reveal">
-    No spam. Access is limited and by invitation only.
   </p>
 </div>
 </div>
