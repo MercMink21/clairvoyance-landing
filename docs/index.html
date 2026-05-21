@@ -3,6 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<!-- Security headers -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
 <meta name="description" content="Clairvoyance Engine — Advanced Sports Intelligence. Probabilistic modeling, real-time edge detection, live calibration. See what others cannot.">
 <meta property="og:title" content="Clairvoyance Engine">
 <meta property="og:description" content="Advanced sports intelligence engine. Probabilistic modeling. Real-time edge detection. See what others cannot.">
@@ -23,18 +28,18 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --void:#030108;
-  --bg:#06040f;
-  --card:#0c0a1c;
-  --border:rgba(255,255,255,.08);
+  --void:#090909;
+  --bg:#111111;
+  --card:#161616;
+  --border:rgba(255,255,255,.09);
   --purple:#cc00ff;
   --purple-d:#7a00a0;
   --purple-dim:rgba(204,0,255,.1);
   --cyan:#00f0ff;
   --cyan-d:#007a8a;
-  --t1:#ede6ff;
-  --t2:#7a6e9a;
-  --t3:#3a3260;
+  --t1:#e8e8e8;
+  --t2:#888888;
+  --t3:#444444;
   --orb:'Orbitron',sans-serif;
   --mono:'JetBrains Mono',monospace;
 }
@@ -49,50 +54,41 @@ body{
   -webkit-font-smoothing:antialiased;
 }
 
-/* ── Carbon Fiber — luminous ─────────────────────────────── */
-/* Base cell size 14×14, alternating fiber direction per 2×2 block */
+/* ── Carbon Fiber — black/grey charcoal (matches pinned_card_carbon) ─── */
 .cf-bg{
-  background-color:#080512;
+  background-color:#0e0e0e;
   background-image:
-    /* fiber highlights — diagonal weave, more visible */
+    /* specular fiber highlights — diagonal weave */
     repeating-linear-gradient(
       45deg,
-      rgba(255,255,255,.055) 0px,
-      rgba(255,255,255,.055) 1px,
-      transparent            1px,
-      transparent            50%
+      rgba(255,255,255,.07) 0px,
+      rgba(255,255,255,.07) 1px,
+      transparent           1px,
+      transparent           50%
     ),
     repeating-linear-gradient(
       -45deg,
-      rgba(255,255,255,.055) 0px,
-      rgba(255,255,255,.055) 1px,
-      transparent            1px,
-      transparent            50%
+      rgba(255,255,255,.07) 0px,
+      rgba(255,255,255,.07) 1px,
+      transparent           1px,
+      transparent           50%
     ),
-    /* cell edge lines — darker groove */
+    /* cell groove lines — neutral dark */
     repeating-linear-gradient(
       0deg,
-      rgba(0,0,0,.35) 0px,
-      rgba(0,0,0,.35) 1px,
+      rgba(0,0,0,.45) 0px,
+      rgba(0,0,0,.45) 1px,
       transparent     1px,
       transparent     14px
     ),
     repeating-linear-gradient(
       90deg,
-      rgba(0,0,0,.35) 0px,
-      rgba(0,0,0,.35) 1px,
+      rgba(0,0,0,.45) 0px,
+      rgba(0,0,0,.45) 1px,
       transparent     1px,
       transparent     14px
-    ),
-    /* subtle purple-tint sheen in even cells */
-    repeating-linear-gradient(
-      45deg,
-      rgba(130,0,180,.04) 0px,
-      rgba(130,0,180,.04) 7px,
-      rgba(0,0,0,.0)       7px,
-      rgba(0,0,0,.0)       14px
     );
-  background-size:14px 14px, 14px 14px, 14px 14px, 14px 14px, 14px 14px;
+  background-size:14px 14px, 14px 14px, 14px 14px, 14px 14px;
 }
 
 /* ── Nav ─────────────────────────────────────────────────── */
@@ -100,7 +96,7 @@ nav{
   position:fixed;top:0;left:0;right:0;z-index:1000;
   display:flex;align-items:center;justify-content:space-between;
   padding:0 clamp(20px,5vw,60px);height:64px;
-  background:rgba(4,2,12,.88);
+  background:rgba(8,8,8,.92);
   backdrop-filter:blur(18px);
   border-bottom:1px solid var(--border);
 }
@@ -131,8 +127,8 @@ nav{
   #hero{padding-top:80px;padding-bottom:56px}
   .hero-engrave{width:190px;height:190px}
   .hero-title{
-    font-size:clamp(32px,9.5vw,88px);
-    letter-spacing:2px;
+    font-size:clamp(22px,7.5vw,88px);
+    letter-spacing:1px;
     margin-top:90px;
     margin-bottom:10px;
   }
@@ -186,9 +182,9 @@ nav{
   content:'';
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 60% 55% at 50% 38%, rgba(180,0,255,.18) 0%, transparent 65%),
-    radial-gradient(ellipse 40% 30% at 50% 32%, rgba(0,240,255,.07) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 40% at 50% 80%, rgba(0,0,0,.5) 0%, transparent 100%);
+    radial-gradient(ellipse 60% 55% at 50% 38%, rgba(180,0,255,.13) 0%, transparent 65%),
+    radial-gradient(ellipse 40% 30% at 50% 32%, rgba(0,240,255,.05) 0%, transparent 60%),
+    radial-gradient(ellipse 80% 40% at 50% 80%, rgba(0,0,0,.6) 0%, transparent 100%);
   pointer-events:none;
   z-index:0;
 }
@@ -210,9 +206,9 @@ nav{
 
 .hero-title{
   font-family:var(--orb);
-  font-size:clamp(40px,9vw,88px);
+  font-size:clamp(22px,7.5vw,88px);
   font-weight:900;
-  letter-spacing:clamp(4px,2vw,14px);
+  letter-spacing:clamp(1px,1.2vw,14px);
   line-height:1;
   background:linear-gradient(135deg,#cc00ff 0%,#8855ff 35%,#00f0ff 68%,#ff44cc 100%);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
@@ -596,6 +592,7 @@ body::after{
     <p class="hero-desc">
       An advanced sports intelligence engine built around mathematical precision,
       multi-layered ensemble models, and adaptive intelligence.
+      Turning raw data into measurable edge. Transparent output.
     </p>
 
     <div class="hero-actions">
@@ -909,7 +906,7 @@ body::after{
   </p>
 
   <div class="social-cards">
-    <a href="https://x.com/ClairvoyanceEng" target="_blank" rel="noopener"
+    <a href="https://x.com/ClairvoyanceEng" target="_blank" rel="noopener noreferrer"
        class="social-card x-card reveal reveal-delay-1">
       <svg class="social-icon" viewBox="0 0 24 24" fill="none">
         <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.262 5.632L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" fill="white"/>
@@ -920,7 +917,7 @@ body::after{
       <span class="social-follow-btn">FOLLOW ON X</span>
     </a>
 
-    <a href="https://instagram.com/clairvoyanceengine" target="_blank" rel="noopener"
+    <a href="https://instagram.com/clairvoyanceengine" target="_blank" rel="noopener noreferrer"
        class="social-card ig-card reveal reveal-delay-2">
       <svg class="social-icon" viewBox="0 0 24 24" fill="none">
         <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#igG)" stroke-width="1.7"/>
@@ -964,7 +961,11 @@ body::after{
     beyond what's posted publicly. Submit your email to be considered for early access.
   </p>
 
-  <form class="waitlist-form reveal" id="waitlistForm" onsubmit="handleWaitlist(event)">
+  <form class="waitlist-form reveal" id="waitlistForm" onsubmit="handleWaitlist(event)" novalidate>
+    <!-- Honeypot — hidden from real users, bots fill this in -->
+    <input type="text" name="website" id="hp_field" autocomplete="off"
+           style="position:absolute;left:-9999px;opacity:0;pointer-events:none;tab-index:-1"
+           tabindex="-1" aria-hidden="true">
     <input
       class="waitlist-input"
       type="email"
@@ -972,6 +973,8 @@ body::after{
       placeholder="your@email.com"
       required
       autocomplete="email"
+      maxlength="254"
+      inputmode="email"
     />
     <button class="waitlist-submit" type="submit" id="waitlistBtn">
       REQUEST ACCESS
@@ -1041,34 +1044,76 @@ setInterval(() => {
   if(confEl) { confEl.textContent = g.conf; confEl.style.color = g.col; }
 }, 2800);
 
-// ── Waitlist form ─────────────────────────────────────────
-function handleWaitlist(e) {
-  e.preventDefault();
-  const email  = document.getElementById('waitlistEmail').value.trim();
-  const btn    = document.getElementById('waitlistBtn');
-  const form   = document.getElementById('waitlistForm');
-  const success= document.getElementById('waitlistSuccess');
-  if (!email) return;
-  btn.disabled = true;
-  btn.textContent = 'SUBMITTING…';
-  // Store in localStorage so the page remembers the submission
-  const existing = JSON.parse(localStorage.getItem('wl_emails') || '[]');
-  if (!existing.includes(email)) existing.push(email);
-  localStorage.setItem('wl_emails', JSON.stringify(existing));
-  setTimeout(() => {
-    form.style.display = 'none';
-    success.style.display = 'block';
-  }, 600);
-}
-// If already submitted this session, hide form
+// ── Waitlist form — hardened ──────────────────────────────
 (function(){
-  const stored = JSON.parse(localStorage.getItem('wl_emails') || '[]');
-  if (stored.length > 0) {
+  // Email regex — RFC 5322 simplified
+  const EMAIL_RE = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+  const RATE_KEY  = 'wl_last_ts';
+  const LIST_KEY  = 'wl_emails';
+  const COOLDOWN  = 60 * 1000; // 1 minute between submissions
+
+  function sanitize(str) {
+    return str.trim().toLowerCase().slice(0, 254)
+      .replace(/[<>"'`]/g, ''); // strip injection chars
+  }
+
+  function showSuccess() {
     const f = document.getElementById('waitlistForm');
     const s = document.getElementById('waitlistSuccess');
     if(f) f.style.display = 'none';
     if(s) s.style.display = 'block';
   }
+
+  // Restore success state if already submitted
+  try {
+    const stored = JSON.parse(localStorage.getItem(LIST_KEY) || '[]');
+    if (stored.length > 0) showSuccess();
+  } catch(_) {}
+
+  window.handleWaitlist = function(e) {
+    e.preventDefault();
+
+    // Honeypot check — bots fill the hidden field
+    const hp = document.getElementById('hp_field');
+    if (hp && hp.value.length > 0) return; // silently reject bot
+
+    const emailRaw = (document.getElementById('waitlistEmail') || {}).value || '';
+    const email    = sanitize(emailRaw);
+    const btn      = document.getElementById('waitlistBtn');
+    const form     = document.getElementById('waitlistForm');
+
+    // Email format validation
+    if (!EMAIL_RE.test(email)) {
+      document.getElementById('waitlistEmail').style.borderColor = 'rgba(240,60,80,.6)';
+      setTimeout(() => {
+        document.getElementById('waitlistEmail').style.borderColor = '';
+      }, 1400);
+      return;
+    }
+
+    // Client-side rate limit — one submission per minute
+    try {
+      const last = parseInt(localStorage.getItem(RATE_KEY) || '0', 10);
+      if (Date.now() - last < COOLDOWN) {
+        btn.textContent = 'PLEASE WAIT…';
+        setTimeout(() => { btn.textContent = 'REQUEST ACCESS'; }, 2000);
+        return;
+      }
+    } catch(_) {}
+
+    // Accept
+    btn.disabled    = true;
+    btn.textContent = 'SUBMITTING…';
+
+    try {
+      const existing = JSON.parse(localStorage.getItem(LIST_KEY) || '[]');
+      if (!existing.includes(email)) existing.push(email);
+      localStorage.setItem(LIST_KEY, JSON.stringify(existing));
+      localStorage.setItem(RATE_KEY, String(Date.now()));
+    } catch(_) {}
+
+    setTimeout(showSuccess, 600);
+  };
 })();
 </script>
 
