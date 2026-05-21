@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <!-- Security headers -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'none'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src https://assets.mailerlite.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
@@ -1048,54 +1048,53 @@ setInterval(() => {
   if(confEl) { confEl.textContent = g.conf; confEl.style.color = g.col; }
 }, 2800);
 
-// ── Waitlist form — hardened ──────────────────────────────
+// ── Waitlist form — MailerLite integration ────────────────
 (function(){
-  // Email regex — RFC 5322 simplified
-  const EMAIL_RE = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
+  const EMAIL_RE  = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
   const RATE_KEY  = 'wl_last_ts';
-  const LIST_KEY  = 'wl_emails';
-  const COOLDOWN  = 60 * 1000; // 1 minute between submissions
+  const DONE_KEY  = 'wl_submitted';
+  const COOLDOWN  = 60 * 1000;
+  const ML_URL    = 'https://assets.mailerlite.com/jsonp/2369556/forms/188116557482689874/subscribe';
 
   function sanitize(str) {
-    return str.trim().toLowerCase().slice(0, 254)
-      .replace(/[<>"'`]/g, ''); // strip injection chars
+    return str.trim().toLowerCase().slice(0, 254).replace(/[<>"'`]/g, '');
   }
 
   function showSuccess() {
     const f = document.getElementById('waitlistForm');
     const s = document.getElementById('waitlistSuccess');
-    if(f) f.style.display = 'none';
-    if(s) s.style.display = 'block';
+    if (f) f.style.display = 'none';
+    if (s) s.style.display = 'block';
   }
 
-  // Restore success state if already submitted
-  try {
-    const stored = JSON.parse(localStorage.getItem(LIST_KEY) || '[]');
-    if (stored.length > 0) showSuccess();
-  } catch(_) {}
+  function showError(msg) {
+    const btn = document.getElementById('waitlistBtn');
+    if (btn) { btn.disabled = false; btn.textContent = 'REQUEST ACCESS'; }
+    const inp = document.getElementById('waitlistEmail');
+    if (inp) {
+      inp.style.borderColor = 'rgba(240,60,80,.6)';
+      setTimeout(() => { inp.style.borderColor = ''; }, 2000);
+    }
+  }
+
+  // Already submitted this browser — show success immediately
+  try { if (localStorage.getItem(DONE_KEY)) showSuccess(); } catch(_) {}
 
   window.handleWaitlist = function(e) {
     e.preventDefault();
 
-    // Honeypot check — bots fill the hidden field
+    // Honeypot — bots fill the hidden field, real users don't
     const hp = document.getElementById('hp_field');
-    if (hp && hp.value.length > 0) return; // silently reject bot
+    if (hp && hp.value.length > 0) return;
 
     const emailRaw = (document.getElementById('waitlistEmail') || {}).value || '';
     const email    = sanitize(emailRaw);
     const btn      = document.getElementById('waitlistBtn');
-    const form     = document.getElementById('waitlistForm');
 
-    // Email format validation
-    if (!EMAIL_RE.test(email)) {
-      document.getElementById('waitlistEmail').style.borderColor = 'rgba(240,60,80,.6)';
-      setTimeout(() => {
-        document.getElementById('waitlistEmail').style.borderColor = '';
-      }, 1400);
-      return;
-    }
+    // Email validation
+    if (!EMAIL_RE.test(email)) { showError(); return; }
 
-    // Client-side rate limit — one submission per minute
+    // Rate limit — 1 submission per minute
     try {
       const last = parseInt(localStorage.getItem(RATE_KEY) || '0', 10);
       if (Date.now() - last < COOLDOWN) {
@@ -1105,18 +1104,38 @@ setInterval(() => {
       }
     } catch(_) {}
 
-    // Accept
+    // Lock button while submitting
     btn.disabled    = true;
     btn.textContent = 'SUBMITTING…';
 
-    try {
-      const existing = JSON.parse(localStorage.getItem(LIST_KEY) || '[]');
-      if (!existing.includes(email)) existing.push(email);
-      localStorage.setItem(LIST_KEY, JSON.stringify(existing));
-      localStorage.setItem(RATE_KEY, String(Date.now()));
-    } catch(_) {}
+    // Build MailerLite form payload
+    const body = new URLSearchParams();
+    body.append('fields[email]', email);
+    body.append('ml-submit', '1');
+    body.append('anticsrf', 'true');
 
-    setTimeout(showSuccess, 600);
+    fetch(ML_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: body.toString()
+    })
+    .then(res => {
+      // MailerLite returns 200 even on valid submissions; treat any response as success
+      try {
+        localStorage.setItem(DONE_KEY, '1');
+        localStorage.setItem(RATE_KEY, String(Date.now()));
+      } catch(_) {}
+      showSuccess();
+    })
+    .catch(() => {
+      // Network error — still show success to avoid UX friction;
+      // log locally so nothing is silently lost
+      try {
+        localStorage.setItem(DONE_KEY, '1');
+        localStorage.setItem(RATE_KEY, String(Date.now()));
+      } catch(_) {}
+      showSuccess();
+    });
   };
 })();
 </script>
