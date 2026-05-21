@@ -28,18 +28,18 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 
 :root{
-  --void:#090909;
-  --bg:#111111;
-  --card:#161616;
-  --border:rgba(255,255,255,.09);
+  --void:#0a0a0a;
+  --bg:#121212;
+  --card:#1a1a1a;
+  --border:rgba(255,255,255,.12);
   --purple:#cc00ff;
   --purple-d:#7a00a0;
-  --purple-dim:rgba(204,0,255,.1);
+  --purple-dim:rgba(204,0,255,.12);
   --cyan:#00f0ff;
-  --cyan-d:#007a8a;
-  --t1:#e8e8e8;
-  --t2:#888888;
-  --t3:#444444;
+  --cyan-d:#00b8cc;
+  --t1:#f0f0f0;
+  --t2:#c0c0c0;
+  --t3:#787878;
   --orb:'Orbitron',sans-serif;
   --mono:'JetBrains Mono',monospace;
 }
@@ -182,9 +182,8 @@ nav{
   content:'';
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 60% 55% at 50% 38%, rgba(180,0,255,.13) 0%, transparent 65%),
-    radial-gradient(ellipse 40% 30% at 50% 32%, rgba(0,240,255,.05) 0%, transparent 60%),
-    radial-gradient(ellipse 80% 40% at 50% 80%, rgba(0,0,0,.6) 0%, transparent 100%);
+    radial-gradient(ellipse 50% 40% at 50% 36%, rgba(180,0,255,.07) 0%, transparent 65%),
+    radial-gradient(ellipse 80% 40% at 50% 80%, rgba(0,0,0,.55) 0%, transparent 100%);
   pointer-events:none;
   z-index:0;
 }
@@ -210,23 +209,22 @@ nav{
   font-weight:900;
   letter-spacing:clamp(1px,1.2vw,14px);
   line-height:1;
-  background:linear-gradient(135deg,#cc00ff 0%,#8855ff 35%,#00f0ff 68%,#ff44cc 100%);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  color:var(--purple);
   margin-bottom:14px;
   /* shift down so title sits below the engraved logo center */
   margin-top:clamp(180px,26vw,280px);
 }
 .hero-sub{
-  font-size:clamp(11px,1.6vw,12px);letter-spacing:clamp(3px,1vw,7px);
-  color:var(--t2);text-transform:uppercase;margin-bottom:10px;
+  font-size:clamp(12px,1.6vw,13px);letter-spacing:clamp(3px,1vw,7px);
+  color:var(--t1);text-transform:uppercase;margin-bottom:10px;opacity:.85;
 }
 .hero-tagline{
-  font-family:var(--orb);font-size:clamp(13px,2.2vw,18px);font-weight:700;
-  color:var(--cyan);letter-spacing:3px;margin-bottom:20px;opacity:.9;
+  font-family:var(--orb);font-size:clamp(14px,2.2vw,18px);font-weight:700;
+  color:var(--cyan);letter-spacing:3px;margin-bottom:20px;
 }
 .hero-desc{
-  max-width:520px;font-size:clamp(13px,1.4vw,13px);
-  color:var(--t2);line-height:1.85;margin:0 auto 40px;
+  max-width:520px;font-size:clamp(13px,1.4vw,14px);
+  color:var(--t1);line-height:1.9;margin:0 auto 40px;opacity:.85;
 }
 .hero-actions{
   display:flex;gap:14px;flex-wrap:wrap;justify-content:center;margin-bottom:52px;
@@ -288,10 +286,10 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   border-radius:1px;margin-bottom:16px;
 }
 .how-title{font-family:var(--orb);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--cyan);margin-bottom:10px}
-.how-text{font-size:12px;color:var(--t2);line-height:1.85}
+.how-text{font-size:13px;color:var(--t1);line-height:1.85;opacity:.85}
 .how-tag{
   display:inline-block;margin-top:14px;padding:3px 8px;
-  border:1px solid var(--t3);font-size:8px;letter-spacing:2px;color:var(--t3);
+  border:1px solid var(--t3);font-size:8px;letter-spacing:2px;color:var(--t2);
   border-radius:2px;text-transform:uppercase;
 }
 
@@ -305,7 +303,7 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .pipe-step{flex:1;min-width:130px;text-align:center;padding:20px 10px;position:relative}
 .pipe-step::after{
   content:'→';position:absolute;right:-8px;top:28px;
-  font-size:16px;color:var(--t3);font-family:var(--mono);
+  font-size:16px;color:var(--t2);font-family:var(--mono);
 }
 .pipe-step:last-child::after{display:none}
 .pipe-icon-box{
@@ -318,7 +316,7 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .pipe-step:hover .pipe-icon-box{border-color:var(--purple);box-shadow:0 0 16px rgba(204,0,255,.2)}
 .pipe-glyph{font-family:var(--orb);font-size:11px;font-weight:700;color:var(--purple)}
 .pipe-lbl{font-family:var(--orb);font-size:9px;font-weight:700;letter-spacing:2px;color:var(--t1);margin-bottom:5px}
-.pipe-sub{font-size:9px;color:var(--t2);line-height:1.6}
+.pipe-sub{font-size:10px;color:var(--t1);line-height:1.6;opacity:.8}
 
 /* ── Sports cards ────────────────────────────────────────── */
 #sports{background:var(--bg)}
@@ -331,13 +329,13 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .sport-card:hover{border-color:rgba(0,240,255,.25);transform:translateY(-2px)}
 .sport-abbr{
   font-family:var(--orb);font-size:28px;font-weight:900;letter-spacing:2px;
-  color:rgba(204,0,255,.18);
+  color:rgba(204,0,255,.4);
   display:block;margin-bottom:12px;
   transition:color .3s;
 }
-.sport-card:hover .sport-abbr{color:rgba(204,0,255,.35)}
+.sport-card:hover .sport-abbr{color:rgba(204,0,255,.7)}
 .sport-name{font-family:var(--orb);font-size:11px;font-weight:700;letter-spacing:2px;color:var(--t1);margin-bottom:8px}
-.sport-desc{font-size:10px;color:var(--t2);line-height:1.75}
+.sport-desc{font-size:11px;color:var(--t1);line-height:1.75;opacity:.82}
 .sport-badge{
   display:inline-block;margin-top:12px;padding:2px 7px;
   background:rgba(204,0,255,.07);border:1px solid rgba(204,0,255,.2);
@@ -348,10 +346,10 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 #ev-section{background:var(--void)}
 .ev-block{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;margin-top:40px}
 @media(max-width:700px){.ev-block{grid-template-columns:1fr}}
-.ev-desc p{font-size:13px;color:var(--t2);line-height:1.9;margin-bottom:16px}
-.ev-desc p strong{color:var(--t1)}
+.ev-desc p{font-size:13px;color:var(--t1);line-height:1.9;margin-bottom:16px;opacity:.88}
+.ev-desc p strong{color:#fff}
 .ev-legend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
-.ev-leg-item{display:flex;align-items:center;gap:8px;font-size:10px;color:var(--t2)}
+.ev-leg-item{display:flex;align-items:center;gap:8px;font-size:11px;color:var(--t1);opacity:.85}
 .ev-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .ev-card-demo{
   background:var(--card);border:1px solid var(--border);border-radius:3px;
@@ -394,13 +392,13 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   flex-shrink:0;margin-top:1px;min-width:20px;
 }
 .trans-title{font-family:var(--orb);font-size:10px;font-weight:700;letter-spacing:1.5px;color:var(--t1);margin-bottom:6px}
-.trans-text{font-size:11px;color:var(--t2);line-height:1.75}
+.trans-text{font-size:12px;color:var(--t1);line-height:1.75;opacity:.82}
 
 /* ── Social ──────────────────────────────────────────────── */
 #social{background:var(--void)}
 .social-center{text-align:center;padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px)}
 .social-title{font-family:var(--orb);font-size:clamp(20px,3.5vw,34px);font-weight:700;letter-spacing:3px;margin-bottom:12px;color:var(--t1)}
-.social-sub{font-size:13px;color:var(--t2);line-height:1.85;max-width:500px;margin:0 auto 44px}
+.social-sub{font-size:13px;color:var(--t1);line-height:1.85;max-width:500px;margin:0 auto 44px;opacity:.88}
 .social-cards{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-bottom:40px}
 .social-card{
   display:flex;flex-direction:column;align-items:center;
@@ -412,14 +410,14 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .social-card.x-card:hover{border-color:rgba(255,255,255,.25);box-shadow:0 8px 32px rgba(255,255,255,.07)}
 .social-card.ig-card:hover{border-color:rgba(204,0,255,.35);box-shadow:0 8px 32px rgba(204,0,255,.12)}
 .social-icon{width:44px;height:44px;margin-bottom:16px}
-.social-platform{font-family:var(--orb);font-size:9px;font-weight:700;letter-spacing:3px;color:var(--t2);margin-bottom:6px}
+.social-platform{font-family:var(--orb);font-size:9px;font-weight:700;letter-spacing:3px;color:var(--t1);margin-bottom:6px}
 .social-handle{font-family:var(--orb);font-size:15px;font-weight:900;letter-spacing:1px;margin-bottom:12px}
 .social-card.x-card .social-handle{color:#fff}
 .social-card.ig-card .social-handle{
   background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);
   -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
 }
-.social-what{font-size:10px;color:var(--t2);line-height:1.65;margin-top:6px;text-align:center;max-width:175px}
+.social-what{font-size:10px;color:var(--t1);line-height:1.65;margin-top:6px;text-align:center;max-width:175px;opacity:.82}
 .social-follow-btn{
   display:inline-block;padding:10px 24px;border-radius:2px;
   font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:2px;
@@ -429,8 +427,8 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .social-follow-btn:hover{opacity:.85;transform:translateY(-1px)}
 .social-card.x-card .social-follow-btn{background:#fff;color:#000}
 .social-card.ig-card .social-follow-btn{background:linear-gradient(135deg,#f09433,#dc2743,#bc1888);color:#fff}
-.social-note{font-size:11px;color:var(--t3);max-width:500px;margin:0 auto;line-height:1.75}
-.social-note strong{color:var(--t2)}
+.social-note{font-size:11px;color:var(--t1);max-width:500px;margin:0 auto;line-height:1.75;opacity:.78}
+.social-note strong{color:#fff}
 
 /* ── Footer ──────────────────────────────────────────────── */
 footer{
@@ -523,8 +521,8 @@ body::after{
        style="mix-blend-mode:screen" aria-hidden="true">
     <defs>
       <radialGradient id="irisGrad" cx="50%" cy="50%" r="50%">
-        <stop offset="0%"   stop-color="#cc00ff" stop-opacity=".9"/>
-        <stop offset="60%"  stop-color="#7700cc" stop-opacity=".6"/>
+        <stop offset="0%"   stop-color="#cc00ff" stop-opacity=".55"/>
+        <stop offset="60%"  stop-color="#7700cc" stop-opacity=".35"/>
         <stop offset="100%" stop-color="#cc00ff" stop-opacity="0"/>
       </radialGradient>
       <radialGradient id="coreGrad" cx="50%" cy="50%" r="50%">
@@ -532,14 +530,14 @@ body::after{
         <stop offset="100%" stop-color="#cc00ff" stop-opacity=".4"/>
       </radialGradient>
       <radialGradient id="glowBg" cx="50%" cy="50%" r="50%">
-        <stop offset="0%"   stop-color="#8800cc" stop-opacity=".22"/>
+        <stop offset="0%"   stop-color="#8800cc" stop-opacity=".06"/>
         <stop offset="100%" stop-color="#8800cc" stop-opacity="0"/>
       </radialGradient>
       <filter id="softBlur">
-        <feGaussianBlur stdDeviation="3"/>
+        <feGaussianBlur stdDeviation="2"/>
       </filter>
       <filter id="glowBlur">
-        <feGaussianBlur stdDeviation="12"/>
+        <feGaussianBlur stdDeviation="4"/>
       </filter>
     </defs>
 
@@ -568,10 +566,10 @@ body::after{
     <circle cx="200" cy="200" r="52" fill="#06030e" opacity=".75"/>
 
     <!-- Iris gradient bloom -->
-    <circle cx="200" cy="200" r="46" fill="url(#irisGrad)" filter="url(#softBlur)" opacity=".9"/>
+    <circle cx="200" cy="200" r="46" fill="url(#irisGrad)" filter="url(#softBlur)" opacity=".5"/>
 
     <!-- Pupil highlight -->
-    <circle cx="200" cy="200" r="30" fill="#cc00ff" opacity=".7"/>
+    <circle cx="200" cy="200" r="30" fill="#cc00ff" opacity=".4"/>
 
     <!-- Core bright spot -->
     <circle cx="200" cy="200" r="14" fill="url(#coreGrad)"/>
