@@ -453,6 +453,24 @@ footer{
   border-top:1px solid var(--border);padding-top:16px;margin-top:8px;
 }
 
+/* ── Waitlist ────────────────────────────────────────────── */
+#waitlist{background:var(--void)}
+.waitlist-center{text-align:center;padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:640px;margin:0 auto}
+.waitlist-label{font-size:9px;letter-spacing:4px;color:var(--purple);text-transform:uppercase;margin-bottom:12px;display:block}
+.waitlist-title{font-family:var(--orb);font-size:clamp(20px,3.5vw,32px);font-weight:700;letter-spacing:2px;color:var(--t1);margin-bottom:14px}
+.waitlist-sub{font-size:13px;color:var(--t2);line-height:1.85;max-width:480px;margin:0 auto 28px}
+.waitlist-badge{display:inline-block;padding:4px 14px;margin-bottom:28px;background:rgba(204,0,255,.08);border:1px solid rgba(204,0,255,.25);border-radius:2px;font-size:9px;letter-spacing:3px;color:var(--purple);text-transform:uppercase}
+.waitlist-form{display:flex;gap:10px;max-width:480px;margin:0 auto 14px;flex-wrap:wrap;justify-content:center}
+.waitlist-input{flex:1;min-width:220px;padding:13px 18px;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:2px;font-family:var(--mono);font-size:12px;color:var(--t1);outline:none;transition:border-color .2s}
+.waitlist-input::placeholder{color:var(--t2)}
+.waitlist-input:focus{border-color:rgba(204,0,255,.45)}
+.waitlist-submit{padding:13px 28px;background:linear-gradient(135deg,var(--purple),#7b5fff);color:#fff;border:none;border-radius:2px;font-family:var(--mono);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:opacity .2s,transform .2s,box-shadow .2s;box-shadow:0 0 20px rgba(204,0,255,.25);white-space:nowrap}
+.waitlist-submit:hover{opacity:.9;transform:translateY(-1px);box-shadow:0 4px 28px rgba(204,0,255,.4)}
+.waitlist-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
+.waitlist-note{font-size:10px;color:var(--t3);margin-top:10px;letter-spacing:1px}
+.waitlist-success{display:none;padding:14px 22px;margin:16px auto 0;max-width:480px;background:rgba(56,224,120,.08);border:1px solid rgba(56,224,120,.25);border-radius:2px;font-size:12px;color:#56e87a;letter-spacing:1px}
+@media(max-width:640px){.waitlist-form{flex-direction:column;align-items:stretch}.waitlist-input{min-width:0}.waitlist-submit{width:100%}}
+
 /* ── Scroll reveal ───────────────────────────────────────── */
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
 .reveal.in{opacity:1;transform:none}
@@ -491,6 +509,7 @@ body::after{
     <li><a href="#how">How It Works</a></li>
     <li><a href="#sports">Coverage</a></li>
     <li><a href="#ev-section">EV System</a></li>
+    <li><a href="#waitlist">Discord</a></li>
     <li class="always"><a href="#social" class="nav-cta">Follow</a></li>
   </ul>
 </nav>
@@ -575,8 +594,8 @@ body::after{
     <p class="hero-tagline">SEE WHAT OTHERS CANNOT</p>
 
     <p class="hero-desc">
-      A probabilistic sports modeling engine that turns raw data into measurable edge.
-      Real-time calibration. Transparent output. No black box.
+      An advanced sports intelligence engine built around mathematical precision,
+      multi-layered ensemble models, and adaptive intelligence.
     </p>
 
     <div class="hero-actions">
@@ -596,8 +615,8 @@ body::after{
   <span class="section-label reveal">// 01 — METHODOLOGY</span>
   <h2 class="section-title reveal">How The Engine Works</h2>
   <p class="section-body reveal">
-    Clairvoyance doesn't pick teams — it identifies where the market is mispriced.
-    Every output is probabilistic, transparent, and graded.
+    Six-stage pipeline. From raw and live data all the way to a graded, deliverable signal —
+    every step is systematic, repeatable, and accountable.
   </p>
 
   <div class="how-grid">
@@ -605,11 +624,11 @@ body::after{
     <div class="how-card reveal reveal-delay-1">
       <span class="how-num">// 01</span>
       <div class="how-marker"></div>
-      <div class="how-title">LIVE DATA FUSION</div>
+      <div class="how-title">RAW &amp; LIVE DATA FUSION</div>
       <p class="how-text">
-        The engine continuously ingests real-time game data, current odds, weather conditions,
-        lineup news, and injury reports across all covered sports. Every relevant signal
-        is normalized and fed into a unified pipeline that updates throughout the day.
+        The engine continuously ingests raw historical data alongside real-time signals —
+        live odds, game conditions, lineup news, and market movement across all covered sports.
+        Every input is normalized and fused into a unified pipeline that refreshes throughout the day.
       </p>
       <span class="how-tag">Real-Time</span>
     </div>
@@ -669,14 +688,13 @@ body::after{
     <div class="how-card reveal reveal-delay-3">
       <span class="how-num">// 06</span>
       <div class="how-marker"></div>
-      <div class="how-title">ADAPTIVE DISCIPLINE</div>
+      <div class="how-title">ADAPTIVE INTELLIGENCE</div>
       <p class="how-text">
-        Not every slate has high-confidence edges. The engine is designed to say
-        "no edge today" as accurately as it identifies strong plays. The system
-        tracks its own accuracy over time and refines factor weights to improve
-        calibration continuously.
+        The engine continuously audits its own performance. Recalibrations, simulations,
+        and cutting-edge statistical analysis run in the background — refining factor weights
+        and improving calibration over time. The system adapts. It does not stand still.
       </p>
-      <span class="how-tag">Self-Calibrating</span>
+      <span class="how-tag">Self-Auditing</span>
     </div>
 
   </div>
@@ -741,32 +759,38 @@ body::after{
     <div class="sport-card reveal reveal-delay-1">
       <span class="sport-abbr">MLB</span>
       <div class="sport-name">BASEBALL</div>
-      <div class="sport-desc">Moneyline, totals, NRFI, player props. Weather-adjusted. Park factor calibrated. Pitcher ERA + FIP weighted.</div>
-      <span class="sport-badge">162 GAMES / SEASON</span>
+      <div class="sport-desc">Full regular season and playoffs. Moneyline, totals, NRFI, and player props — all modeled and graded.</div>
+      <span class="sport-badge">REG. SEASON + PLAYOFFS</span>
     </div>
     <div class="sport-card reveal reveal-delay-2">
       <span class="sport-abbr">NHL</span>
       <div class="sport-name">HOCKEY</div>
-      <div class="sport-desc">ML, puck line, totals, series picks. 5v5 xGF%, GSAx goalie model, Corsi integrated.</div>
-      <span class="sport-badge">82 GAMES + PLAYOFFS</span>
+      <div class="sport-desc">Full regular season and playoffs. Moneyline, puck line, totals, and series picks — modeled and graded.</div>
+      <span class="sport-badge">REG. SEASON + PLAYOFFS</span>
     </div>
     <div class="sport-card reveal reveal-delay-3">
       <span class="sport-abbr">NBA</span>
       <div class="sport-name">BASKETBALL</div>
-      <div class="sport-desc">Spread, totals, player props, series. Net rating, pace, eFG% adjusted. Playoff bracket tracking.</div>
-      <span class="sport-badge">82 GAMES + PLAYOFFS</span>
+      <div class="sport-desc">Full regular season and playoffs. Spread, totals, player props, and series picks — modeled and graded.</div>
+      <span class="sport-badge">REG. SEASON + PLAYOFFS</span>
     </div>
     <div class="sport-card reveal reveal-delay-4">
       <span class="sport-abbr">TEN</span>
       <div class="sport-name">TENNIS</div>
-      <div class="sport-desc">Match winner, set betting. Surface-specific ELO. Grand Slam draw analysis.</div>
-      <span class="sport-badge">ATP · WTA · SLAMS</span>
+      <div class="sport-desc">ATP Tour, WTA Tour, and all four Grand Slams. Match winner and set betting — modeled and graded.</div>
+      <span class="sport-badge">ATP · WTA · GRAND SLAMS</span>
     </div>
     <div class="sport-card reveal reveal-delay-1">
       <span class="sport-abbr">F1</span>
       <div class="sport-name">FORMULA 1</div>
-      <div class="sport-desc">Race winner, podium, constructor picks. Qualifying delta, pit strategy, wet-weather index.</div>
-      <span class="sport-badge">24-RACE CALENDAR</span>
+      <div class="sport-desc">Full race calendar coverage. Race winner, podium, and constructor picks — modeled and graded.</div>
+      <span class="sport-badge">FULL RACE CALENDAR</span>
+    </div>
+    <div class="sport-card reveal reveal-delay-2" style="border-style:dashed;opacity:.7">
+      <span class="sport-abbr" style="font-size:20px;letter-spacing:1px;color:rgba(204,0,255,.25)">MORE</span>
+      <div class="sport-name">COMING SOON</div>
+      <div class="sport-desc">Additional sports are in active development. The engine expands as models are validated and calibrated.</div>
+      <span class="sport-badge" style="border-color:rgba(204,0,255,.2);color:var(--t3)">IN DEVELOPMENT</span>
     </div>
   </div>
 </section>
@@ -788,19 +812,19 @@ body::after{
       <div class="ev-legend">
         <div class="ev-leg-item">
           <div class="ev-dot" style="background:var(--cyan)"></div>
-          <span><strong style="color:var(--t1)">A+</strong> — Edge &gt;12%</span>
+          <span><strong style="color:var(--t1)">A+</strong> — Highest edge tier</span>
         </div>
         <div class="ev-leg-item">
           <div class="ev-dot" style="background:#56e87a"></div>
-          <span><strong style="color:var(--t1)">A</strong> — Edge 8–12%</span>
+          <span><strong style="color:var(--t1)">A</strong> — Strong edge</span>
         </div>
         <div class="ev-leg-item">
           <div class="ev-dot" style="background:var(--purple)"></div>
-          <span><strong style="color:var(--t1)">B</strong> — Edge 4–8%</span>
+          <span><strong style="color:var(--t1)">B</strong> — Moderate edge</span>
         </div>
         <div class="ev-leg-item">
           <div class="ev-dot" style="background:var(--t3)"></div>
-          <span><strong style="color:var(--t1)">C / D</strong> — Edge &lt;4%</span>
+          <span><strong style="color:var(--t1)">C / D</strong> — Marginal or no edge</span>
         </div>
       </div>
     </div>
@@ -880,8 +904,8 @@ body::after{
   <span class="section-label">// 06 — FOLLOW THE SIGNAL</span>
   <h2 class="social-title reveal">Find Us On Social</h2>
   <p class="social-sub reveal">
-    Five posts per day. Data-driven. No hype.
-    Model outputs, EV grades, and full accountability — delivered to your feed.
+    Daily posts. Data-driven. No hype.
+    Model outputs, EV grades. Full accountability — delivered to your feed.
   </p>
 
   <div class="social-cards">
@@ -922,6 +946,44 @@ body::after{
     <strong>What you get:</strong> Morning preview 10 AM &nbsp;·&nbsp; Midday adjustments 2 PM
     &nbsp;·&nbsp; Pre-game reads 4:45 PM &nbsp;·&nbsp; Live updates 7 PM &nbsp;·&nbsp; Full recap 10 PM.
     All Mountain Time. All data shown.
+  </p>
+</div>
+</div>
+
+<div class="divider"></div>
+
+<!-- ══ Waitlist ════════════════════════════════════════════ -->
+<div id="waitlist" class="full-width-section">
+<div class="waitlist-center">
+  <span class="waitlist-label">// 07 — EXCLUSIVE ACCESS</span>
+  <span class="waitlist-badge">⬡ &nbsp;INVITE ONLY</span>
+  <h2 class="waitlist-title reveal">Join The Discord Waitlist</h2>
+  <p class="waitlist-sub reveal">
+    An exclusive Discord community is coming — reserved for a limited group of members
+    who want direct access to model outputs, real-time signals, and deeper breakdowns
+    beyond what's posted publicly. Submit your email to be considered for early access.
+  </p>
+
+  <form class="waitlist-form reveal" id="waitlistForm" onsubmit="handleWaitlist(event)">
+    <input
+      class="waitlist-input"
+      type="email"
+      id="waitlistEmail"
+      placeholder="your@email.com"
+      required
+      autocomplete="email"
+    />
+    <button class="waitlist-submit" type="submit" id="waitlistBtn">
+      REQUEST ACCESS
+    </button>
+  </form>
+
+  <div class="waitlist-success" id="waitlistSuccess">
+    ✓ &nbsp;You're on the list. We'll be in touch when access opens.
+  </div>
+
+  <p class="waitlist-note reveal">
+    No spam. Access is limited and by invitation only.
   </p>
 </div>
 </div>
@@ -978,6 +1040,36 @@ setInterval(() => {
   if(edgeEl) { edgeEl.textContent = g.edge; edgeEl.style.color = g.col; }
   if(confEl) { confEl.textContent = g.conf; confEl.style.color = g.col; }
 }, 2800);
+
+// ── Waitlist form ─────────────────────────────────────────
+function handleWaitlist(e) {
+  e.preventDefault();
+  const email  = document.getElementById('waitlistEmail').value.trim();
+  const btn    = document.getElementById('waitlistBtn');
+  const form   = document.getElementById('waitlistForm');
+  const success= document.getElementById('waitlistSuccess');
+  if (!email) return;
+  btn.disabled = true;
+  btn.textContent = 'SUBMITTING…';
+  // Store in localStorage so the page remembers the submission
+  const existing = JSON.parse(localStorage.getItem('wl_emails') || '[]');
+  if (!existing.includes(email)) existing.push(email);
+  localStorage.setItem('wl_emails', JSON.stringify(existing));
+  setTimeout(() => {
+    form.style.display = 'none';
+    success.style.display = 'block';
+  }, 600);
+}
+// If already submitted this session, hide form
+(function(){
+  const stored = JSON.parse(localStorage.getItem('wl_emails') || '[]');
+  if (stored.length > 0) {
+    const f = document.getElementById('waitlistForm');
+    const s = document.getElementById('waitlistSuccess');
+    if(f) f.style.display = 'none';
+    if(s) s.style.display = 'block';
+  }
+})();
 </script>
 
 </body>
