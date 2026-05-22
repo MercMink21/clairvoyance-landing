@@ -620,8 +620,18 @@ footer::before{
   background:linear-gradient(90deg,transparent,rgba(240,0,255,.4),rgba(0,240,255,.3),transparent);
 }
 .footer-brand{display:flex;align-items:center;gap:10px}
-.footer-eye{width:22px;height:22px;opacity:.6}
-.footer-name{font-family:var(--orb);font-size:11px;font-weight:700;letter-spacing:3px;color:var(--t3)}
+.footer-eye{display:none}
+.footer-name{
+  font-family:var(--orb);font-size:clamp(16px,2.4vw,22px);font-weight:900;
+  letter-spacing:clamp(2px,0.6vw,6px);
+  color:var(--purple);
+  text-shadow:
+    0 0 10px rgba(240,0,255,.9),
+    0 0 28px rgba(240,0,255,.55),
+    0 0 60px rgba(240,0,255,.2);
+  animation:flicker 8s ease-in-out infinite;
+  text-transform:uppercase;
+}
 .footer-links{display:flex;gap:20px;list-style:none;flex-wrap:wrap}
 .footer-links a{font-family:var(--tech);font-size:9px;letter-spacing:2px;color:var(--t3);text-decoration:none;text-transform:uppercase;transition:color .2s,text-shadow .2s}
 .footer-links a:hover{color:var(--cyan);text-shadow:0 0 8px rgba(0,240,255,.4)}
@@ -1129,13 +1139,7 @@ footer::before{
 <!-- ══ Footer ═══════════════════════════════════════════════ -->
 <footer>
   <div class="footer-brand">
-    <svg class="footer-eye" viewBox="0 0 60 60" fill="none">
-      <ellipse cx="30" cy="30" rx="28" ry="9" stroke="#00f0ff" stroke-width="1" opacity=".5"/>
-      <circle  cx="30" cy="30" r="12"         stroke="#f000ff" stroke-width="1.5" opacity=".6"/>
-      <circle  cx="30" cy="30" r="5"          fill="#f000ff"   opacity=".6"/>
-      <circle  cx="30" cy="30" r="2"          fill="#e8b8ff"   opacity=".8"/>
-    </svg>
-    <span class="footer-name">CLAIRVOYANCE ENGINE</span>
+    <span class="footer-name">CLAIRVOYANCE</span>
   </div>
   <ul class="footer-links">
     <li><a href="#how">How It Works</a></li>
