@@ -60,12 +60,12 @@ body{
 
 /* ── Carbon Fiber base ─────────────────────────────────── */
 .cf-bg{
-  background-color:#141414;
+  background-color:#121212;
   background-image:
-    repeating-linear-gradient(45deg,  rgba(255,255,255,.16) 0px,rgba(255,255,255,.16) 1px,transparent 1px,transparent 50%),
-    repeating-linear-gradient(-45deg, rgba(255,255,255,.16) 0px,rgba(255,255,255,.16) 1px,transparent 1px,transparent 50%),
-    repeating-linear-gradient(0deg,   rgba(0,0,0,.38) 0px,rgba(0,0,0,.38) 1px,transparent 1px,transparent 14px),
-    repeating-linear-gradient(90deg,  rgba(0,0,0,.38) 0px,rgba(0,0,0,.38) 1px,transparent 1px,transparent 14px);
+    repeating-linear-gradient(45deg,  rgba(255,255,255,.12) 0px,rgba(255,255,255,.12) 1px,transparent 1px,transparent 50%),
+    repeating-linear-gradient(-45deg, rgba(255,255,255,.12) 0px,rgba(255,255,255,.12) 1px,transparent 1px,transparent 50%),
+    repeating-linear-gradient(0deg,   rgba(0,0,0,.34) 0px,rgba(0,0,0,.34) 1px,transparent 1px,transparent 14px),
+    repeating-linear-gradient(90deg,  rgba(0,0,0,.34) 0px,rgba(0,0,0,.34) 1px,transparent 1px,transparent 14px);
   background-size:14px 14px,14px 14px,14px 14px,14px 14px;
 }
 
@@ -91,9 +91,15 @@ body::after{
 }
 @keyframes scanline-sweep{
   0%  {transform:translateY(-100%);opacity:0}
-  5%  {opacity:.6}
-  95% {opacity:.6}
+  5%  {opacity:.72}
+  95% {opacity:.72}
   100%{transform:translateY(100vh);opacity:0}
+}
+@keyframes scanline-h-sweep{
+  0%  {transform:translateX(-100%);opacity:0}
+  8%  {opacity:.68}
+  88% {opacity:.68}
+  100%{transform:translateX(100vw);opacity:0}
 }
 @keyframes float-up{
   0%,100%{transform:translateY(0)}
@@ -181,13 +187,21 @@ nav::after{
   pointer-events:none;z-index:0;
 }
 
-/* Sweeping scanline */
+/* Sweeping scanlines — vertical (top→bottom) + horizontal (left→right) */
 #hero .scanline{
   position:absolute;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent,rgba(0,240,255,.25),transparent);
+  background:linear-gradient(90deg,transparent 0%,rgba(0,240,255,.32) 40%,rgba(0,240,255,.55) 50%,rgba(0,240,255,.32) 60%,transparent 100%);
+  box-shadow:0 0 8px rgba(0,240,255,.3);
   animation:scanline-sweep 7s ease-in-out infinite;
-  pointer-events:none;z-index:1;
-  top:0;
+  pointer-events:none;z-index:1;top:0;
+}
+#hero .scanline-h{
+  position:absolute;top:0;bottom:0;width:2px;
+  background:linear-gradient(180deg,transparent 0%,rgba(0,240,255,.30) 35%,rgba(0,240,255,.52) 50%,rgba(0,240,255,.30) 65%,transparent 100%);
+  box-shadow:0 0 8px rgba(0,240,255,.28);
+  animation:scanline-h-sweep 9s ease-in-out infinite;
+  animation-delay:2.5s;
+  pointer-events:none;z-index:1;left:0;
 }
 
 /* HUD corner brackets */
@@ -201,11 +215,11 @@ nav::after{
 #hero .hud-bl{bottom:24px;left:clamp(16px,3vw,48px);border-width:0 0 1px 1px;animation-delay:1.6s}
 #hero .hud-br{bottom:24px;right:clamp(16px,3vw,48px);border-width:0 1px 1px 0;animation-delay:2.4s}
 
-/* The engraved logo */
+/* The engraved logo — pulled further up so it clears the title */
 .hero-engrave{
   position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-58%);
-  width:clamp(260px,38vw,420px);height:clamp(260px,38vw,420px);
+  transform:translate(-50%,-78%);
+  width:clamp(220px,32vw,360px);height:clamp(220px,32vw,360px);
   opacity:1;z-index:1;pointer-events:none;
 }
 
@@ -219,7 +233,7 @@ nav::after{
   line-height:1;
   color:var(--purple);
   margin-bottom:14px;
-  margin-top:clamp(180px,26vw,280px);
+  margin-top:clamp(130px,20vw,210px);
   text-shadow:
     0 0 20px rgba(204,0,255,.7),
     0 0 60px rgba(204,0,255,.25),
@@ -640,8 +654,8 @@ footer::before{
   .nav-links{gap:14px}
   .nav-links li:not(.always){display:none}
   #hero{padding-top:80px;padding-bottom:56px}
-  .hero-engrave{width:190px;height:190px}
-  .hero-title{font-size:clamp(22px,7.5vw,88px);letter-spacing:1px;margin-top:90px;margin-bottom:10px}
+  .hero-engrave{width:160px;height:160px}
+  .hero-title{font-size:clamp(22px,7.5vw,88px);letter-spacing:1px;margin-top:72px;margin-bottom:10px}
   .hero-sub{font-size:12px;letter-spacing:3px;margin-bottom:8px}
   .hero-tagline{font-size:14px;letter-spacing:2px;margin-bottom:14px}
   .hero-desc{font-size:13px;line-height:1.75;max-width:100%;margin-bottom:28px;padding:0 4px}
@@ -698,8 +712,9 @@ footer::before{
   <div class="hud-tr"></div>
   <div class="hud-bl"></div>
   <div class="hud-br"></div>
-  <!-- Sweeping scanline -->
+  <!-- Sweeping scanlines — vertical top→bottom, horizontal left→right (target lock) -->
   <div class="scanline"></div>
+  <div class="scanline-h"></div>
 
   <!-- Engraved logo -->
   <svg class="hero-engrave" viewBox="0 0 400 400" fill="none"
@@ -963,7 +978,7 @@ footer::before{
     <div class="pipe-step">
       <div class="pipe-icon-box"><span class="pipe-glyph">→</span></div>
       <div class="pipe-lbl">DELIVER</div>
-      <div class="pipe-sub">5× daily posts, X + Instagram</div>
+      <div class="pipe-sub">Daily posts, X + Instagram, exclusive discord</div>
     </div>
   </div>
 </div>
