@@ -574,45 +574,42 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 @media(max-width:840px){.sub-grid{grid-template-columns:1fr}}
 @media(max-width:560px){.pass-grid{grid-template-columns:1fr}.discord-block{flex-direction:column;align-items:flex-start}}
 
-/* ── EV Section ────────────────────────────────────── */
+/* ── Pick Grading System ───────────────────────────── */
 #ev-section{background:transparent}
-.ev-block{display:block;margin-top:40px;max-width:720px}
-.ev-desc p{font-size:13px;color:var(--t1);line-height:1.9;margin-bottom:16px;opacity:.88}
-.ev-desc p strong{color:#fff}
-.ev-legend{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:20px}
-.ev-leg-item{display:flex;align-items:center;gap:8px;font-family:var(--tech);font-size:11px;color:var(--t1);opacity:.85}
-.ev-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;box-shadow:0 0 6px currentColor}
-
-/* EV demo card — glassmorphism */
-.ev-card-demo{
-  padding:24px;font-family:var(--tech);font-size:11px;
+.grade-stack{display:flex;flex-direction:column;gap:12px;margin-top:40px;max-width:860px}
+.grade-row{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:22px 28px;flex-wrap:wrap;
 }
-.ev-card-demo::before{
-  top:10px;left:10px;
-  border-color:rgba(0,240,255,.4);
+.grade-left{flex:1;min-width:0}
+.grade-name{
+  font-family:var(--orb);font-size:clamp(22px,3.5vw,32px);font-weight:900;
+  letter-spacing:3px;display:block;margin-bottom:8px;
 }
-/* Corner brackets */
-.hud-tr{position:absolute;top:10px;right:10px;width:14px;height:14px;
-  border-top:1px solid rgba(0,240,255,.35);border-right:1px solid rgba(0,240,255,.35);border-radius:1px;}
-.hud-br{position:absolute;bottom:10px;right:10px;width:14px;height:14px;
-  border-bottom:1px solid rgba(0,240,255,.35);border-right:1px solid rgba(0,240,255,.35);border-radius:1px;}
-.hud-bl{position:absolute;bottom:10px;left:10px;width:14px;height:14px;
-  border-bottom:1px solid rgba(0,240,255,.35);border-left:1px solid rgba(0,240,255,.35);border-radius:1px;}
-
-.ev-card-header{font-family:var(--tech);font-size:9px;letter-spacing:2px;color:var(--t3);margin-bottom:16px}
-.ev-game{font-family:var(--orb);font-size:13px;font-weight:700;color:var(--t1);margin-bottom:3px;letter-spacing:1px}
-.ev-pick{font-family:var(--tech);font-size:11px;color:var(--cyan);margin-bottom:16px;text-shadow:0 0 8px rgba(0,240,255,.3)}
-.ev-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:10px;color:var(--t2)}
-.ev-row:last-of-type{border-bottom:none}
-.ev-row span:last-child{color:var(--t1);font-weight:700}
-.ev-badge-row{display:flex;justify-content:space-between;align-items:center;margin-top:16px}
-.ev-grade{
-  display:inline-block;padding:3px 10px;border-radius:4px;
-  font-family:var(--orb);font-size:14px;font-weight:900;
+.grade-desc{font-family:var(--tech);font-size:12px;color:var(--t1);opacity:.82;line-height:1.6}
+.grade-right{
+  display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;
 }
-.ev-grade.a-plus{background:rgba(0,240,255,.1);color:var(--cyan);border:1px solid rgba(0,240,255,.3);box-shadow:0 0 12px rgba(0,240,255,.2)}
-.ev-grade.a{background:rgba(86,232,122,.08);color:#56e87a;border:1px solid rgba(86,232,122,.3);box-shadow:0 0 12px rgba(86,232,122,.15)}
-.ev-grade.b{background:rgba(240,0,255,.08);color:var(--purple);border:1px solid rgba(240,0,255,.25);box-shadow:0 0 12px rgba(240,0,255,.15)}
+.grade-stat{
+  font-family:var(--orb);font-size:clamp(10px,1.4vw,13px);font-weight:700;
+  letter-spacing:1.5px;white-space:nowrap;
+}
+.grade-ev-box{padding:20px 24px;margin-top:4px}
+.grade-ev-title{
+  font-family:var(--tech);font-size:9px;letter-spacing:3px;color:var(--purple);
+  text-transform:uppercase;margin-bottom:10px;
+  text-shadow:0 0 8px rgba(240,0,255,.4);
+}
+.grade-ev-text{font-family:var(--tech);font-size:12px;color:var(--t1);line-height:1.75;opacity:.82}
+.grade-footer{
+  font-family:var(--tech);font-size:13px;color:var(--t2);line-height:1.8;
+  margin-top:28px;max-width:860px;opacity:.88;
+}
+.grade-footer strong{color:var(--t1)}
+@media(max-width:560px){
+  .grade-row{flex-direction:column;align-items:flex-start;gap:12px}
+  .grade-right{align-items:flex-start}
+}
 
 /* ── Transparency grid ─────────────────────────────── */
 #transparency{background:transparent}
@@ -1251,26 +1248,68 @@ footer::before{
 
 <div class="divider"></div>
 
-<!-- ══ EV System ════════════════════════════════════════════ -->
+<!-- ══ Pick Grading System ═══════════════════════════════════ -->
 <div id="ev-section" class="full-width-section sect-mid">
 <section>
-  <span class="section-label reveal">// 05 — EV SYSTEM</span>
-  <h2 class="section-title reveal">The EV System</h2>
+  <span class="section-label reveal">// 05 — GRADING</span>
+  <h2 class="section-title reveal">Pick Grading System</h2>
+  <p class="section-body reveal">Every model output is graded before it ever reaches you. Four tiers — each defined by win probability and expected value threshold.</p>
 
-  <div class="ev-block">
-    <div class="ev-desc reveal">
-      <p>Every model output includes three numbers that matter: <strong>model probability</strong>, <strong>market-implied probability</strong>, and <strong>edge percentage</strong>. You always know exactly where the value comes from.</p>
-      <p>The EV grade translates edge size into a letter rating — giving you a quick read on confidence without hiding the math behind it.</p>
-      <p><strong>No LOCK language. No guaranteed picks. No hype.</strong> Just probabilities, edges, and grades — laid out transparently.</p>
-      <div class="ev-legend">
-        <div class="ev-leg-item"><div class="ev-dot" style="background:var(--cyan);box-shadow:0 0 6px rgba(0,240,255,.6)"></div><span><strong style="color:var(--t1)">A+</strong> — Highest edge tier</span></div>
-        <div class="ev-leg-item"><div class="ev-dot" style="background:#56e87a;box-shadow:0 0 6px rgba(86,232,122,.6)"></div><span><strong style="color:var(--t1)">A</strong> — Strong edge</span></div>
-        <div class="ev-leg-item"><div class="ev-dot" style="background:var(--purple);box-shadow:0 0 6px rgba(240,0,255,.6)"></div><span><strong style="color:var(--t1)">B</strong> — Moderate edge</span></div>
-        <div class="ev-leg-item"><div class="ev-dot" style="background:var(--t3)"></div><span><strong style="color:var(--t1)">C / D</strong> — Marginal or no edge</span></div>
+  <div class="grade-stack">
+
+    <div class="grade-row glass-card reveal reveal-delay-1" style="border-color:rgba(255,213,0,.3)!important">
+      <div class="grade-left">
+        <span class="grade-name" style="color:#ffd500;text-shadow:0 0 14px rgba(255,213,0,.6),0 0 30px rgba(255,213,0,.3)">PREMIUM</span>
+        <p class="grade-desc">Highest-conviction — model sees a strong mathematical edge</p>
+      </div>
+      <div class="grade-right">
+        <span class="grade-stat" style="color:#ffd500;text-shadow:0 0 10px rgba(255,213,0,.5)">WIN PROB &nbsp;≥ 67%</span>
+        <span class="grade-stat" style="color:#ffd500;text-shadow:0 0 10px rgba(255,213,0,.5)">EV &nbsp;&gt; +5%</span>
       </div>
     </div>
 
+    <div class="grade-row glass-card reveal reveal-delay-2" style="border-color:rgba(0,240,255,.3)!important">
+      <div class="grade-left">
+        <span class="grade-name" style="color:#00f0ff;text-shadow:0 0 14px rgba(0,240,255,.6),0 0 30px rgba(0,240,255,.3)">OPTIMAL</span>
+        <p class="grade-desc">High-confidence play with clear positive value at market price</p>
+      </div>
+      <div class="grade-right">
+        <span class="grade-stat" style="color:#00f0ff;text-shadow:0 0 10px rgba(0,240,255,.5)">WIN PROB &nbsp;≥ 62%</span>
+        <span class="grade-stat" style="color:#00f0ff;text-shadow:0 0 10px rgba(0,240,255,.5)">EV &nbsp;&gt; +3%</span>
+      </div>
+    </div>
+
+    <div class="grade-row glass-card reveal reveal-delay-3" style="border-color:rgba(240,0,255,.3)!important">
+      <div class="grade-left">
+        <span class="grade-name" style="color:#f000ff;text-shadow:0 0 14px rgba(240,0,255,.6),0 0 30px rgba(240,0,255,.3)">LEAN</span>
+        <p class="grade-desc">Moderate edge — situational value, smaller exposure advised</p>
+      </div>
+      <div class="grade-right">
+        <span class="grade-stat" style="color:#f000ff;text-shadow:0 0 10px rgba(240,0,255,.5)">WIN PROB &nbsp;55 – 62%</span>
+        <span class="grade-stat" style="color:#f000ff;text-shadow:0 0 10px rgba(240,0,255,.5)">EV &nbsp;PRESENT</span>
+      </div>
+    </div>
+
+    <div class="grade-row glass-card reveal reveal-delay-4" style="border-color:rgba(255,32,80,.3)!important">
+      <div class="grade-left">
+        <span class="grade-name" style="color:#ff2050;text-shadow:0 0 14px rgba(255,32,80,.6),0 0 30px rgba(255,32,80,.3)">SKIP</span>
+        <p class="grade-desc">Below model threshold — no bet, wait for a better number</p>
+      </div>
+      <div class="grade-right">
+        <span class="grade-stat" style="color:#ff2050;text-shadow:0 0 10px rgba(255,32,80,.5)">WIN PROB &nbsp;&lt; 55%</span>
+        <span class="grade-stat" style="color:#ff2050;text-shadow:0 0 10px rgba(255,32,80,.5)">NO EV EDGE</span>
+      </div>
+    </div>
+
+    <div class="grade-ev-box glass-card reveal" style="border-color:rgba(240,0,255,.18)!important">
+      <div class="grade-ev-title">WHAT IS EXPECTED VALUE (EV)?</div>
+      <p class="grade-ev-text">EV measures the long-term profit edge per bet. Positive EV means the model's probability exceeds the implied market odds — that line returns profit over time.</p>
+    </div>
+
   </div>
+
+  <p class="grade-footer reveal"><strong>No LOCK language. No guaranteed picks. No hype.</strong> Just probabilities, edges, and grades — laid out transparently.</p>
+
 </section>
 </div>
 
