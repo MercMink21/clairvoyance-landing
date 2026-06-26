@@ -193,8 +193,8 @@ nav::after{
 /* Sweeping scanlines — vertical (top→bottom) + horizontal (left→right) */
 #hero .scanline{
   position:absolute;left:0;right:0;height:2px;
-  background:linear-gradient(90deg,transparent 0%,rgba(0,240,255,.32) 40%,rgba(0,240,255,.55) 50%,rgba(0,240,255,.32) 60%,transparent 100%);
-  box-shadow:0 0 8px rgba(0,240,255,.3);
+  background:linear-gradient(90deg,transparent 0%,rgba(240,0,255,.8) 20%,rgba(0,240,255,.9) 50%,rgba(240,0,255,.8) 80%,transparent 100%);
+  box-shadow:0 0 10px rgba(240,0,255,.6),0 0 20px rgba(0,240,255,.5),0 0 40px rgba(240,0,255,.3);
   animation:scanline-sweep 7s ease-in-out infinite;
   pointer-events:none;z-index:1;top:0;
 }
@@ -213,8 +213,8 @@ nav::after{
 /* The engraved logo — pulled further up so it clears the title */
 .hero-engrave{
   position:absolute;top:50%;left:50%;
-  transform:translate(-50%,-78%);
-  width:clamp(220px,32vw,360px);height:clamp(220px,32vw,360px);
+  transform:translate(-50%,-92%);
+  width:clamp(180px,26vw,300px);height:clamp(180px,26vw,300px);
   opacity:1;z-index:1;pointer-events:none;
 }
 
@@ -246,7 +246,11 @@ nav::after{
 .hero-tagline{
   font-family:var(--orb);font-size:clamp(11px,1.4vw,14px);font-weight:700;
   color:var(--purple);letter-spacing:3px;margin-bottom:20px;
-  text-shadow:0 0 10px rgba(240,0,255,.9),0 0 28px rgba(240,0,255,.55),0 0 60px rgba(240,0,255,.2);
+  text-shadow:
+    0 0 12px rgba(240,0,255,1),
+    0 0 30px rgba(240,0,255,.85),
+    0 0 70px rgba(240,0,255,.5),
+    0 0 120px rgba(240,0,255,.25);
   animation:flicker 8s ease-in-out infinite;
 }
 .hero-desc{
@@ -401,8 +405,8 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 }
 .how-title{
   font-family:var(--orb);font-size:11px;font-weight:700;letter-spacing:2px;
-  color:var(--cyan);margin-bottom:10px;
-  text-shadow:0 0 8px rgba(0,240,255,.3);
+  color:var(--purple);margin-bottom:10px;
+  text-shadow:0 0 8px rgba(240,0,255,.4),0 0 20px rgba(240,0,255,.2);
 }
 .how-text{font-size:13px;color:var(--t2);line-height:1.85;}
 .how-tag{
@@ -441,7 +445,7 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   transform:translateY(-3px);
 }
 .pipe-glyph{font-family:var(--orb);font-size:15px;font-weight:700;color:var(--purple);text-shadow:0 0 8px rgba(240,0,255,.5)}
-.pipe-lbl{font-family:var(--orb);font-size:12px;font-weight:700;letter-spacing:2px;color:var(--t1);margin-bottom:7px}
+.pipe-lbl{font-family:var(--orb);font-size:12px;font-weight:700;letter-spacing:2px;color:var(--purple);text-shadow:0 0 10px rgba(240,0,255,.6),0 0 24px rgba(240,0,255,.3);margin-bottom:7px}
 .pipe-sub{font-family:var(--tech);font-size:12px;color:var(--t2);line-height:1.6;opacity:.8}
 
 /* ── Sports cards ─────────────────────────────────── */
@@ -614,7 +618,7 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   font-family:var(--tech);font-size:13px;color:var(--t2);line-height:1.8;
   margin-top:28px;max-width:860px;opacity:.88;
 }
-.grade-footer strong{color:var(--t1)}
+.grade-footer strong{color:var(--cyan);text-shadow:0 0 10px rgba(0,240,255,.8),0 0 24px rgba(0,240,255,.5),0 0 48px rgba(0,240,255,.25)}
 @media(max-width:560px){
   .grade-row{flex-direction:column;align-items:flex-start;gap:12px}
   .grade-right{align-items:flex-start}
@@ -1123,7 +1127,7 @@ footer::before{
   <span class="section-label reveal">// 03 — COVERAGE</span>
   <h2 class="section-title reveal">What The Engine Covers</h2>
   <p class="section-body reveal">
-    19 leagues across 6 sports — each with its own calibrated model built around
+    20 leagues across 6 sports — each with its own calibrated model built around
     the unique statistical structure and market dynamics of the sports and leagues.
   </p>
 
@@ -1167,6 +1171,7 @@ footer::before{
     <span class="sports-group-label">// SOCCER</span>
     <div class="sports-grid">
       <div class="sport-card glass-card"><span class="sport-abbr" style="font-size:14px;letter-spacing:0">WORLD CUP</span><div class="sport-name">FIFA WORLD CUP</div></div>
+      <div class="sport-card glass-card"><span class="sport-abbr" style="font-size:10px;letter-spacing:0">CHAMPIONS</span><div class="sport-name">UEFA CHAMPIONS LEAGUE</div></div>
       <div class="sport-card glass-card"><span class="sport-abbr" style="font-size:13px;letter-spacing:0">PREMIER</span><div class="sport-name">PREMIER LEAGUE</div></div>
       <div class="sport-card glass-card"><span class="sport-abbr" style="font-size:14px;letter-spacing:0">LA LIGA</span><div class="sport-name">SPANISH LA LIGA</div></div>
       <div class="sport-card glass-card"><span class="sport-abbr" style="font-size:12px;letter-spacing:0">BUNDESLIGA</span><div class="sport-name">GERMAN BUNDESLIGA</div></div>
