@@ -422,7 +422,7 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .pipeline-wrap::-webkit-scrollbar{display:none}
 .pipe-step{flex:1;min-width:170px;text-align:center;padding:28px 16px;position:relative}
 .pipe-step::after{
-  content:'→';position:absolute;right:-10px;top:38px;
+  content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);
   font-size:20px;color:rgba(0,240,255,.4);font-family:var(--tech);
 }
 .pipe-step:last-child::after{display:none}
