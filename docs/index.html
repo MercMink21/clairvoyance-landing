@@ -379,8 +379,9 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .how-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:48px}
 
 .how-card{
-  padding:28px 24px;
+  padding:28px 24px;display:flex;flex-direction:column;
 }
+.how-text{flex:1}
 /* Alternate glow colors for cards */
 .how-card:nth-child(odd)::after{
   background:radial-gradient(ellipse at 40% 50%,rgba(240,0,255,.45),rgba(0,240,255,.15),transparent 70%);
