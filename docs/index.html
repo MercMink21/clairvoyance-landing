@@ -639,11 +639,12 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .social-sub{font-family:var(--tech);font-size:12px;color:var(--t2);line-height:1.7;max-width:560px;margin:0 auto 24px;opacity:.88}
 .social-cards{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;margin-bottom:0;max-width:760px;margin-left:auto;margin-right:auto}
 .social-card{
-  display:flex;flex-direction:row;align-items:center;gap:20px;
+  display:flex;flex-direction:column;align-items:flex-start;gap:16px;
   padding:28px 36px;
   flex:1;min-width:300px;max-width:440px;
   text-decoration:none;
 }
+.social-card-top{display:flex;align-items:center;gap:16px}
 .social-card.x-card:hover{border-color:rgba(240,0,255,.3)!important}
 .social-card.x-card::after{
   background:radial-gradient(ellipse at 50%,rgba(240,0,255,.3),rgba(240,0,255,.1),transparent 70%);
@@ -951,34 +952,38 @@ footer::before{
   <div class="social-cards">
     <a href="https://x.com/ClairvoyanceEng" target="_blank" rel="noopener noreferrer"
        class="social-card x-card glass-card reveal reveal-delay-1">
-      <svg class="social-icon" viewBox="0 0 24 24" fill="none">
-        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.262 5.632L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" fill="white"/>
-      </svg>
-      <div class="social-info">
-        <div class="social-platform">X (TWITTER)</div>
-        <div class="social-handle">@ClairvoyanceEng</div>
+      <div class="social-card-top">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none">
+          <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.746l7.73-8.835L1.254 2.25H8.08l4.262 5.632L18.244 2.25zm-1.161 17.52h1.833L7.084 4.126H5.117L17.083 19.77z" fill="white"/>
+        </svg>
+        <div class="social-info">
+          <div class="social-platform">X (TWITTER)</div>
+          <div class="social-handle">@ClairvoyanceEng</div>
+        </div>
       </div>
       <span class="social-follow-btn">FOLLOW</span>
     </a>
 
     <a href="https://instagram.com/clairvoyanceengine" target="_blank" rel="noopener noreferrer"
        class="social-card ig-card glass-card reveal reveal-delay-2">
-      <svg class="social-icon" viewBox="0 0 24 24" fill="none">
-        <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#igG)" stroke-width="1.7"/>
-        <circle cx="12" cy="12" r="5" stroke="url(#igG)" stroke-width="1.7"/>
-        <circle cx="17.5" cy="6.5" r="1.2" fill="url(#igG)"/>
-        <defs>
-          <linearGradient id="igG" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse">
-            <stop offset="0%"   stop-color="#f09433"/>
-            <stop offset="33%"  stop-color="#dc2743"/>
-            <stop offset="66%"  stop-color="#cc2366"/>
-            <stop offset="100%" stop-color="#bc1888"/>
-          </linearGradient>
-        </defs>
-      </svg>
-      <div class="social-info">
-        <div class="social-platform">INSTAGRAM</div>
-        <div class="social-handle">@clairvoyanceengine</div>
+      <div class="social-card-top">
+        <svg class="social-icon" viewBox="0 0 24 24" fill="none">
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="url(#igG)" stroke-width="1.7"/>
+          <circle cx="12" cy="12" r="5" stroke="url(#igG)" stroke-width="1.7"/>
+          <circle cx="17.5" cy="6.5" r="1.2" fill="url(#igG)"/>
+          <defs>
+            <linearGradient id="igG" x1="2" y1="22" x2="22" y2="2" gradientUnits="userSpaceOnUse">
+              <stop offset="0%"   stop-color="#f09433"/>
+              <stop offset="33%"  stop-color="#dc2743"/>
+              <stop offset="66%"  stop-color="#cc2366"/>
+              <stop offset="100%" stop-color="#bc1888"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <div class="social-info">
+          <div class="social-platform">INSTAGRAM</div>
+          <div class="social-handle">@clairvoyanceengine</div>
+        </div>
       </div>
       <span class="social-follow-btn">FOLLOW</span>
     </a>
