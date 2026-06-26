@@ -762,38 +762,82 @@ footer::before{
 .sect-mid {background:rgba(10,4,20,.45)}
 
 /* ── Mobile ─────────────────────────────────────────── */
+/* ── Hamburger (mobile only) ─────────────────────────── */
+.nav-hamburger{
+  display:none;background:none;border:none;cursor:pointer;
+  font-size:22px;color:var(--cyan);line-height:1;padding:4px 8px;
+  text-shadow:0 0 8px rgba(0,240,255,.5);
+}
 @media(max-width:640px){
-  .nav-links{gap:14px}
-  .nav-links li:not(.always){display:none}
-  #hero{padding-top:88px;padding-bottom:56px}
+  /* Nav hamburger */
+  .nav-hamburger{display:block}
+  .nav-links{
+    display:none;flex-direction:column;align-items:flex-start;gap:0;
+    position:fixed;top:0;right:0;width:220px;height:100vh;
+    background:rgba(6,3,14,.97);backdrop-filter:blur(20px);
+    border-left:1px solid rgba(0,240,255,.15);
+    padding:70px 28px 40px;z-index:200;
+    box-shadow:-8px 0 32px rgba(0,0,0,.6);
+  }
+  .nav-links.open{display:flex}
+  .nav-links li{width:100%}
+  .nav-links a{
+    display:block;padding:12px 0;
+    font-size:12px;letter-spacing:2px;
+    border-bottom:1px solid rgba(255,255,255,.06);
+  }
+  .nav-links li:not(.always){display:block}
 
-  /* Pull logo out of absolute flow — sits naturally above title */
+  /* Hero */
+  #hero{padding-top:88px;padding-bottom:56px}
   .hero-engrave{
-    position:relative;
-    top:auto;left:auto;
-    transform:none;
-    width:140px;height:140px;
-    margin:0 auto 0;
-    display:block;
+    position:relative;top:auto;left:auto;transform:none;
+    width:140px;height:140px;margin:0 auto;display:block;
   }
   .hero-title{font-size:clamp(28px,9vw,52px);letter-spacing:2px;margin-top:18px;margin-bottom:10px}
   .hero-sub{font-size:12px;letter-spacing:3px;margin-bottom:8px}
-  .hero-tagline{font-size:14px;letter-spacing:2px;margin-bottom:14px}
+  .hero-tagline{font-size:12px;letter-spacing:2px;margin-bottom:14px}
   .hero-desc{font-size:13px;line-height:1.75;max-width:100%;margin-bottom:28px;padding:0 4px}
   .hero-actions{flex-direction:column;align-items:center;gap:10px;margin-bottom:32px}
   .btn-primary,.btn-outline{width:100%;max-width:280px;text-align:center;padding:13px 20px}
+
+  /* Sections */
   .section-title{font-size:clamp(18px,5.5vw,34px)}
   .section-body{font-size:13px}
+
+  /* How it works */
   .how-grid{grid-template-columns:1fr;gap:14px}
-  .pipe-step{min-width:110px;padding:16px 8px}
-  .sports-grid{grid-template-columns:repeat(2,1fr);gap:12px}
-  .sport-card{padding:20px 12px}
-  .ev-card-demo{padding:18px 14px;font-size:10px}
+
+  /* Pipeline — scroll horizontally, don't overflow */
+  .pipeline-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:12px}
+  .pipe-step{min-width:100px;padding:14px 8px}
+  .pipe-icon-box{width:56px;height:56px}
+  .pipe-glyph{font-size:12px}
+  .pipe-lbl{font-size:10px}
+  .pipe-sub{font-size:10px}
+
+  /* Coverage */
+  .sports-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .sports-flat-grid{grid-template-columns:repeat(2,1fr);gap:10px}
+  .sport-card{padding:16px 10px}
+
+  /* Subscriptions */
+  .sub-grid{grid-template-columns:1fr}
+  .pass-grid{grid-template-columns:1fr}
+
+  /* Transparency */
+  .trans-grid{grid-template-columns:1fr}
+
+  /* Social */
   .social-center{padding-left:16px;padding-right:16px}
   .social-cards{flex-direction:column;align-items:stretch;gap:10px}
   .social-card{min-width:0;width:100%;max-width:100%;padding:14px 18px}
+
+  /* Footer */
   footer{flex-direction:column;align-items:flex-start;gap:18px;padding:28px 20px}
-  .footer-links{gap:14px;flex-wrap:wrap}
+  .footer-links{gap:12px 20px;flex-wrap:wrap}
+  .footer-disc{font-size:11px}
+  .footer-handles{font-size:11px}
 }
 </style>
 </head>
@@ -817,14 +861,15 @@ footer::before{
     </svg>
     <span class="nav-name">CLAIRVOYANCE</span>
   </a>
-  <ul class="nav-links">
-    <li><a href="#social">Socials</a></li>
-    <li><a href="#how">Methodology</a></li>
-    <li><a href="#pipeline">Pipeline</a></li>
-    <li><a href="#sports">Coverage</a></li>
-    <li><a href="#subscriptions">Subscriptions</a></li>
-    <li><a href="#ev-section">Grading</a></li>
-    <li class="always"><a href="#transparency">Principles</a></li>
+  <button class="nav-hamburger" id="navToggle" aria-label="Open menu">&#9776;</button>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#social" onclick="closeNav()">Socials</a></li>
+    <li><a href="#how" onclick="closeNav()">Methodology</a></li>
+    <li><a href="#pipeline" onclick="closeNav()">Pipeline</a></li>
+    <li><a href="#sports" onclick="closeNav()">Coverage</a></li>
+    <li><a href="#subscriptions" onclick="closeNav()">Subscriptions</a></li>
+    <li><a href="#ev-section" onclick="closeNav()">Grading</a></li>
+    <li class="always"><a href="#transparency" onclick="closeNav()">Principles</a></li>
   </ul>
 </nav>
 
@@ -1446,6 +1491,15 @@ window.addEventListener('scroll', () => {
     });
   };
 })();
+// ── Mobile nav hamburger ──────────────────────────────
+const navToggle = document.getElementById('navToggle');
+const navLinks  = document.getElementById('navLinks');
+navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+document.addEventListener('click', e => {
+  if(!navLinks.contains(e.target) && e.target !== navToggle)
+    navLinks.classList.remove('open');
+});
+function closeNav(){ navLinks.classList.remove('open'); }
 </script>
 </body>
 </html>
