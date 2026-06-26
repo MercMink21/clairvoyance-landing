@@ -421,20 +421,20 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 }
 .pipeline-wrap::-webkit-scrollbar{display:none}
 .pipe-step{flex:1;min-width:170px;text-align:center;padding:28px 16px;position:relative}
-.pipe-step::after{
-  content:'→';position:absolute;right:-10px;top:50%;transform:translateY(-50%);
-  font-size:20px;color:rgba(0,240,255,.4);font-family:var(--tech);
-}
-.pipe-step:last-child::after{display:none}
+.pipe-step::after{display:none}
 .pipe-icon-box{
   width:72px;height:72px;border-radius:10px;
   border:1px solid rgba(240,0,255,.25);
   background:rgba(240,0,255,.06);
   backdrop-filter:blur(8px);
   display:flex;align-items:center;justify-content:center;
-  margin:0 auto 18px;
+  margin:0 auto 18px;position:relative;
   transition:border-color .3s,box-shadow .3s,transform .3s;
   box-shadow:0 4px 16px rgba(0,0,0,.4),0 0 0 1px rgba(240,0,255,.05) inset;
+}
+.pipe-step:not(:last-child) .pipe-icon-box::after{
+  content:'→';position:absolute;left:calc(100% + 14px);top:50%;transform:translateY(-50%);
+  font-size:20px;color:rgba(0,240,255,.4);font-family:var(--tech);pointer-events:none;
 }
 .pipe-step:hover .pipe-icon-box{
   border-color:rgba(240,0,255,.6);
