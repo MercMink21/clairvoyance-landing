@@ -366,13 +366,7 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .glass-card:hover::after{opacity:1}
 
 /* HUD corner brackets on glass cards */
-.glass-card::before{
-  content:'';position:absolute;top:10px;left:10px;
-  width:14px;height:14px;
-  border-top:1px solid rgba(0,240,255,.35);
-  border-left:1px solid rgba(0,240,255,.35);
-  border-radius:1px;transition:opacity .3s;pointer-events:none;
-}
+.glass-card::before{display:none}
 
 /* ── How It Works cards ─────────────────────────────── */
 #how{background:transparent}
