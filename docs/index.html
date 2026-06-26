@@ -132,7 +132,9 @@ nav{
   -webkit-backdrop-filter:var(--glass-blur);
   border-bottom:1px solid rgba(240,0,255,.2);
   box-shadow:0 1px 0 rgba(0,240,255,.06),0 4px 32px rgba(0,0,0,.6);
+  transition:transform .3s ease;
 }
+nav.nav-hidden{transform:translateY(-100%)}
 nav::after{
   content:'';position:absolute;bottom:0;left:0;right:0;height:1px;
   background:linear-gradient(90deg,transparent 0%,rgba(240,0,255,.5) 30%,rgba(0,240,255,.5) 70%,transparent 100%);
@@ -1488,6 +1490,20 @@ window.addEventListener('scroll', () => {
     });
   };
 })();
+// ── Mobile nav hide-on-scroll ─────────────────────────
+(function(){
+  let lastY = 0;
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if(window.innerWidth > 640) return;
+    const y = window.scrollY;
+    if(y <= 10){nav.classList.remove('nav-hidden');lastY=y;return;}
+    if(y > lastY + 4) nav.classList.add('nav-hidden');
+    else if(y < lastY - 4) nav.classList.remove('nav-hidden');
+    lastY = y;
+  }, {passive:true});
+})();
+
 // ── Mobile nav hamburger ──────────────────────────────
 const navToggle = document.getElementById('navToggle');
 const navLinks  = document.getElementById('navLinks');
