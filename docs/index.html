@@ -52,22 +52,24 @@ html{scroll-behavior:smooth}
 
 body{
   font-family:var(--mono);
-  background:var(--void);
   color:var(--t1);
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
+  background-color:#16122a;
+  background-image:
+    radial-gradient(ellipse 85% 85% at 50% 50%,transparent 40%,rgba(0,0,0,.65) 100%),
+    radial-gradient(ellipse 60% 50% at 50% 38%,rgba(0,180,180,.12) 0%,transparent 70%),
+    linear-gradient(45deg,  rgba(0,160,160,.82) 1px,transparent 1px),
+    linear-gradient(-45deg, rgba(0,160,160,.82) 1px,transparent 1px),
+    linear-gradient(45deg,  rgba(55,85,90,.63)  1px,transparent 1px),
+    linear-gradient(-45deg, rgba(55,85,90,.63)  1px,transparent 1px);
+  background-size:100% 100%,100% 100%,42px 42px,42px 42px,42px 42px,42px 42px;
+  background-position:0 0,0 0,0 0,0 0,21px 0,21px 0;
+  background-attachment:fixed;
 }
 
-/* ── Carbon Fiber base ─────────────────────────────────── */
-.cf-bg{
-  background-color:#121212;
-  background-image:
-    repeating-linear-gradient(45deg,  rgba(255,255,255,.12) 0px,rgba(255,255,255,.12) 1px,transparent 1px,transparent 50%),
-    repeating-linear-gradient(-45deg, rgba(255,255,255,.12) 0px,rgba(255,255,255,.12) 1px,transparent 1px,transparent 50%),
-    repeating-linear-gradient(0deg,   rgba(0,0,0,.34) 0px,rgba(0,0,0,.34) 1px,transparent 1px,transparent 14px),
-    repeating-linear-gradient(90deg,  rgba(0,0,0,.34) 0px,rgba(0,0,0,.34) 1px,transparent 1px,transparent 14px);
-  background-size:14px 14px,14px 14px,14px 14px,14px 14px;
-}
+/* ── Carbon Fiber base (kept for reference, not used) ───── */
+.cf-bg{}
 
 /* ── Global HUD scanline overlay ───────────────────────── */
 body::after{
