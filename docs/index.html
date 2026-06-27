@@ -62,7 +62,19 @@ body{
   background-attachment:fixed;
 }
 @media(max-width:768px),(hover:none){
-  body{background-attachment:scroll}
+  body{
+    background-attachment:scroll;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% 38%,rgba(0,180,180,.10) 0%,transparent 70%),
+      radial-gradient(ellipse 100% 100% at 50% 50%,transparent 38%,rgba(0,0,0,.60) 100%),
+      linear-gradient(45deg, rgba(0,160,160,.82) 1px,transparent 1px),
+      linear-gradient(-45deg,rgba(0,160,160,.82) 1px,transparent 1px),
+      linear-gradient(45deg, rgba(55,85,90,.63)  1px,transparent 1px),
+      linear-gradient(-45deg,rgba(55,85,90,.63)  1px,transparent 1px);
+    background-size:100% 100%,100% 100%,30px 30px,30px 30px,30px 30px,30px 30px;
+    background-position:0 0,0 0,0 0,0 0,15px 0,15px 0;
+    background-color:#16122a;
+  }
 }
 
 /* ── Carbon Fiber base (kept for reference, not used) ───── */
