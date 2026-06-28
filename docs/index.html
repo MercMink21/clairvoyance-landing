@@ -63,10 +63,16 @@ body{
 }
 @media(max-width:768px),(hover:none){
   body{
-    background-image:url('bg-mobile.jpg');
-    background-size:cover;
-    background-position:center top;
     background-attachment:scroll;
+    background-image:
+      radial-gradient(ellipse 90% 45% at 50% 30%,rgba(0,180,180,.10) 0%,transparent 70%),
+      radial-gradient(ellipse 140% 100% at 50% 50%,transparent 40%,rgba(0,0,0,.58) 100%),
+      linear-gradient(45deg, rgba(0,160,160,.82) 1px,transparent 1px),
+      linear-gradient(-45deg,rgba(0,160,160,.82) 1px,transparent 1px),
+      linear-gradient(45deg, rgba(55,85,90,.63)  1px,transparent 1px),
+      linear-gradient(-45deg,rgba(55,85,90,.63)  1px,transparent 1px);
+    background-size:100% 100%,100% 100%,42px 42px,42px 42px,42px 42px,42px 42px;
+    background-position:0 0,0 0,0 0,0 0,21px 0,21px 0;
   }
 }
 
