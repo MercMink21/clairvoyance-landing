@@ -908,23 +908,34 @@ footer::before{
         <stop offset="100%" stop-color="#f000ff" stop-opacity=".4"/>
       </radialGradient>
       <radialGradient id="glowBg" cx="50%" cy="50%" r="50%">
-        <stop offset="0%"   stop-color="#aa00cc" stop-opacity=".06"/>
+        <stop offset="0%"   stop-color="#aa00cc" stop-opacity=".18"/>
+        <stop offset="60%"  stop-color="#aa00cc" stop-opacity=".08"/>
         <stop offset="100%" stop-color="#aa00cc" stop-opacity="0"/>
       </radialGradient>
-      <filter id="softBlur"><feGaussianBlur stdDeviation="2"/></filter>
-      <filter id="glowBlur"><feGaussianBlur stdDeviation="4"/></filter>
+      <filter id="softBlur"><feGaussianBlur stdDeviation="3"/></filter>
+      <filter id="glowBlur"><feGaussianBlur stdDeviation="10"/></filter>
+      <filter id="cyanBlur"><feGaussianBlur stdDeviation="5"/></filter>
     </defs>
+    <!-- deep bloom -->
+    <circle cx="200" cy="200" r="190" fill="url(#glowBg)" filter="url(#glowBlur)"/>
     <circle cx="200" cy="200" r="160" fill="url(#glowBg)" filter="url(#glowBlur)"/>
-    <ellipse cx="200" cy="200" rx="196" ry="64" stroke="#00f0ff" stroke-width="1.4" opacity=".55"/>
-    <line x1="0"   y1="200" x2="20"  y2="200" stroke="#00f0ff" stroke-width="1.2" opacity=".5"/>
-    <line x1="380" y1="200" x2="400" y2="200" stroke="#00f0ff" stroke-width="1.2" opacity=".5"/>
-    <line x1="200" y1="112" x2="200" y2="128" stroke="#00f0ff" stroke-width="1.2" opacity=".4"/>
-    <line x1="200" y1="272" x2="200" y2="288" stroke="#00f0ff" stroke-width="1.2" opacity=".4"/>
-    <ellipse cx="200" cy="200" rx="155" ry="50" stroke="#f000ff" stroke-width=".7" stroke-dasharray="6 5" opacity=".3"/>
-    <circle cx="200" cy="200" r="76"   stroke="#f000ff" stroke-width="2.5" opacity=".85"/>
+    <!-- cyan orbit ring + halo -->
+    <ellipse cx="200" cy="200" rx="196" ry="64" stroke="#00f0ff" stroke-width="3"   opacity=".18" filter="url(#cyanBlur)"/>
+    <ellipse cx="200" cy="200" rx="196" ry="64" stroke="#00f0ff" stroke-width="1.8" opacity=".85"/>
+    <line x1="0"   y1="200" x2="20"  y2="200" stroke="#00f0ff" stroke-width="2"   opacity=".85"/>
+    <line x1="380" y1="200" x2="400" y2="200" stroke="#00f0ff" stroke-width="2"   opacity=".85"/>
+    <line x1="200" y1="112" x2="200" y2="128" stroke="#00f0ff" stroke-width="2"   opacity=".7"/>
+    <line x1="200" y1="272" x2="200" y2="288" stroke="#00f0ff" stroke-width="2"   opacity=".7"/>
+    <!-- magenta dashed ring -->
+    <ellipse cx="200" cy="200" rx="155" ry="50" stroke="#f000ff" stroke-width="1.2" stroke-dasharray="6 5" opacity=".6"/>
+    <!-- outer magenta circle + glow halo -->
+    <circle cx="200" cy="200" r="76"   stroke="#f000ff" stroke-width="6"   opacity=".22" filter="url(#softBlur)"/>
+    <circle cx="200" cy="200" r="76"   stroke="#f000ff" stroke-width="2.5" opacity=".98"/>
+    <!-- inner iris -->
     <circle cx="200" cy="200" r="52"   fill="#06030e" opacity=".75"/>
-    <circle cx="200" cy="200" r="46"   fill="url(#irisGrad)" filter="url(#softBlur)" opacity=".5"/>
-    <circle cx="200" cy="200" r="30"   fill="#f000ff" opacity=".4"/>
+    <circle cx="200" cy="200" r="46"   fill="url(#irisGrad)" filter="url(#softBlur)" opacity=".85"/>
+    <!-- core glow -->
+    <circle cx="200" cy="200" r="30"   fill="#f000ff" opacity=".65"/>
     <circle cx="200" cy="200" r="14"   fill="url(#coreGrad)"/>
     <circle cx="200" cy="200" r="5"    fill="#f8eaff"/>
   </svg>
