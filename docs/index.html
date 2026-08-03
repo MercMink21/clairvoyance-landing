@@ -11,11 +11,11 @@
 <meta property="og:title" content="Clairvoyance Engine">
 <meta property="og:description" content="Advanced sports intelligence engine. Probabilistic modeling. Real-time edge detection. See what others cannot.">
 <meta property="og:url" content="https://clairvoyanceengine.info">
-<meta property="og:image" content="https://clairvoyanceengine.info/icon-1080.png">
+<meta property="og:image" content="https://clairvoyanceengine.info/StandardLogo.png">
 <meta property="og:type" content="website">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@ClairvoyanceEng">
-<meta name="twitter:image" content="https://clairvoyanceengine.info/icon-1080.png">
+<meta name="twitter:image" content="https://clairvoyanceengine.info/StandardLogo.png">
 <link rel="canonical" href="https://clairvoyanceengine.info">
 <title>Clairvoyance Engine — Advanced Sports Intelligence</title>
 
@@ -167,6 +167,39 @@ nav::after{
   text-shadow:0 0 8px rgba(240,0,255,.5);
 }
 .nav-links a:hover{color:var(--cyan);text-shadow:0 0 10px rgba(0,240,255,.6)}
+/* ── Glitch effect: RGB-split duplicate layers via ::before/::after
+   (content:attr(data-text) clones the real text, colored magenta/cyan,
+   clipped into shifting horizontal slices) — same visual language as
+   the app's own glitch-reveal video templates, just as a hover/idle CSS
+   effect instead of a one-shot animation. ── */
+.glitch-logo{position:relative;display:inline-block}
+.glitch-logo::before,.glitch-logo::after{
+  content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;
+  overflow:hidden;pointer-events:none;text-transform:uppercase;
+}
+.glitch-logo::before{color:#ff2090;opacity:.7;animation:glitchSliceA 3.2s steps(2) infinite;}
+.glitch-logo::after{color:#00f0ff;opacity:.7;animation:glitchSliceB 3.2s steps(2) infinite;}
+.glitch-hover{position:relative;display:inline-block}
+.glitch-hover::before,.glitch-hover::after{
+  content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;
+  overflow:hidden;pointer-events:none;opacity:0;text-transform:uppercase;
+}
+.glitch-hover:hover::before{color:#ff2090;opacity:.85;animation:glitchSliceA .5s steps(2) infinite;}
+.glitch-hover:hover::after{color:#00f0ff;opacity:.85;animation:glitchSliceB .5s steps(2) infinite;}
+@keyframes glitchSliceA{
+  0%{clip-path:inset(0 0 65% 0);transform:translate(-2px,-1px)}
+  25%{clip-path:inset(30% 0 40% 0);transform:translate(2px,1px)}
+  50%{clip-path:inset(60% 0 5% 0);transform:translate(-1px,1px)}
+  75%{clip-path:inset(10% 0 55% 0);transform:translate(1px,-1px)}
+  100%{clip-path:inset(0 0 65% 0);transform:translate(-2px,-1px)}
+}
+@keyframes glitchSliceB{
+  0%{clip-path:inset(65% 0 0 0);transform:translate(2px,1px)}
+  25%{clip-path:inset(40% 0 30% 0);transform:translate(-2px,-1px)}
+  50%{clip-path:inset(5% 0 60% 0);transform:translate(1px,-1px)}
+  75%{clip-path:inset(55% 0 10% 0);transform:translate(-1px,1px)}
+  100%{clip-path:inset(65% 0 0 0);transform:translate(2px,1px)}
+}
 .nav-cta{
   padding:8px 20px;border:1px solid rgba(240,0,255,.5)!important;
   color:var(--purple)!important;border-radius:4px;
@@ -875,17 +908,17 @@ footer::before{
       <circle cx="30" cy="30" r="7"  fill="#f000ff" opacity=".45"/>
       <circle cx="30" cy="30" r="2.5" fill="#f0d8ff"/>
     </svg>
-    <span class="nav-name">CLAIRVOYANCE</span>
+    <span class="nav-name glitch-logo" data-text="CLAIRVOYANCE">CLAIRVOYANCE</span>
   </a>
   <button class="nav-hamburger" id="navToggle" aria-label="Open menu">&#9776;</button>
   <ul class="nav-links" id="navLinks">
-    <li><a href="#social" onclick="closeNav()">Socials</a></li>
-    <li><a href="#how" onclick="closeNav()">Methodology</a></li>
-    <li><a href="#pipeline" onclick="closeNav()">Pipeline</a></li>
-    <li><a href="#sports" onclick="closeNav()">Coverage</a></li>
-    <li><a href="#subscriptions" onclick="closeNav()">Subscriptions</a></li>
-    <li><a href="#ev-section" onclick="closeNav()">Grading</a></li>
-    <li class="always"><a href="#transparency" onclick="closeNav()">Principles</a></li>
+    <li><a href="#social" class="glitch-hover" data-text="Socials" onclick="closeNav()">Socials</a></li>
+    <li><a href="#how" class="glitch-hover" data-text="Methodology" onclick="closeNav()">Methodology</a></li>
+    <li><a href="#pipeline" class="glitch-hover" data-text="Pipeline" onclick="closeNav()">Pipeline</a></li>
+    <li><a href="#sports" class="glitch-hover" data-text="Coverage" onclick="closeNav()">Coverage</a></li>
+    <li><a href="#subscriptions" class="glitch-hover" data-text="Subscriptions" onclick="closeNav()">Subscriptions</a></li>
+    <li><a href="#ev-section" class="glitch-hover" data-text="Grading" onclick="closeNav()">Grading</a></li>
+    <li class="always"><a href="#transparency" class="glitch-hover" data-text="Principles" onclick="closeNav()">Principles</a></li>
   </ul>
 </nav>
 
@@ -963,7 +996,7 @@ footer::before{
   <span class="section-label">// FOLLOW THE SIGNAL</span>
   <h2 class="social-title reveal">Find Us On Social</h2>
   <p class="social-sub reveal">
-    Picks for the Day &nbsp;·&nbsp; Engine Performance Recaps
+    Pick of The Day &nbsp;·&nbsp; Engine Performance Recaps
   </p>
 
   <div class="social-cards">
@@ -1210,14 +1243,14 @@ footer::before{
 <section>
   <span class="section-label reveal">// 04 — SUBSCRIPTIONS</span>
   <h2 class="section-title reveal">Choose Your Tier</h2>
-  <p class="section-body reveal">Full access launches July 1. Every tier includes graded picks, game lines, and Discord access.</p>
+  <p class="section-body reveal">Every tier includes daily graded picks, game lines, and Discord access.</p>
 
   <div class="sub-grid">
     <div class="sub-card glass-card sub-base reveal reveal-delay-1">
       <span class="sub-tier">BASE</span>
       <span class="sub-price">$25 / MO</span>
       <ul class="sub-features">
-        <li>One top pick per sport, per grade tier</li>
+        <li>One top pick per league</li>
         <li>Game lines — ML, Spread, Over/Under</li>
         <li>Base Discord Access</li>
       </ul>
@@ -1227,7 +1260,7 @@ footer::before{
       <span class="sub-tier">PLUS</span>
       <span class="sub-price">$50 / MO</span>
       <ul class="sub-features">
-        <li>All picks for every sport covered</li>
+        <li>All picks for every league covered</li>
         <li>Game lines — ML, Spread, Over/Under</li>
         <li>Plus Discord Access</li>
       </ul>
@@ -1237,9 +1270,9 @@ footer::before{
       <span class="sub-tier">INSIDER</span>
       <span class="sub-price">$80 / MO</span>
       <ul class="sub-features">
-        <li>All picks for every sport covered</li>
+        <li>All picks for every league covered</li>
         <li>Game lines — ML, Spread, Over/Under</li>
-        <li>Player props for all sports</li>
+        <li>Player props for select leagues</li>
         <li>Insider Discord Access</li>
       </ul>
       <a href="#waitlist" class="sub-cta">GET ACCESS</a>
@@ -1319,7 +1352,7 @@ footer::before{
     <div class="grade-row glass-card reveal reveal-delay-4" style="border-color:rgba(255,32,80,.3)!important">
       <div class="grade-left">
         <span class="grade-name" style="color:#ff2050;text-shadow:0 0 14px rgba(255,32,80,.6),0 0 30px rgba(255,32,80,.3)">SKIP</span>
-        <p class="grade-desc">Below model threshold — no bet, wait for a better number</p>
+        <p class="grade-desc">Below model threshold — no pick</p>
       </div>
       <div class="grade-right">
         <span class="grade-stat" style="color:#ff2050;text-shadow:0 0 10px rgba(255,32,80,.5)">WIN PROB &nbsp;&lt; 55%</span>
@@ -1329,7 +1362,7 @@ footer::before{
 
     <div class="grade-ev-box glass-card reveal" style="border-color:rgba(240,0,255,.18)!important">
       <div class="grade-ev-title">WHAT IS EXPECTED VALUE (EV)?</div>
-      <p class="grade-ev-text">EV measures the long-term profit edge per bet. Positive EV means the model's probability exceeds the implied market odds — that line returns profit over time.</p>
+      <p class="grade-ev-text">EV measures the long-term profit edge per pick. Positive EV means the model's probability exceeds the implied market odds — that line returns profit over time.</p>
     </div>
 
   </div>
@@ -1361,7 +1394,7 @@ footer::before{
 <div class="trans-item glass-card reveal reveal-delay-4">
       <span class="trans-glyph">↻</span>
       <div><div class="trans-title">ENGINE PERFORMANCE RECAPS</div>
-      <p class="trans-text">Every settled pick is recapped with outcome, grade accuracy, and unit result — posted daily so the engine's track record is always visible.</p></div>
+      <p class="trans-text">Every settled pick is recapped with outcome and unit result — posted daily so the engine's track record is always visible.</p></div>
     </div>
     <div class="trans-item glass-card reveal reveal-delay-1">
       <span class="trans-glyph">~</span>
