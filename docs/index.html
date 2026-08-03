@@ -1654,7 +1654,7 @@ function closeNav(){ navLinks.classList.remove('open'); }
         return `<div class="glass-card perf-card">
           <div class="perf-card-lbl">${p.label}${p.sub ? '<span>'+p.sub+'</span>' : ''}</div>
           ${hasData ? `
-          <div class="perf-card-rec">${p.w}W&#8211;${p.l}L<small>${p.n} pick${p.n===1?'':'s'}</small></div>
+          <div class="perf-card-rec">${p.w}W&#8211;${p.l}L</div>
           <div class="perf-card-bar"><div class="perf-card-bar-fill" style="width:${barW}%;background:${pc}"></div></div>
           <div class="perf-card-stats">
             <span style="color:${pc}">${(p.pct*100).toFixed(1)}%</span>
