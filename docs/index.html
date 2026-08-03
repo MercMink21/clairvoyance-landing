@@ -172,33 +172,48 @@ nav::after{
    clipped into shifting horizontal slices) — same visual language as
    the app's own glitch-reveal video templates, just as a hover/idle CSS
    effect instead of a one-shot animation. ── */
-.glitch-logo{position:relative;display:inline-block}
+.glitch-logo{
+  position:relative;display:inline-block;
+  animation:flicker 8s ease-in-out infinite,logoColorFlash 9s ease-in-out infinite;
+}
 .glitch-logo::before,.glitch-logo::after{
   content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;
-  overflow:hidden;pointer-events:none;text-transform:uppercase;
+  overflow:hidden;pointer-events:none;text-transform:uppercase;opacity:0;animation:none;
 }
-.glitch-logo::before{color:#ff2090;opacity:.6;animation:glitchLogoA 9s ease-in-out infinite;}
-.glitch-logo::after{color:#00f0ff;opacity:.6;animation:glitchLogoB 9s ease-in-out infinite;}
+.glitch-logo::before{color:#ff2090;animation:glitchLogoA 9s ease-in-out infinite;}
+.glitch-logo::after{color:#00f0ff;animation:glitchLogoB 9s ease-in-out infinite;}
 .glitch-hover{position:relative;display:inline-block}
 .glitch-hover::before,.glitch-hover::after{
   content:attr(data-text);position:absolute;top:0;left:0;width:100%;height:100%;
-  overflow:hidden;pointer-events:none;opacity:0;text-transform:uppercase;
+  overflow:hidden;pointer-events:none;opacity:0;text-transform:uppercase;animation:none;
 }
-.glitch-hover:hover::before{color:#ff2090;opacity:.85;animation:glitchSliceA .5s steps(2) infinite;}
-.glitch-hover:hover::after{color:#00f0ff;opacity:.85;animation:glitchSliceB .5s steps(2) infinite;}
+/* hover:hover excludes touch devices, where a tapped link leaves :hover
+   "stuck" until something else is tapped — without this the glitch would
+   never stop after a tap since there's no real mouseleave to clear it. */
+@media(hover:hover){
+  .glitch-hover:hover::before{color:#ff2090;opacity:.85;animation:glitchSliceA .5s steps(2) infinite;}
+  .glitch-hover:hover::after{color:#00f0ff;opacity:.85;animation:glitchSliceB .5s steps(2) infinite;}
+}
+/* Base state stays neon magenta (the pre-glitch look); the text itself
+   briefly flashes cyan then settles back to magenta, rather than a
+   constant RGB-split. The ::before/::after layers add a quick chromatic
+   jitter only during that same brief window. */
+@keyframes logoColorFlash{
+  0%,89%{color:var(--purple);text-shadow:0 0 10px rgba(240,0,255,.9),0 0 28px rgba(240,0,255,.55),0 0 60px rgba(240,0,255,.2);}
+  92%,95%{color:#00f0ff;text-shadow:0 0 10px rgba(0,240,255,.9),0 0 28px rgba(0,240,255,.55),0 0 60px rgba(0,240,255,.2);}
+  99%,100%{color:var(--purple);text-shadow:0 0 10px rgba(240,0,255,.9),0 0 28px rgba(240,0,255,.55),0 0 60px rgba(240,0,255,.2);}
+}
 @keyframes glitchLogoA{
-  0%,88%{clip-path:inset(0 0 65% 0);transform:translate(0,0)}
-  91%{clip-path:inset(30% 0 40% 0);transform:translate(-2px,-1px)}
-  94%{clip-path:inset(10% 0 55% 0);transform:translate(2px,1px)}
-  97%{clip-path:inset(0 0 65% 0);transform:translate(-1px,0)}
-  100%{clip-path:inset(0 0 65% 0);transform:translate(0,0)}
+  0%,88%{opacity:0;clip-path:inset(0 0 65% 0);transform:translate(0,0)}
+  90%{opacity:.7;clip-path:inset(30% 0 40% 0);transform:translate(-2px,-1px)}
+  93%{opacity:.7;clip-path:inset(10% 0 55% 0);transform:translate(2px,1px)}
+  96%,100%{opacity:0;clip-path:inset(0 0 65% 0);transform:translate(0,0)}
 }
 @keyframes glitchLogoB{
-  0%,88%{clip-path:inset(65% 0 0 0);transform:translate(0,0)}
-  91%{clip-path:inset(40% 0 30% 0);transform:translate(2px,1px)}
-  94%{clip-path:inset(55% 0 10% 0);transform:translate(-2px,-1px)}
-  97%{clip-path:inset(65% 0 0 0);transform:translate(1px,0)}
-  100%{clip-path:inset(65% 0 0 0);transform:translate(0,0)}
+  0%,88%{opacity:0;clip-path:inset(65% 0 0 0);transform:translate(0,0)}
+  90%{opacity:.7;clip-path:inset(40% 0 30% 0);transform:translate(2px,1px)}
+  93%{opacity:.7;clip-path:inset(55% 0 10% 0);transform:translate(-2px,-1px)}
+  96%,100%{opacity:0;clip-path:inset(65% 0 0 0);transform:translate(0,0)}
 }
 @keyframes glitchSliceA{
   0%{clip-path:inset(0 0 65% 0);transform:translate(-2px,-1px)}
@@ -426,6 +441,38 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
     0 0 0 1px rgba(240,0,255,.1);
 }
 .glass-card:hover::after{opacity:1}
+
+/* ── Engine Performance cards ─────────────────────────── */
+.perf-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px;max-width:1200px;
+}
+.perf-grid>.perf-card:last-child{grid-column:1/-1}
+.perf-loading{
+  font-family:var(--mono);font-size:13px;letter-spacing:2px;color:var(--t3);
+  grid-column:1/-1;padding:20px 0;
+}
+.perf-card{
+  padding:14px 14px;border-top:2px solid var(--cyan);min-width:0;
+}
+.perf-card-lbl{
+  font-family:var(--tech);font-size:clamp(10px,1.1vw,13px);letter-spacing:1.5px;color:var(--cyan);
+  margin-bottom:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+.perf-card-lbl span{color:var(--t3);margin-left:5px;font-family:var(--mono);letter-spacing:0}
+.perf-card-rec{
+  font-family:var(--orb);font-size:clamp(16px,2vw,22px);font-weight:900;color:var(--t1);
+  display:flex;align-items:baseline;flex-wrap:wrap;gap:2px 6px;
+}
+.perf-card-rec small{color:var(--t3);font-size:11px;font-weight:400;font-family:var(--mono);white-space:nowrap}
+.perf-card-bar{height:3px;background:rgba(255,255,255,.08);border-radius:2px;margin:9px 0}
+.perf-card-bar-fill{height:100%;border-radius:2px;background:var(--cyan)}
+.perf-card-stats{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-weight:700;font-size:16px}
+.perf-updated{
+  font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--t3);margin-top:16px;
+}
+@media(max-width:768px){
+  .perf-grid{grid-template-columns:repeat(2,1fr)}
+}
 
 /* HUD corner brackets on glass cards */
 .glass-card::before{display:none}
@@ -927,6 +974,7 @@ footer::before{
   <button class="nav-hamburger" id="navToggle" aria-label="Open menu">&#9776;</button>
   <ul class="nav-links" id="navLinks">
     <li><a href="#social" class="glitch-hover" data-text="Socials" onclick="closeNav()">Socials</a></li>
+    <li><a href="#performance" class="glitch-hover" data-text="Engine Performance" onclick="closeNav()">Engine Performance</a></li>
     <li><a href="#how" class="glitch-hover" data-text="Methodology" onclick="closeNav()">Methodology</a></li>
     <li><a href="#pipeline" class="glitch-hover" data-text="Pipeline" onclick="closeNav()">Pipeline</a></li>
     <li><a href="#sports" class="glitch-hover" data-text="Coverage" onclick="closeNav()">Coverage</a></li>
@@ -1057,10 +1105,29 @@ footer::before{
 
 <div class="divider"></div>
 
+<!-- ══ Engine Performance ══════════════════════════════════ -->
+<div id="performance" class="full-width-section sect-dark">
+<section>
+  <span class="section-label reveal">// 01 — ENGINE PERFORMANCE</span>
+  <h2 class="section-title reveal">Live Track Record</h2>
+  <p class="section-body reveal">
+    Every graded pick, tracked and updated daily. No cherry-picking — win, loss, and unit
+    result across every rolling window, pulled straight from the engine's own ledger.
+  </p>
+
+  <div class="perf-grid" id="perfGrid">
+    <div class="perf-loading">LOADING PERFORMANCE DATA…</div>
+  </div>
+  <p class="perf-updated" id="perfUpdated"></p>
+</section>
+</div>
+
+<div class="divider"></div>
+
 <!-- ══ How It Works ════════════════════════════════════════ -->
 <div id="how" class="full-width-section sect-dark">
 <section>
-  <span class="section-label reveal">// 01 — METHODOLOGY</span>
+  <span class="section-label reveal">// 02 — METHODOLOGY</span>
   <h2 class="section-title reveal">How The Engine Works</h2>
   <p class="section-body reveal">
     Six-stage pipeline. From raw data all the way to a graded, deliverable signal —
@@ -1144,7 +1211,7 @@ footer::before{
 <!-- ══ Pipeline ════════════════════════════════════════════ -->
 <div id="pipeline" class="full-width-section sect-mid">
 <div class="section-wrap">
-  <span class="section-label reveal">// 02 — PIPELINE</span>
+  <span class="section-label reveal">// 03 — PIPELINE</span>
   <h2 class="section-title reveal">From Data To Decision</h2>
   <div class="pipeline-wrap reveal">
     <div class="pipe-step">
@@ -1186,7 +1253,7 @@ footer::before{
 <!-- ══ Sports Coverage ══════════════════════════════════════ -->
 <div id="sports" class="full-width-section sect-dark">
 <section>
-  <span class="section-label reveal">// 03 — COVERAGE</span>
+  <span class="section-label reveal">// 04 — COVERAGE</span>
   <h2 class="section-title reveal">What The Engine Covers</h2>
   <p class="section-body reveal">
     19 leagues across 6 sports — each with its own calibrated model built around
@@ -1255,7 +1322,7 @@ footer::before{
 <!-- ══ Subscriptions ════════════════════════════════════════ -->
 <div id="subscriptions" class="full-width-section sect-mid">
 <section>
-  <span class="section-label reveal">// 04 — SUBSCRIPTIONS</span>
+  <span class="section-label reveal">// 05 — SUBSCRIPTIONS</span>
   <h2 class="section-title reveal">Choose Your Tier</h2>
   <p class="section-body reveal">Every tier includes daily graded picks, game lines, and Discord access.</p>
 
@@ -1324,7 +1391,7 @@ footer::before{
 <!-- ══ Pick Grading System ═══════════════════════════════════ -->
 <div id="ev-section" class="full-width-section sect-mid">
 <section>
-  <span class="section-label reveal">// 05 — GRADING</span>
+  <span class="section-label reveal">// 06 — GRADING</span>
   <h2 class="section-title reveal">Pick Grading System</h2>
   <p class="section-body reveal">Every model output is graded before it ever reaches you. Four tiers — each defined by win probability and expected value threshold.</p>
 
@@ -1391,7 +1458,7 @@ footer::before{
 <!-- ══ Transparency ═════════════════════════════════════════ -->
 <div id="transparency" class="full-width-section sect-dark">
 <section>
-  <span class="section-label reveal">// 06 — PRINCIPLES</span>
+  <span class="section-label reveal">// 07 — PRINCIPLES</span>
   <h2 class="section-title reveal">Built On Transparency</h2>
 
   <div class="trans-grid">
@@ -1565,6 +1632,45 @@ document.addEventListener('click', e => {
     navLinks.classList.remove('open');
 });
 function closeNav(){ navLinks.classList.remove('open'); }
+
+// ── Engine Performance section — fetches the JSON snapshot the backend's
+// daily social-cards automation writes (docs/engine_performance.json,
+// computed with the exact same hCalc() logic as the home page's own
+// Engine Performance boxes), so this stays in sync automatically with no
+// separate build step on this repo's side. ──
+(function(){
+  const grid = document.getElementById('perfGrid');
+  const updated = document.getElementById('perfUpdated');
+  if(!grid) return;
+  const pctColor = pct => pct === null ? 'var(--t3)' : pct >= .62 ? '#00da88' : pct >= .5 ? 'var(--cyan)' : '#ff2090';
+  fetch('https://mercmink21.github.io/clairvoyance-backend/engine_performance.json', {cache:'no-store'})
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(data => {
+      const periods = data.periods || [];
+      grid.innerHTML = periods.map(p => {
+        const hasData = p.n > 0;
+        const barW = hasData ? Math.round((p.pct || 0) * 100) : 0;
+        const pc = pctColor(p.pct);
+        return `<div class="glass-card perf-card">
+          <div class="perf-card-lbl">${p.label}${p.sub ? '<span>'+p.sub+'</span>' : ''}</div>
+          ${hasData ? `
+          <div class="perf-card-rec">${p.w}W&#8211;${p.l}L<small>${p.n} pick${p.n===1?'':'s'}</small></div>
+          <div class="perf-card-bar"><div class="perf-card-bar-fill" style="width:${barW}%;background:${pc}"></div></div>
+          <div class="perf-card-stats">
+            <span style="color:${pc}">${(p.pct*100).toFixed(1)}%</span>
+            <span style="color:${p.units>=0?'#00da88':'#ff2090'}">${p.units>=0?'+':''}${p.units.toFixed(1)}u</span>
+          </div>` : `
+          <div class="perf-card-rec">0W&#8211;0L</div>
+          <div class="perf-card-bar"></div>
+          <div class="perf-card-stats"><span style="color:var(--t3)">N/A</span><span style="color:var(--t3)">N/A</span></div>`}
+        </div>`;
+      }).join('');
+      if(updated && data.generated_at) updated.textContent = 'Last updated ' + data.generated_at;
+    })
+    .catch(() => {
+      grid.innerHTML = '<div class="perf-loading">PERFORMANCE DATA TEMPORARILY UNAVAILABLE</div>';
+    });
+})();
 </script>
 </body>
 </html>
