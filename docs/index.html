@@ -634,27 +634,44 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .sub-card.sub-insider .sub-cta{background:rgba(255,215,0,.08);color:#ffd700;border:1px solid rgba(255,215,0,.35)}
 .sub-cta:hover{transform:translateY(-1px);opacity:.85}
 
-.pass-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px}
-.pass-card{padding:20px 20px}
-.pass-card.pass-day    {border-color:rgba(240,0,255,.2)!important}
-.pass-card.pass-weekend{border-color:rgba(0,240,255,.2)!important}
-.pass-tier{
-  font-family:var(--orb);font-size:13px;font-weight:700;letter-spacing:2px;
-  margin-bottom:4px;display:block;
+/* ── Sport selector (build-your-own bundle) ──────────────── */
+.sport-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px;margin-top:28px}
+.sport-select-card{
+  padding:16px 10px;text-align:center;cursor:pointer;user-select:none;
+  border:1px solid rgba(255,255,255,.08)!important;transition:all .2s;
 }
-.pass-card.pass-day    .pass-tier{color:#f000ff}
-.pass-card.pass-weekend .pass-tier{color:#00f0ff}
-.pass-price{
-  font-family:var(--orb);font-size:18px;font-weight:900;
-  color:var(--t1);margin-bottom:12px;display:block;
+.sport-select-card .sport-abbr{transition:all .2s}
+.sport-select-card.selected{
+  border-color:rgba(240,0,255,.55)!important;
+  background:rgba(240,0,255,.08);
+  box-shadow:0 0 22px rgba(240,0,255,.18),inset 0 0 14px rgba(240,0,255,.06);
 }
-.pass-features{list-style:none}
-.pass-features li{
-  font-family:var(--tech);font-size:11px;color:var(--t1);
-  line-height:1.7;opacity:.82;display:flex;gap:8px;align-items:flex-start;
+.sport-select-card.selected .sport-abbr{
+  color:#fff;text-shadow:0 0 12px rgba(240,0,255,.9),0 0 30px rgba(240,0,255,.6);
 }
-.pass-features li::before{content:'▸';color:rgba(240,0,255,.5);font-size:10px;flex-shrink:0;margin-top:1px}
-.pass-card.pass-weekend .pass-features li::before{color:rgba(0,240,255,.5)}
+.sport-select-card:hover{border-color:rgba(240,0,255,.3)!important}
+
+.price-readout{
+  margin-top:32px;padding:26px 28px;display:flex;align-items:center;
+  justify-content:space-between;gap:20px;flex-wrap:wrap;
+}
+.price-readout-info{font-family:var(--tech);font-size:12px;color:var(--t2);letter-spacing:1px}
+.price-readout-amount{
+  font-family:var(--orb);font-size:clamp(26px,4vw,34px);font-weight:900;color:#00f0ff;
+  text-shadow:0 0 14px rgba(0,240,255,.5);white-space:nowrap;
+}
+.price-readout-amount span{font-size:14px;color:var(--t3);font-weight:400;margin-left:4px}
+
+.price-table-toggle{
+  font-family:var(--tech);font-size:11px;letter-spacing:1.5px;color:var(--t3);
+  margin-top:18px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;
+  display:inline-block;background:none;border:none;padding:0;
+}
+.price-table-mini{margin-top:16px;width:100%;border-collapse:collapse;font-family:var(--tech);font-size:12px;display:none}
+.price-table-mini.open{display:table}
+.price-table-mini th{text-align:left;color:var(--t3);font-weight:400;letter-spacing:1px;padding:6px 10px;border-bottom:1px solid rgba(255,255,255,.1)}
+.price-table-mini td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.05);color:var(--t2)}
+.price-table-mini td.price-col{color:#ffd700;font-weight:700}
 
 /* Discord CTA ─ */
 .discord-block{
@@ -685,7 +702,7 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 }
 .discord-btn:hover{background:rgba(88,101,242,.28);transform:translateY(-1px);box-shadow:0 0 20px rgba(88,101,242,.25)}
 @media(max-width:840px){.sub-grid{grid-template-columns:1fr}}
-@media(max-width:560px){.pass-grid{grid-template-columns:1fr}.discord-block{flex-direction:column;align-items:flex-start}}
+@media(max-width:560px){.discord-block{flex-direction:column;align-items:flex-start}}
 
 /* ── Pick Grading System ───────────────────────────── */
 #ev-section{background:transparent}
@@ -931,7 +948,7 @@ footer::before{
 
   /* Subscriptions */
   .sub-grid{grid-template-columns:1fr}
-  .pass-grid{grid-template-columns:1fr}
+  .price-readout{flex-direction:column;align-items:flex-start}
 
   /* Transparency */
   .trans-grid{grid-template-columns:1fr}
@@ -1242,7 +1259,7 @@ footer::before{
     <div class="pipe-step">
       <div class="pipe-icon-box"><span class="pipe-glyph">→</span></div>
       <div class="pipe-lbl">DELIVER</div>
-      <div class="pipe-sub">Daily posts, X + Instagram, exclusive discord access</div>
+      <div class="pipe-sub">Daily posts on X + Instagram, full picks delivered by email</div>
     </div>
   </div>
 </div>
@@ -1323,65 +1340,90 @@ footer::before{
 <div id="subscriptions" class="full-width-section sect-mid">
 <section>
   <span class="section-label reveal">// 05 — SUBSCRIPTIONS</span>
-  <h2 class="section-title reveal">Choose Your Tier</h2>
-  <p class="section-body reveal">Every tier includes daily graded picks, game lines, and Discord access.</p>
+  <h2 class="section-title reveal">Build Your Access</h2>
+  <p class="section-body reveal">Pick any combination of sports — daily graded picks, game lines, and player props delivered straight to your inbox every morning. The more sports you add, the less you pay per sport. 30-day access per purchase.</p>
 
-  <div class="sub-grid">
-    <div class="sub-card glass-card sub-base reveal reveal-delay-1">
-      <span class="sub-tier">BASE</span>
-      <span class="sub-price">$25 / MO</span>
-      <ul class="sub-features">
-        <li>One top pick per league</li>
-        <li>Game lines — ML, Spread, Over/Under</li>
-        <li>Base Discord Access</li>
-      </ul>
-      <a href="#waitlist" class="sub-cta">GET ACCESS</a>
-    </div>
-    <div class="sub-card glass-card sub-plus reveal reveal-delay-2">
-      <span class="sub-tier">PLUS</span>
-      <span class="sub-price">$50 / MO</span>
-      <ul class="sub-features">
-        <li>All picks for every league covered</li>
-        <li>Game lines — ML, Spread, Over/Under</li>
-        <li>Plus Discord Access</li>
-      </ul>
-      <a href="#waitlist" class="sub-cta">GET ACCESS</a>
-    </div>
-    <div class="sub-card glass-card sub-insider reveal reveal-delay-3">
-      <span class="sub-tier">INSIDER</span>
-      <span class="sub-price">$80 / MO</span>
-      <ul class="sub-features">
-        <li>All picks for every league covered</li>
-        <li>Game lines — ML, Spread, Over/Under</li>
-        <li>Player props for select leagues</li>
-        <li>Insider Discord Access</li>
-      </ul>
-      <a href="#waitlist" class="sub-cta">GET ACCESS</a>
-    </div>
+  <div class="sport-select-grid reveal" id="sportSelectGrid">
+    <div class="sport-card glass-card sport-select-card" data-sport="nfl"><span class="sport-abbr">NFL</span><div class="sport-name">FOOTBALL</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="cfb"><span class="sport-abbr">CFB</span><div class="sport-name">COLLEGE FB</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="nba"><span class="sport-abbr">NBA</span><div class="sport-name">BASKETBALL</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="wnba"><span class="sport-abbr">WNBA</span><div class="sport-name">WOMEN'S BBALL</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="mlb"><span class="sport-abbr">MLB</span><div class="sport-name">BASEBALL</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="hockey"><span class="sport-abbr">HOCKEY</span><div class="sport-name">NHL + INTL</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="soccer"><span class="sport-abbr">SOCCER</span><div class="sport-name">6 LEAGUES</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="tennis"><span class="sport-abbr">TENNIS</span><div class="sport-name">ATP + WTA</div></div>
   </div>
 
-  <div class="pass-grid">
-    <div class="pass-card glass-card pass-day reveal reveal-delay-1">
-      <span class="pass-tier">DAY PASS</span>
-      <span class="pass-price">$10</span>
-      <ul class="pass-features">
-        <li>Full Insider access — 1 day</li>
-        <li>All picks + player props</li>
-        <li>Insider Discord Access</li>
-      </ul>
-      <a href="#waitlist" class="sub-cta" style="margin-top:16px;background:rgba(240,0,255,.12);color:#f000ff;border:1px solid rgba(240,0,255,.4)">GET ACCESS</a>
-    </div>
-    <div class="pass-card glass-card pass-weekend reveal reveal-delay-2">
-      <span class="pass-tier">WEEKEND PASS</span>
-      <span class="pass-price">$25</span>
-      <ul class="pass-features">
-        <li>Full Insider access — 3 days</li>
-        <li>All picks + player props</li>
-        <li>Insider Discord Access</li>
-      </ul>
-      <a href="#waitlist" class="sub-cta" style="margin-top:16px;background:rgba(0,240,255,.1);color:#00f0ff;border:1px solid rgba(0,240,255,.4)">GET ACCESS</a>
-    </div>
+  <div class="price-readout glass-card reveal">
+    <div class="price-readout-info" id="priceReadoutInfo">Select at least one sport to see pricing.</div>
+    <div class="price-readout-amount" id="priceReadoutAmount">—</div>
   </div>
+
+  <a href="#" id="subCta" class="sub-cta" style="max-width:280px;padding:13px 0;margin-top:18px;background:rgba(240,0,255,.12);color:#f000ff;border:1px solid rgba(240,0,255,.4);pointer-events:none;opacity:.4">SELECT SPORTS TO CONTINUE</a>
+
+  <button type="button" class="price-table-toggle" onclick="document.getElementById('priceTableMini').classList.toggle('open')">View full pricing table ▾</button>
+  <table class="price-table-mini" id="priceTableMini">
+    <tr><th>Sports</th><th>Price</th><th>Avg / sport</th></tr>
+    <tr><td>1</td><td class="price-col">$20</td><td>$20.00</td></tr>
+    <tr><td>2</td><td class="price-col">$30</td><td>$15.00</td></tr>
+    <tr><td>3</td><td class="price-col">$40</td><td>$13.33</td></tr>
+    <tr><td>4</td><td class="price-col">$45</td><td>$11.25</td></tr>
+    <tr><td>5</td><td class="price-col">$55</td><td>$11.00</td></tr>
+    <tr><td>6</td><td class="price-col">$60</td><td>$10.00</td></tr>
+    <tr><td>7</td><td class="price-col">$70</td><td>$10.00</td></tr>
+    <tr><td>8 (ALL ACCESS)</td><td class="price-col">$75</td><td>$9.38</td></tr>
+  </table>
+
+  <script>
+    (function(){
+      var PRICING = {1:20,2:30,3:40,4:45,5:55,6:60,7:70,8:75};
+      var LABELS = {nfl:'NFL',cfb:'CFB',nba:'NBA',wnba:'WNBA',mlb:'MLB',hockey:'Hockey',soccer:'Soccer',tennis:'Tennis'};
+      var selected = new Set();
+      var grid = document.getElementById('sportSelectGrid');
+      var info = document.getElementById('priceReadoutInfo');
+      var amount = document.getElementById('priceReadoutAmount');
+      var cta = document.getElementById('subCta');
+
+      function render(){
+        var n = selected.size;
+        if(n === 0){
+          info.textContent = 'Select at least one sport to see pricing.';
+          amount.innerHTML = '—';
+          cta.textContent = 'SELECT SPORTS TO CONTINUE';
+          cta.style.pointerEvents = 'none';
+          cta.style.opacity = '.4';
+          cta.removeAttribute('href');
+          return;
+        }
+        var price = PRICING[n];
+        var names = Array.from(selected).map(function(s){return LABELS[s];}).join(', ');
+        info.textContent = n + ' sport' + (n===1?'':'s') + ' selected: ' + names;
+        amount.innerHTML = '$' + price + '<span>/30 days</span>';
+        cta.textContent = 'GET ACCESS — $' + price;
+        cta.style.pointerEvents = 'auto';
+        cta.style.opacity = '1';
+        var subject = encodeURIComponent('Clairvoyance access request');
+        var body = encodeURIComponent(
+          'I\'d like access to: ' + names + '\n' +
+          'Sports: ' + n + ' | Price: $' + price + ' / 30 days\n\n' +
+          '(Send this as-is and we\'ll reply with Venmo payment instructions.)'
+        );
+        cta.href = 'mailto:clairvoyanceengine@gmail.com?subject=' + subject + '&body=' + body;
+      }
+
+      grid.addEventListener('click', function(e){
+        var card = e.target.closest('.sport-select-card');
+        if(!card) return;
+        var sport = card.getAttribute('data-sport');
+        if(selected.has(sport)){ selected.delete(sport); card.classList.remove('selected'); }
+        else { selected.add(sport); card.classList.add('selected'); }
+        render();
+      });
+
+      render();
+    })();
+  </script>
+
 
 </section>
 </div>
