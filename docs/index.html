@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src https://assets.mailerlite.com https://mercmink21.github.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src https://mercmink21.github.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
@@ -805,41 +805,6 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .social-card.x-card .social-follow-btn{background:rgba(240,0,255,.15);color:#f000ff;border:1px solid rgba(240,0,255,.5);box-shadow:0 0 14px rgba(240,0,255,.25)}
 .social-card.ig-card .social-follow-btn{background:rgba(0,240,255,.12);color:#00f0ff;border:1px solid rgba(0,240,255,.45);box-shadow:0 0 14px rgba(0,240,255,.2)}
 
-/* ── Waitlist ───────────────────────────────────────── */
-#waitlist{background:transparent}
-.waitlist-center{text-align:center;padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:640px;margin:0 auto}
-.waitlist-label{font-family:var(--tech);font-size:9px;letter-spacing:4px;color:var(--purple);text-transform:uppercase;margin-bottom:12px;display:block;text-shadow:0 0 10px rgba(240,0,255,.4)}
-.waitlist-title{font-family:var(--orb);font-size:clamp(20px,3.5vw,32px);font-weight:700;letter-spacing:2px;color:var(--t1);margin-bottom:14px}
-.waitlist-sub{font-family:var(--tech);font-size:13px;color:var(--t2);line-height:1.85;max-width:480px;margin:0 auto 28px}
-.waitlist-badge{
-  display:inline-block;padding:5px 16px;margin-bottom:28px;
-  background:rgba(240,0,255,.08);border:1px solid rgba(240,0,255,.3);border-radius:4px;
-  font-family:var(--tech);font-size:9px;letter-spacing:3px;color:var(--purple);text-transform:uppercase;
-  box-shadow:0 0 14px rgba(240,0,255,.1);
-}
-.waitlist-form{display:flex;gap:10px;max-width:480px;margin:0 auto 14px;flex-wrap:wrap;justify-content:center}
-.waitlist-input{
-  flex:1;min-width:220px;padding:13px 18px;
-  background:rgba(255,255,255,.04);
-  backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,.12);border-radius:4px;
-  font-family:var(--tech);font-size:12px;color:var(--t1);outline:none;transition:border-color .2s,box-shadow .2s;
-}
-.waitlist-input::placeholder{color:var(--t3)}
-.waitlist-input:focus{border-color:rgba(240,0,255,.5);box-shadow:0 0 16px rgba(240,0,255,.15)}
-.waitlist-submit{
-  padding:13px 28px;
-  background:linear-gradient(135deg,rgba(240,0,255,.3),rgba(123,95,255,.3));
-  color:#fff;border:1px solid rgba(240,0,255,.5);border-radius:4px;
-  font-family:var(--tech);font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;
-  transition:all .3s;
-  box-shadow:0 0 20px rgba(240,0,255,.2);white-space:nowrap;
-}
-.waitlist-submit:hover{box-shadow:0 0 36px rgba(240,0,255,.45);transform:translateY(-1px);border-color:rgba(240,0,255,.8)}
-.waitlist-submit:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.waitlist-note{font-family:var(--tech);font-size:10px;color:var(--t3);margin-top:10px;letter-spacing:1px}
-.waitlist-success{display:none;padding:14px 22px;margin:16px auto 0;max-width:480px;background:rgba(56,224,120,.07);border:1px solid rgba(56,224,120,.25);border-radius:4px;font-family:var(--tech);font-size:12px;color:#56e87a;letter-spacing:1px;box-shadow:0 0 16px rgba(56,224,120,.1)}
-@media(max-width:640px){.waitlist-form{flex-direction:column;align-items:stretch}.waitlist-input{min-width:0}.waitlist-submit{width:100%}}
 
 /* ── Footer ─────────────────────────────────────────── */
 footer{
@@ -1071,6 +1036,10 @@ footer::before{
       into measurable edge while delivering graded picks, game lines, and player
       props across every sport and every league.
     </p>
+    <div class="hero-actions">
+      <a href="#subscriptions" class="btn-primary">Get Access</a>
+      <a href="#performance" class="btn-outline">View Track Record</a>
+    </div>
   </div>
 </section>
 
@@ -1612,77 +1581,6 @@ window.addEventListener('scroll', () => {
   }
 }, { passive: true });
 
-// ── Waitlist form — MailerLite integration ────────────────
-(function(){
-  const EMAIL_RE  = /^[a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,}$/;
-  const RATE_KEY  = 'wl_last_ts';
-  const DONE_KEY  = 'wl_submitted';
-  const COOLDOWN  = 60 * 1000;
-  const ML_URL    = 'https://assets.mailerlite.com/jsonp/2369556/forms/188116557482689874/subscribe';
-
-  function sanitize(str) {
-    return str.trim().toLowerCase().slice(0, 254).replace(/[<>"'`]/g, '');
-  }
-  function showSuccess() {
-    const f = document.getElementById('waitlistForm');
-    const s = document.getElementById('waitlistSuccess');
-    if (f) f.style.display = 'none';
-    if (s) s.style.display = 'block';
-  }
-  function showError() {
-    const btn = document.getElementById('waitlistBtn');
-    if (btn) { btn.disabled = false; btn.textContent = 'REQUEST ACCESS'; }
-    const inp = document.getElementById('waitlistEmail');
-    if (inp) {
-      inp.style.borderColor = 'rgba(240,60,80,.6)';
-      setTimeout(() => { inp.style.borderColor = ''; }, 2000);
-    }
-  }
-  try { if (localStorage.getItem(DONE_KEY)) showSuccess(); } catch(_) {}
-
-  window.handleWaitlist = function(e) {
-    e.preventDefault();
-    const hp = document.getElementById('hp_field');
-    if (hp && hp.value.length > 0) return;
-    const emailRaw = (document.getElementById('waitlistEmail') || {}).value || '';
-    const email    = sanitize(emailRaw);
-    const btn      = document.getElementById('waitlistBtn');
-    if (!EMAIL_RE.test(email)) { showError(); return; }
-    try {
-      const last = parseInt(localStorage.getItem(RATE_KEY) || '0', 10);
-      if (Date.now() - last < COOLDOWN) {
-        btn.textContent = 'PLEASE WAIT…';
-        setTimeout(() => { btn.textContent = 'REQUEST ACCESS'; }, 2000);
-        return;
-      }
-    } catch(_) {}
-    btn.disabled    = true;
-    btn.textContent = 'SUBMITTING…';
-    const body = new URLSearchParams();
-    body.append('fields[email]', email);
-    body.append('ml-submit', '1');
-    body.append('anticsrf', 'true');
-    fetch(ML_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: body.toString()
-    })
-    .then(() => {
-      try {
-        localStorage.setItem(DONE_KEY, '1');
-        localStorage.setItem(RATE_KEY, String(Date.now()));
-      } catch(_) {}
-      showSuccess();
-    })
-    .catch(() => {
-      try {
-        localStorage.setItem(DONE_KEY, '1');
-        localStorage.setItem(RATE_KEY, String(Date.now()));
-      } catch(_) {}
-      showSuccess();
-    });
-  };
-})();
 // ── Mobile nav hide-on-scroll ─────────────────────────
 (function(){
   const nav = document.querySelector('nav');
