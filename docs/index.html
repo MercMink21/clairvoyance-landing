@@ -1730,7 +1730,7 @@ function closeNav(){ navLinks.classList.remove('open'); }
     // next to the record/win%/units columns on a narrow screen -- desktop
     // keeps the full name, CSS swaps to the short one under the site's
     // existing 768px breakpoint (see .sperf-name-abbr below).
-    const mobileAbbr = { 'Premier League': 'Prem. League' };
+    const mobileAbbr = { 'Premier League': 'Prem.<br>League' };
     stack.innerHTML = leagues.map(lg => {
       const pc = pctColor(lg.pct);
       const pctStr = lg.pct !== null ? (lg.pct * 100).toFixed(0) + '%' : '--';
