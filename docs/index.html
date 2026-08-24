@@ -635,7 +635,7 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .sub-cta:hover{transform:translateY(-1px);opacity:.85}
 
 /* ── Sport selector (build-your-own bundle) ──────────────── */
-.sport-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:12px;margin-top:28px}
+.sport-select-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-top:28px}
 .sport-select-card{
   padding:16px 10px;text-align:center;cursor:pointer;user-select:none;
   border:1px solid rgba(255,255,255,.08)!important;transition:all .2s;
@@ -948,6 +948,7 @@ footer::before{
 
   /* Subscriptions */
   .sub-grid{grid-template-columns:1fr}
+  .sport-select-grid{grid-template-columns:repeat(2,1fr);gap:10px}
   .price-readout{flex-direction:column;align-items:flex-start}
 
   /* Transparency */
@@ -1344,14 +1345,14 @@ footer::before{
   <p class="section-body reveal">Pick any combination of sports — daily graded picks, game lines, and player props delivered straight to your inbox every morning. The more sports you add, the less you pay per sport. 30-day access per purchase.</p>
 
   <div class="sport-select-grid reveal" id="sportSelectGrid">
-    <div class="sport-card glass-card sport-select-card" data-sport="nfl"><span class="sport-abbr">NFL</span><div class="sport-name">FOOTBALL</div></div>
-    <div class="sport-card glass-card sport-select-card" data-sport="cfb"><span class="sport-abbr">CFB</span><div class="sport-name">COLLEGE FB</div></div>
-    <div class="sport-card glass-card sport-select-card" data-sport="nba"><span class="sport-abbr">NBA</span><div class="sport-name">BASKETBALL</div></div>
-    <div class="sport-card glass-card sport-select-card" data-sport="wnba"><span class="sport-abbr">WNBA</span><div class="sport-name">WOMEN'S BBALL</div></div>
-    <div class="sport-card glass-card sport-select-card" data-sport="mlb"><span class="sport-abbr">MLB</span><div class="sport-name">BASEBALL</div></div>
-    <div class="sport-card glass-card sport-select-card" data-sport="hockey"><span class="sport-abbr">HOCKEY</span><div class="sport-name">NHL + INTL</div></div>
-    <div class="sport-card glass-card sport-select-card" data-sport="soccer"><span class="sport-abbr">SOCCER</span><div class="sport-name">6 LEAGUES</div></div>
-    <div class="sport-card glass-card sport-select-card" data-sport="tennis"><span class="sport-abbr">TENNIS</span><div class="sport-name">ATP + WTA</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="nfl"><span class="sport-abbr">NFL</span><div class="sport-name">NAT'L FOOTBALL LEAGUE</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="cfb"><span class="sport-abbr">CFB</span><div class="sport-name">COLLEGE FOOTBALL</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="nba"><span class="sport-abbr">NBA</span><div class="sport-name">NAT'L BASKETBALL ASSOC.</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="wnba"><span class="sport-abbr">WNBA</span><div class="sport-name">WOMEN'S BASKETBALL</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="mlb"><span class="sport-abbr">MLB</span><div class="sport-name">MAJOR LEAGUE BASEBALL</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="hockey"><span class="sport-abbr">HOCKEY</span><div class="sport-name">NHL + INTERNATIONAL</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="soccer"><span class="sport-abbr">SOCCER</span><div class="sport-name">6 TOP LEAGUES</div></div>
+    <div class="sport-card glass-card sport-select-card" data-sport="tennis"><span class="sport-abbr">TENNIS</span><div class="sport-name">ATP + WTA TOURS</div></div>
   </div>
 
   <div class="price-readout glass-card reveal">
@@ -1359,9 +1360,11 @@ footer::before{
     <div class="price-readout-amount" id="priceReadoutAmount">—</div>
   </div>
 
-  <a href="#" id="subCta" class="sub-cta" style="max-width:280px;padding:13px 0;margin-top:18px;background:rgba(240,0,255,.12);color:#f000ff;border:1px solid rgba(240,0,255,.4);pointer-events:none;opacity:.4">SELECT SPORTS TO CONTINUE</a>
+  <div class="reveal reveal-delay-2">
+    <a href="#" id="subCta" class="sub-cta" style="max-width:280px;padding:13px 0;margin-top:18px;background:rgba(240,0,255,.12);color:#f000ff;border:1px solid rgba(240,0,255,.4);pointer-events:none;opacity:.4">SELECT SPORTS TO CONTINUE</a>
+  </div>
 
-  <button type="button" class="price-table-toggle" onclick="document.getElementById('priceTableMini').classList.toggle('open')">View full pricing table ▾</button>
+  <button type="button" class="price-table-toggle reveal reveal-delay-3" onclick="document.getElementById('priceTableMini').classList.toggle('open')">View full pricing table ▾</button>
   <table class="price-table-mini" id="priceTableMini">
     <tr><th>Sports</th><th>Price</th><th>Avg / sport</th></tr>
     <tr><td>1</td><td class="price-col">$20</td><td>$20.00</td></tr>
