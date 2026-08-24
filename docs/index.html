@@ -673,11 +673,28 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   margin-top:18px;cursor:pointer;text-decoration:underline;text-underline-offset:3px;
   display:inline-block;background:none;border:none;padding:0;
 }
-.price-table-mini{margin-top:16px;width:100%;border-collapse:collapse;font-family:var(--tech);font-size:12px;display:none}
-.price-table-mini.open{display:table}
-.price-table-mini th{text-align:left;color:var(--t3);font-weight:400;letter-spacing:1px;padding:6px 10px;border-bottom:1px solid rgba(255,255,255,.1)}
-.price-table-mini td{padding:7px 10px;border-bottom:1px solid rgba(255,255,255,.05);color:var(--t2)}
-.price-table-mini td.price-col{color:#ffd700;font-weight:700}
+.price-stack{display:none;flex-direction:column;gap:10px;margin-top:20px;max-width:860px}
+.price-stack.open{display:flex}
+.price-row{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  padding:16px 24px;flex-wrap:wrap;border-color:rgba(240,0,255,.25)!important;
+}
+.price-row.price-best{border-color:rgba(255,213,0,.35)!important}
+.price-left{flex:1;min-width:0}
+.price-name{
+  font-family:var(--orb);font-size:clamp(15px,1.8vw,18px);font-weight:900;
+  letter-spacing:2px;display:block;margin-bottom:4px;color:#f000ff;
+  text-shadow:0 0 10px rgba(240,0,255,.4);
+}
+.price-row.price-best .price-name{color:#ffd700;text-shadow:0 0 10px rgba(255,213,0,.5)}
+.price-detail{font-family:var(--tech);font-size:11px;color:var(--t2);opacity:.82}
+.price-right{display:flex;flex-direction:column;align-items:flex-end;gap:2px;flex-shrink:0}
+.price-amount{
+  font-family:var(--orb);font-size:clamp(20px,2.6vw,26px);font-weight:900;
+  letter-spacing:1px;color:#f000ff;text-shadow:0 0 10px rgba(240,0,255,.4);
+}
+.price-row.price-best .price-amount{color:#ffd700;text-shadow:0 0 10px rgba(255,213,0,.5)}
+.price-period{font-family:var(--tech);font-size:10px;letter-spacing:1.5px;color:var(--t3);text-transform:uppercase}
 
 /* Discord CTA ─ */
 .discord-block{
@@ -1033,8 +1050,7 @@ footer::before{
     <p class="hero-desc">
       An advanced sports intelligence engine built around mathematical precision,
       multi-layered ensemble models, and adaptive intelligence. Turning raw data
-      into measurable edge while delivering graded picks, game lines, and player
-      props across every sport and every league.
+      into measurable edge while delivering graded picks, game lines, and player props.
     </p>
     <div class="hero-actions">
       <a href="#subscriptions" class="btn-primary">Get Access</a>
@@ -1215,22 +1231,22 @@ footer::before{
       <span class="mail-opts-lbl">Open with:</span>
       <a href="#" id="ctaGmail" class="sub-cta mail-opt" target="_blank" rel="noopener">Gmail</a>
       <a href="#" id="ctaOutlook" class="sub-cta mail-opt" target="_blank" rel="noopener">Outlook</a>
+      <a href="#" id="ctaYahoo" class="sub-cta mail-opt" target="_blank" rel="noopener">Yahoo</a>
       <a href="#" id="ctaDefault" class="sub-cta mail-opt">Mail App</a>
     </div>
   </div>
 
-  <button type="button" class="price-table-toggle reveal reveal-delay-3" onclick="document.getElementById('priceTableMini').classList.toggle('open')">View full pricing table ▾</button>
-  <table class="price-table-mini" id="priceTableMini">
-    <tr><th>Sports</th><th>Price</th><th>Avg / sport</th></tr>
-    <tr><td>1</td><td class="price-col">$20</td><td>$20.00</td></tr>
-    <tr><td>2</td><td class="price-col">$30</td><td>$15.00</td></tr>
-    <tr><td>3</td><td class="price-col">$40</td><td>$13.33</td></tr>
-    <tr><td>4</td><td class="price-col">$45</td><td>$11.25</td></tr>
-    <tr><td>5</td><td class="price-col">$55</td><td>$11.00</td></tr>
-    <tr><td>6</td><td class="price-col">$60</td><td>$10.00</td></tr>
-    <tr><td>7</td><td class="price-col">$70</td><td>$10.00</td></tr>
-    <tr><td>8 (ALL ACCESS)</td><td class="price-col">$75</td><td>$9.38</td></tr>
-  </table>
+  <button type="button" id="priceTableToggle" class="price-table-toggle reveal reveal-delay-3" onclick="document.getElementById('priceStack').classList.toggle('open'); this.textContent = document.getElementById('priceStack').classList.contains('open') ? 'Hide full pricing table ▴' : 'View full pricing table ▾'">View full pricing table ▾</button>
+  <div class="price-stack" id="priceStack">
+    <div class="price-row glass-card"><div class="price-left"><span class="price-name">1 SPORT</span><span class="price-detail">$20.00 avg / sport</span></div><div class="price-right"><span class="price-amount">$20</span><span class="price-period">/ 30 days</span></div></div>
+    <div class="price-row glass-card"><div class="price-left"><span class="price-name">2 SPORTS</span><span class="price-detail">$15.00 avg / sport</span></div><div class="price-right"><span class="price-amount">$30</span><span class="price-period">/ 30 days</span></div></div>
+    <div class="price-row glass-card"><div class="price-left"><span class="price-name">3 SPORTS</span><span class="price-detail">$13.33 avg / sport</span></div><div class="price-right"><span class="price-amount">$40</span><span class="price-period">/ 30 days</span></div></div>
+    <div class="price-row glass-card"><div class="price-left"><span class="price-name">4 SPORTS</span><span class="price-detail">$11.25 avg / sport</span></div><div class="price-right"><span class="price-amount">$45</span><span class="price-period">/ 30 days</span></div></div>
+    <div class="price-row glass-card"><div class="price-left"><span class="price-name">5 SPORTS</span><span class="price-detail">$11.00 avg / sport</span></div><div class="price-right"><span class="price-amount">$55</span><span class="price-period">/ 30 days</span></div></div>
+    <div class="price-row glass-card"><div class="price-left"><span class="price-name">6 SPORTS</span><span class="price-detail">$10.00 avg / sport</span></div><div class="price-right"><span class="price-amount">$60</span><span class="price-period">/ 30 days</span></div></div>
+    <div class="price-row glass-card"><div class="price-left"><span class="price-name">7 SPORTS</span><span class="price-detail">$10.00 avg / sport</span></div><div class="price-right"><span class="price-amount">$70</span><span class="price-period">/ 30 days</span></div></div>
+    <div class="price-row glass-card price-best"><div class="price-left"><span class="price-name">8 SPORTS — ALL ACCESS</span><span class="price-detail">$9.38 avg / sport</span></div><div class="price-right"><span class="price-amount">$75</span><span class="price-period">/ 30 days</span></div></div>
+  </div>
 
   <script>
     (function(){
@@ -1245,6 +1261,7 @@ footer::before{
       var mailRow = document.getElementById('mailOptsRow');
       var ctaGmail = document.getElementById('ctaGmail');
       var ctaOutlook = document.getElementById('ctaOutlook');
+      var ctaYahoo = document.getElementById('ctaYahoo');
       var ctaDefault = document.getElementById('ctaDefault');
 
       function render(){
@@ -1278,6 +1295,8 @@ footer::before{
         ctaGmail.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(TO_EMAIL) +
           '&su=' + subjEnc + '&body=' + bodyEnc;
         ctaOutlook.href = 'https://outlook.live.com/mail/0/deeplink/compose?to=' + encodeURIComponent(TO_EMAIL) +
+          '&subject=' + subjEnc + '&body=' + bodyEnc;
+        ctaYahoo.href = 'https://compose.mail.yahoo.com/?to=' + encodeURIComponent(TO_EMAIL) +
           '&subject=' + subjEnc + '&body=' + bodyEnc;
         ctaDefault.href = 'mailto:' + TO_EMAIL + '?subject=' + subjEnc + '&body=' + bodyEnc;
       }
