@@ -500,6 +500,11 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   font-family:var(--orb);font-size:14px;font-weight:900;letter-spacing:1px;color:var(--t1);
   text-transform:uppercase;
 }
+.sperf-name-abbr{display:none}
+@media(max-width:768px){
+  .sperf-name-full{display:none}
+  .sperf-name-abbr{display:inline}
+}
 .sperf-right{display:flex;gap:16px;align-items:center;flex-shrink:0}
 .sperf-rec{font-family:var(--mono);font-size:13px;color:var(--t2);white-space:nowrap}
 .sperf-pct{font-family:var(--mono);font-size:13px;font-weight:700;white-space:nowrap;min-width:44px;text-align:right}
@@ -1163,7 +1168,7 @@ footer::before{
 
   <div class="sperf-hdr reveal">// Sport Performance — By League</div>
   <div class="sperf-toggle reveal" id="sperfToggle">
-    <button type="button" class="sperf-toggle-btn" data-period="lastMonth">Last Month</button>
+    <button type="button" class="sperf-toggle-btn" data-period="thisMonth">This Month</button>
     <button type="button" class="sperf-toggle-btn act" data-period="allTime">All Time</button>
   </div>
   <div class="sperf-stack reveal" id="sperfStack">
@@ -1721,11 +1726,19 @@ function closeNav(){ navLinks.classList.remove('open'); }
       stack.innerHTML = '<div class="perf-loading">NO SETTLED BETS FOR THIS PERIOD YET</div>';
       return;
     }
+    // Mobile-only abbreviations for labels too long to sit comfortably
+    // next to the record/win%/units columns on a narrow screen -- desktop
+    // keeps the full name, CSS swaps to the short one under the site's
+    // existing 768px breakpoint (see .sperf-name-abbr below).
+    const mobileAbbr = { 'Premier League': 'Prem. League' };
     stack.innerHTML = leagues.map(lg => {
       const pc = pctColor(lg.pct);
       const pctStr = lg.pct !== null ? (lg.pct * 100).toFixed(0) + '%' : '--';
+      const nameHtml = mobileAbbr[lg.lbl]
+        ? `<span class="sperf-name-full">${lg.lbl}</span><span class="sperf-name-abbr">${mobileAbbr[lg.lbl]}</span>`
+        : lg.lbl;
       return `<div class="glass-card sperf-row">
-        <span class="sperf-name">${lg.lbl}</span>
+        <span class="sperf-name">${nameHtml}</span>
         <div class="sperf-right">
           <span class="sperf-rec">${lg.w}W&#8211;${lg.l}L</span>
           <span class="sperf-pct" style="color:${pc}">${pctStr}</span>
@@ -1749,8 +1762,8 @@ function closeNav(){ navLinks.classList.remove('open'); }
       sperfData = data;
       // Swap the LAST MONTH toggle label to the real month name (e.g.
       // "JUL 2026") the same way the export card's own period buttons do.
-      const lastMonthBtn = toggle.querySelector('[data-period="lastMonth"]');
-      if(lastMonthBtn && data.lastMonth && data.lastMonth.label) lastMonthBtn.textContent = data.lastMonth.label;
+      const thisMonthBtn = toggle.querySelector('[data-period="thisMonth"]');
+      if(thisMonthBtn && data.thisMonth && data.thisMonth.label) thisMonthBtn.textContent = data.thisMonth.label;
       renderPeriod();
     })
     .catch(() => {
