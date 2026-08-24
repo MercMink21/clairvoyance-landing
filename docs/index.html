@@ -478,6 +478,32 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   .perf-grid{grid-template-columns:repeat(2,1fr)}
 }
 
+/* ── Sport Performance (by league) ────────────────────── */
+.sperf-hdr{
+  font-family:var(--tech);font-size:12px;letter-spacing:2px;color:var(--t3);
+  text-transform:uppercase;margin-top:40px;
+}
+.sperf-toggle{display:flex;gap:8px;margin-top:12px;margin-bottom:16px}
+.sperf-toggle-btn{
+  font-family:var(--tech);font-size:11px;letter-spacing:1.5px;padding:7px 16px;
+  border-radius:20px;border:1px solid rgba(240,0,255,.35);background:rgba(240,0,255,.06);
+  color:var(--t2);cursor:pointer;transition:all .2s;text-transform:uppercase;
+}
+.sperf-toggle-btn.act{background:rgba(240,0,255,.22);border-color:rgba(240,0,255,.6);color:#fff}
+.sperf-toggle-btn:hover{border-color:rgba(240,0,255,.55)}
+.sperf-stack{display:flex;flex-direction:column;gap:8px;max-width:860px}
+.sperf-row{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  padding:12px 20px;flex-wrap:wrap;
+}
+.sperf-name{
+  font-family:var(--orb);font-size:14px;font-weight:900;letter-spacing:1px;color:var(--t1);
+}
+.sperf-right{display:flex;gap:16px;align-items:center;flex-shrink:0}
+.sperf-rec{font-family:var(--mono);font-size:13px;color:var(--t2);white-space:nowrap}
+.sperf-pct{font-family:var(--mono);font-size:13px;font-weight:700;white-space:nowrap;min-width:44px;text-align:right}
+.sperf-units{font-family:var(--mono);font-size:13px;font-weight:700;white-space:nowrap;min-width:60px;text-align:right}
+
 /* HUD corner brackets on glass cards */
 .glass-card::before{display:none}
 
@@ -1133,6 +1159,15 @@ footer::before{
     <div class="perf-loading">LOADING PERFORMANCE DATA…</div>
   </div>
   <p class="perf-updated" id="perfUpdated"></p>
+
+  <div class="sperf-hdr reveal">// Sport Performance — By League</div>
+  <div class="sperf-toggle reveal" id="sperfToggle">
+    <button type="button" class="sperf-toggle-btn" data-period="lastMonth">Last Month</button>
+    <button type="button" class="sperf-toggle-btn act" data-period="allTime">All Time</button>
+  </div>
+  <div class="sperf-stack reveal" id="sperfStack">
+    <div class="perf-loading">LOADING SPORT PERFORMANCE…</div>
+  </div>
 </section>
 </div>
 
@@ -1661,6 +1696,64 @@ function closeNav(){ navLinks.classList.remove('open'); }
     })
     .catch(() => {
       grid.innerHTML = '<div class="perf-loading">PERFORMANCE DATA TEMPORARILY UNAVAILABLE</div>';
+    });
+})();
+
+// ── Sport Performance section — fetches the JSON snapshot the backend's
+// daily social-cards automation writes (docs/sport_performance.json,
+// computed with the exact same leagueMap/calc logic as the home page's
+// own "// PERIOD PERFORMANCE — LEAGUE" table), same pattern and same
+// automated run as Engine Performance above. ──
+(function(){
+  const stack = document.getElementById('sperfStack');
+  const toggle = document.getElementById('sperfToggle');
+  if(!stack || !toggle) return;
+  const pctColor = pct => pct === null ? 'var(--t3)' : pct >= .62 ? '#00da88' : pct >= .5 ? 'var(--cyan)' : '#ff2090';
+  let sperfData = null;
+  let activePeriod = 'allTime';
+
+  function renderPeriod(){
+    if(!sperfData) return;
+    const period = sperfData[activePeriod];
+    const leagues = (period && period.leagues) || [];
+    if(!leagues.length){
+      stack.innerHTML = '<div class="perf-loading">NO SETTLED BETS FOR THIS PERIOD YET</div>';
+      return;
+    }
+    stack.innerHTML = leagues.map(lg => {
+      const pc = pctColor(lg.pct);
+      const pctStr = lg.pct !== null ? (lg.pct * 100).toFixed(0) + '%' : '--';
+      return `<div class="glass-card sperf-row">
+        <span class="sperf-name">${lg.lbl}</span>
+        <div class="sperf-right">
+          <span class="sperf-rec">${lg.w}W&#8211;${lg.l}L</span>
+          <span class="sperf-pct" style="color:${pc}">${pctStr}</span>
+          <span class="sperf-units" style="color:${lg.units>=0?'#00da88':'#ff2090'}">${lg.units>=0?'+':''}${lg.units.toFixed(1)}u</span>
+        </div>
+      </div>`;
+    }).join('');
+  }
+
+  toggle.querySelectorAll('.sperf-toggle-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activePeriod = btn.dataset.period;
+      toggle.querySelectorAll('.sperf-toggle-btn').forEach(b => b.classList.toggle('act', b === btn));
+      renderPeriod();
+    });
+  });
+
+  fetch('https://mercmink21.github.io/clairvoyance-backend/sport_performance.json', {cache:'no-store'})
+    .then(r => r.ok ? r.json() : Promise.reject(r.status))
+    .then(data => {
+      sperfData = data;
+      // Swap the LAST MONTH toggle label to the real month name (e.g.
+      // "JUL 2026") the same way the export card's own period buttons do.
+      const lastMonthBtn = toggle.querySelector('[data-period="lastMonth"]');
+      if(lastMonthBtn && data.lastMonth && data.lastMonth.label) lastMonthBtn.textContent = data.lastMonth.label;
+      renderPeriod();
+    })
+    .catch(() => {
+      stack.innerHTML = '<div class="perf-loading">SPORT PERFORMANCE DATA TEMPORARILY UNAVAILABLE</div>';
     });
 })();
 </script>
