@@ -634,6 +634,11 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .sub-card.sub-insider .sub-cta{background:rgba(255,215,0,.08);color:#ffd700;border:1px solid rgba(255,215,0,.35)}
 .sub-cta:hover{transform:translateY(-1px);opacity:.85}
 
+.mail-opts-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:18px}
+.mail-opts-lbl{font-family:var(--tech);font-size:11px;letter-spacing:1.5px;color:var(--t3);text-transform:uppercase}
+.mail-opt{display:inline-block;width:auto;padding:9px 16px;background:rgba(240,0,255,.12);
+  color:#f000ff;border:1px solid rgba(240,0,255,.4)}
+
 /* ── Sport selector (build-your-own bundle) ──────────────── */
 .sport-select-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:12px;margin-top:28px}
 @media(max-width:768px){.sport-select-grid{grid-template-columns:repeat(4,1fr)}}
@@ -1236,7 +1241,13 @@ footer::before{
   </div>
 
   <div class="reveal reveal-delay-2">
-    <a href="#" id="subCta" class="sub-cta" style="max-width:280px;padding:13px 0;margin-top:18px;background:rgba(240,0,255,.12);color:#f000ff;border:1px solid rgba(240,0,255,.4);pointer-events:none;opacity:.4">SELECT SPORTS TO CONTINUE</a>
+    <div id="ctaPlaceholder" class="sub-cta" style="max-width:280px;padding:13px 0;margin-top:18px;background:rgba(240,0,255,.12);color:#f000ff;border:1px solid rgba(240,0,255,.4);opacity:.4;cursor:default">SELECT SPORTS TO CONTINUE</div>
+    <div id="mailOptsRow" class="mail-opts-row" style="display:none">
+      <span class="mail-opts-lbl">Open with:</span>
+      <a href="#" id="ctaGmail" class="sub-cta mail-opt" target="_blank" rel="noopener">Gmail</a>
+      <a href="#" id="ctaOutlook" class="sub-cta mail-opt" target="_blank" rel="noopener">Outlook</a>
+      <a href="#" id="ctaDefault" class="sub-cta mail-opt">Mail App</a>
+    </div>
   </div>
 
   <button type="button" class="price-table-toggle reveal reveal-delay-3" onclick="document.getElementById('priceTableMini').classList.toggle('open')">View full pricing table ▾</button>
@@ -1256,37 +1267,50 @@ footer::before{
     (function(){
       var PRICING = {1:20,2:30,3:40,4:45,5:55,6:60,7:70,8:75};
       var LABELS = {nfl:'NFL',cfb:'CFB',nba:'NBA',wnba:'WNBA',mlb:'MLB',hockey:'Hockey',soccer:'Soccer',tennis:'Tennis'};
+      var TO_EMAIL = 'clairvoyanceengine@gmail.com';
       var selected = new Set();
       var grid = document.getElementById('sportSelectGrid');
       var info = document.getElementById('priceReadoutInfo');
       var amount = document.getElementById('priceReadoutAmount');
-      var cta = document.getElementById('subCta');
+      var placeholder = document.getElementById('ctaPlaceholder');
+      var mailRow = document.getElementById('mailOptsRow');
+      var ctaGmail = document.getElementById('ctaGmail');
+      var ctaOutlook = document.getElementById('ctaOutlook');
+      var ctaDefault = document.getElementById('ctaDefault');
 
       function render(){
         var n = selected.size;
         if(n === 0){
           info.textContent = 'Select at least one sport to see pricing.';
           amount.innerHTML = '—';
-          cta.textContent = 'SELECT SPORTS TO CONTINUE';
-          cta.style.pointerEvents = 'none';
-          cta.style.opacity = '.4';
-          cta.removeAttribute('href');
+          placeholder.style.display = '';
+          mailRow.style.display = 'none';
           return;
         }
         var price = PRICING[n];
         var names = Array.from(selected).map(function(s){return LABELS[s];}).join(', ');
         info.textContent = n + ' sport' + (n===1?'':'s') + ' selected: ' + names;
         amount.innerHTML = '$' + price + '<span>/30 days</span>';
-        cta.textContent = 'GET ACCESS — $' + price;
-        cta.style.pointerEvents = 'auto';
-        cta.style.opacity = '1';
-        var subject = encodeURIComponent('Clairvoyance access request');
-        var body = encodeURIComponent(
-          'I\'d like access to: ' + names + '\n' +
+        placeholder.style.display = 'none';
+        mailRow.style.display = '';
+
+        // Same subject/body regardless of which mail platform opens it --
+        // only the destination URL scheme differs per provider, since
+        // plain mailto: only reliably opens whatever desktop app is
+        // registered as the OS default (Mail.app on a Mac), not
+        // necessarily Gmail/Outlook web for someone who lives there.
+        var subject = 'Clairvoyance Access Request';
+        var body = 'I\'d like access to: ' + names + '\n' +
           'Sports: ' + n + ' | Price: $' + price + ' / 30 days\n\n' +
-          '(Send this as-is and we\'ll reply with Venmo payment instructions.)'
-        );
-        cta.href = 'mailto:clairvoyanceengine@gmail.com?subject=' + subject + '&body=' + body;
+          '(Send this as-is and we\'ll reply with Venmo payment instructions.)';
+        var subjEnc = encodeURIComponent(subject);
+        var bodyEnc = encodeURIComponent(body);
+
+        ctaGmail.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(TO_EMAIL) +
+          '&su=' + subjEnc + '&body=' + bodyEnc;
+        ctaOutlook.href = 'https://outlook.live.com/mail/0/deeplink/compose?to=' + encodeURIComponent(TO_EMAIL) +
+          '&subject=' + subjEnc + '&body=' + bodyEnc;
+        ctaDefault.href = 'mailto:' + TO_EMAIL + '?subject=' + subjEnc + '&body=' + bodyEnc;
       }
 
       grid.addEventListener('click', function(e){
