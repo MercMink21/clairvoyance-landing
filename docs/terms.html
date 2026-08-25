@@ -51,10 +51,23 @@ body{
   overflow-x:hidden;
   -webkit-font-smoothing:antialiased;
   background-color:#16122a;
+  position:relative;
+}
+/* Background on a fixed-position layer behind the content, not on body
+   itself. background-attachment:fixed ties "cover" sizing to the
+   VIEWPORT; background-attachment:scroll ties it to the full scrollable
+   PAGE height instead -- on a short page like this one (vs. the much
+   taller home page, which uses the same body background), that mismatch
+   is exactly what made it look zoomed differently between the two. A
+   position:fixed pseudo-element's own box is always viewport-sized
+   regardless of document length, so cover-sizing is always relative to
+   the viewport, on any page, matching the home page consistently. */
+body::before{
+  content:'';position:fixed;inset:0;z-index:-1;
+  background-color:#16122a;
   background-image:url('bg.jpg');
   background-size:cover;
   background-position:center center;
-  background-attachment:fixed;
 }
 
 /* ── Nav (same as index.html) ─────────────────────────── */
@@ -126,13 +139,6 @@ footer{
 .footer-links a{font-family:var(--tech);font-size:10px;letter-spacing:2px;color:var(--purple);text-decoration:none;text-transform:uppercase;text-shadow:0 0 8px rgba(240,0,255,.5)}
 .footer-links a:hover{color:var(--cyan);text-shadow:0 0 8px rgba(0,240,255,.4)}
 
-/* Mobile Safari renders a `fixed` background-attachment inconsistently
-   as the address bar shows/hides, scaling it far larger than intended --
-   most visible on a short, mostly-empty page like this one. `scroll`
-   (the default) avoids that rendering bug entirely on phones. */
-@media(max-width:768px){
-  body{background-attachment:scroll}
-}
 @media(max-width:560px){
   main{padding-top:110px}
   .doc-title{font-size:26px}
@@ -181,9 +187,9 @@ footer{
 
   <div class="doc-section">
     <h2 class="doc-h2">3. Eligibility</h2>
-    <p class="doc-p">You must be at least [18 / 21 — confirm the correct age for your
-    jurisdiction] years old to subscribe. By subscribing, you represent that you meet this
-    requirement and that use of this service is lawful in your jurisdiction.</p>
+    <p class="doc-p">You must be at least 21 years old to subscribe. By subscribing, you
+    represent that you meet this requirement and that use of this service is lawful in
+    your jurisdiction.</p>
   </div>
 
   <div class="doc-section">
