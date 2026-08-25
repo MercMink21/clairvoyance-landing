@@ -472,7 +472,8 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .perf-card-bar-fill{height:100%;border-radius:2px;background:var(--cyan)}
 .perf-card-stats{display:flex;justify-content:space-between;align-items:center;font-family:var(--mono);font-weight:700;font-size:16px}
 .perf-updated{
-  font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--t3);margin-top:16px;
+  font-family:var(--mono);font-size:12px;letter-spacing:1px;color:var(--purple);margin-top:16px;
+  text-shadow:0 0 10px rgba(240,0,255,.4);
 }
 @media(max-width:768px){
   .perf-grid{grid-template-columns:repeat(2,1fr)}
@@ -491,13 +492,13 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 }
 .sperf-toggle-btn.act{background:rgba(240,0,255,.22);border-color:rgba(240,0,255,.6);color:#fff}
 .sperf-toggle-btn:hover{border-color:rgba(240,0,255,.55)}
-.sperf-stack{display:flex;flex-direction:column;gap:8px;max-width:860px}
+.sperf-stack{display:flex;flex-direction:column;gap:10px;max-width:1200px}
 .sperf-row{
   display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:12px 20px;flex-wrap:wrap;
+  padding:20px 26px;flex-wrap:wrap;
 }
 .sperf-name{
-  font-family:var(--orb);font-size:14px;font-weight:900;letter-spacing:1px;color:var(--t1);
+  font-family:var(--orb);font-size:18px;font-weight:900;letter-spacing:1px;color:var(--t1);
   text-transform:uppercase;
 }
 .sperf-name-abbr{display:none}
@@ -505,10 +506,10 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   .sperf-name-full{display:none}
   .sperf-name-abbr{display:inline}
 }
-.sperf-right{display:flex;gap:16px;align-items:center;flex-shrink:0}
-.sperf-rec{font-family:var(--mono);font-size:13px;color:var(--t2);white-space:nowrap}
-.sperf-pct{font-family:var(--mono);font-size:13px;font-weight:700;white-space:nowrap;min-width:44px;text-align:right}
-.sperf-units{font-family:var(--mono);font-size:13px;font-weight:700;white-space:nowrap;min-width:60px;text-align:right}
+.sperf-right{display:flex;gap:20px;align-items:center;flex-shrink:0}
+.sperf-rec{font-family:var(--mono);font-size:16px;color:var(--t2);white-space:nowrap}
+.sperf-pct{font-family:var(--mono);font-size:16px;font-weight:700;white-space:nowrap;min-width:50px;text-align:right}
+.sperf-units{font-family:var(--mono);font-size:16px;font-weight:700;white-space:nowrap;min-width:68px;text-align:right}
 
 /* HUD corner brackets on glass cards */
 .glass-card::before{display:none}
@@ -1171,6 +1172,7 @@ footer::before{
   <div class="sperf-stack reveal" id="sperfStack">
     <div class="perf-loading">LOADING SPORT PERFORMANCE…</div>
   </div>
+  <p class="perf-updated" id="sperfUpdated"></p>
 </section>
 </div>
 
@@ -1710,6 +1712,7 @@ function closeNav(){ navLinks.classList.remove('open'); }
 (function(){
   const stack = document.getElementById('sperfStack');
   const toggle = document.getElementById('sperfToggle');
+  const updated = document.getElementById('sperfUpdated');
   if(!stack || !toggle) return;
   const pctColor = pct => pct === null ? 'var(--t3)' : pct >= .62 ? '#00da88' : pct >= .5 ? 'var(--cyan)' : '#ff2090';
   let sperfData = null;
@@ -1761,6 +1764,7 @@ function closeNav(){ navLinks.classList.remove('open'); }
       // "JUL 2026") the same way the export card's own period buttons do.
       const thisMonthBtn = toggle.querySelector('[data-period="thisMonth"]');
       if(thisMonthBtn && data.thisMonth && data.thisMonth.label) thisMonthBtn.textContent = data.thisMonth.label;
+      if(updated && data.generated_at) updated.textContent = 'Last updated ' + data.generated_at;
       renderPeriod();
     })
     .catch(() => {
