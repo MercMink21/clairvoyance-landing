@@ -629,6 +629,23 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 .sport-card:nth-child(3n+3)::after{
   background:radial-gradient(ellipse at 50% 60%,rgba(180,0,255,.4),rgba(0,240,255,.2),transparent 70%);
 }
+/* Picks-covered reveal -- hover on desktop, tap on mobile. Injected as a
+   child div by JS from each card's data-picks attribute (see the script
+   near the end of <body>) rather than duplicated markup per card. Sits
+   above the card's own ::after glow (z-index) and is clipped to the
+   card's rounded corners by .glass-card's own overflow:hidden. */
+.sport-card{cursor:pointer}
+.sport-card-picks{
+  position:absolute;inset:0;z-index:2;
+  display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:12px;background:rgba(8,0,18,.94);border-radius:inherit;
+  font-family:var(--tech);font-size:11px;line-height:1.6;letter-spacing:.5px;
+  color:var(--t1);opacity:0;transition:opacity .25s;pointer-events:none;
+}
+@media(hover:hover){
+  .sport-card:hover .sport-card-picks{opacity:1}
+}
+.sport-card.show-picks .sport-card-picks{opacity:1}
 .sport-abbr{
   font-family:var(--orb);font-size:20px;font-weight:900;letter-spacing:1px;
   color:rgba(240,0,255,.85);
@@ -1204,54 +1221,54 @@ footer::before{
   <div class="sports-group reveal">
     <span class="sports-group-label">// BASEBALL</span>
     <div class="sports-grid">
-      <div class="sport-card glass-card"><span class="sport-abbr">MLB</span><div class="sport-name">MAJOR LEAGUE BASEBALL</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">MLB</span><div class="sport-name">MAJOR LEAGUE BASEBALL</div></div>
     </div>
   </div>
 
   <div class="sports-group reveal">
     <span class="sports-group-label">// BASKETBALL</span>
     <div class="sports-grid">
-      <div class="sport-card glass-card"><span class="sport-abbr">NBA</span><div class="sport-name">NAT'L BASKETBALL ASSOC.</div></div>
-      <div class="sport-card glass-card"><span class="sport-abbr">WNBA</span><div class="sport-name">WOMEN'S NAT'L BASKETBALL ASSOC.</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U) + Player Props"><span class="sport-abbr">NBA</span><div class="sport-name">NAT'L BASKETBALL ASSOC.</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U) + Player Props"><span class="sport-abbr">WNBA</span><div class="sport-name">WOMEN'S NAT'L BASKETBALL ASSOC.</div></div>
     </div>
   </div>
 
   <div class="sports-group reveal">
     <span class="sports-group-label">// FOOTBALL</span>
     <div class="sports-grid">
-      <div class="sport-card glass-card"><span class="sport-abbr">NFL</span><div class="sport-name">NAT'L FOOTBALL LEAGUE</div></div>
-      <div class="sport-card glass-card"><span class="sport-abbr">CFB</span><div class="sport-name">COLLEGE FOOTBALL</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U) + Player Props"><span class="sport-abbr">NFL</span><div class="sport-name">NAT'L FOOTBALL LEAGUE</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">CFB</span><div class="sport-name">COLLEGE FOOTBALL</div></div>
     </div>
   </div>
 
   <div class="sports-group reveal">
     <span class="sports-group-label">// HOCKEY</span>
     <div class="sports-grid">
-      <div class="sport-card glass-card"><span class="sport-abbr">NHL</span><div class="sport-name">NAT'L HOCKEY LEAGUE</div></div>
-      <div class="sport-card glass-card"><span class="sport-abbr" style="font-size:15px;letter-spacing:0">COLLEGE HOCKEY</span><div class="sport-name">NCAA MEN'S HOCKEY</div></div>
-      <div class="sport-card glass-card"><span class="sport-abbr">KHL</span><div class="sport-name">KONTINENTAL HOCKEY</div></div>
-      <div class="sport-card glass-card"><span class="sport-abbr">SHL</span><div class="sport-name">SWEDISH HOCKEY LEAGUE</div></div>
-      <div class="sport-card glass-card"><span class="sport-abbr">LIIGA</span><div class="sport-name">FINNISH LIIGA</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U) + Player Props"><span class="sport-abbr">NHL</span><div class="sport-name">NAT'L HOCKEY LEAGUE</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr" style="font-size:15px;letter-spacing:0">COLLEGE HOCKEY</span><div class="sport-name">NCAA MEN'S HOCKEY</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">KHL</span><div class="sport-name">KONTINENTAL HOCKEY</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">SHL</span><div class="sport-name">SWEDISH HOCKEY LEAGUE</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">LIIGA</span><div class="sport-name">FINNISH LIIGA</div></div>
     </div>
   </div>
 
   <div class="sports-group reveal">
     <span class="sports-group-label">// SOCCER</span>
     <div class="sports-grid">
-      <div class="sport-card glass-card"><span class="sport-abbr" style="font-size:12px;letter-spacing:0">BUNDESLIGA</span><div class="sport-name">GERMAN BUNDESLIGA</div></div>
-      <div class="sport-card glass-card"><span class="sport-abbr" style="font-size:14px;letter-spacing:0">LA LIGA</span><div class="sport-name">SPANISH LA LIGA</div></div>
-      <div class="sport-card glass-card"><span class="sport-abbr">MLS</span><div class="sport-name">MAJOR LEAGUE SOCCER</div></div>
-      <div class="sport-card glass-card"><span class="sport-abbr" style="font-size:13px;letter-spacing:0">PREMIER</span><div class="sport-name">ENGLISH PREMIER LEAGUE</div></div>
-      <div class="sport-card glass-card"><span class="sport-abbr" style="font-size:13px;letter-spacing:0">SERIE A</span><div class="sport-name">ITALIAN SERIE A</div></div>
-      <div class="sport-card glass-card"><span class="sport-abbr" style="font-size:10px;letter-spacing:0">CHAMPIONS</span><div class="sport-name">UEFA CHAMPIONS LEAGUE</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr" style="font-size:12px;letter-spacing:0">BUNDESLIGA</span><div class="sport-name">GERMAN BUNDESLIGA</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr" style="font-size:14px;letter-spacing:0">LA LIGA</span><div class="sport-name">SPANISH LA LIGA</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">MLS</span><div class="sport-name">MAJOR LEAGUE SOCCER</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr" style="font-size:13px;letter-spacing:0">PREMIER</span><div class="sport-name">ENGLISH PREMIER LEAGUE</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr" style="font-size:13px;letter-spacing:0">SERIE A</span><div class="sport-name">ITALIAN SERIE A</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr" style="font-size:10px;letter-spacing:0">CHAMPIONS</span><div class="sport-name">UEFA CHAMPIONS LEAGUE</div></div>
     </div>
   </div>
 
   <div class="sports-group reveal">
     <span class="sports-group-label">// TENNIS</span>
     <div class="sports-grid">
-      <div class="sport-card glass-card"><span class="sport-abbr">ATP</span><div class="sport-name">ATP SLAMS</div></div>
-      <div class="sport-card glass-card"><span class="sport-abbr">WTA</span><div class="sport-name">WTA SLAMS</div></div>
+      <div class="sport-card glass-card" data-picks="Match Lines (ML, O/U Sets, O/U Games)"><span class="sport-abbr">ATP</span><div class="sport-name">ATP SLAMS</div></div>
+      <div class="sport-card glass-card" data-picks="Match Lines (ML, O/U Sets, O/U Games)"><span class="sport-abbr">WTA</span><div class="sport-name">WTA SLAMS</div></div>
     </div>
   </div>
 </section>
@@ -1783,6 +1800,35 @@ function closeNav(){ navLinks.classList.remove('open'); }
     .catch(() => {
       stack.innerHTML = '<div class="perf-loading">SPORT PERFORMANCE DATA TEMPORARILY UNAVAILABLE</div>';
     });
+})();
+
+// ── Coverage section: picks-covered reveal ─────────────────────────
+// Desktop hover is pure CSS (see .sport-card-picks / @media(hover:hover)
+// above) -- this just injects the overlay div per card from its
+// data-picks attribute, and handles the mobile tap case (no hover
+// there, so a tap toggles a .show-picks class instead). Each card's
+// handler closes every OTHER open card itself (not just via the
+// outside-click listener below) -- e.stopPropagation() means a
+// card-to-card tap never reaches the document-level listener, so
+// without this a second tapped card would stay open alongside the
+// first instead of replacing it.
+(function(){
+  const allCards = document.querySelectorAll('#sports .sport-card[data-picks]');
+  allCards.forEach(card => {
+    const overlay = document.createElement('div');
+    overlay.className = 'sport-card-picks';
+    overlay.textContent = card.dataset.picks;
+    card.appendChild(overlay);
+    card.addEventListener('click', e => {
+      e.stopPropagation();
+      const wasOpen = card.classList.contains('show-picks');
+      allCards.forEach(c => c.classList.remove('show-picks'));
+      if(!wasOpen) card.classList.add('show-picks');
+    });
+  });
+  document.addEventListener('click', () => {
+    allCards.forEach(c => c.classList.remove('show-picks'));
+  });
 })();
 </script>
 </body>
