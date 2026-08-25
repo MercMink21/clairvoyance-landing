@@ -601,7 +601,7 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 #sports{background:transparent}
 .sports-group{margin-top:44px}
 .sports-group-label{
-  font-family:var(--tech);font-size:13px;letter-spacing:3px;color:var(--purple);
+  font-family:var(--tech);font-size:16px;letter-spacing:3px;color:var(--purple);
   text-transform:uppercase;margin-bottom:12px;display:block;padding-left:2px;
   text-shadow:0 0 10px rgba(240,0,255,.4);
 }
@@ -616,9 +616,9 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   grid-column:1/-1;margin-bottom:0;margin-top:20px;
 }
 .sports-group-label--inline:first-child{margin-top:0}
-.sports-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:12px;margin-bottom:20px}
+.sports-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:16px;margin-bottom:20px}
 .sport-card{
-  padding:18px 14px;text-align:center;
+  padding:26px 18px;text-align:center;
 }
 .sport-card:nth-child(3n+1)::after{
   background:radial-gradient(ellipse at 50% 60%,rgba(240,0,255,.5),transparent 70%);
@@ -983,6 +983,7 @@ footer::before{
   .sports-grid{grid-template-columns:repeat(2,1fr);gap:10px}
   .sports-flat-grid{grid-template-columns:repeat(2,1fr);gap:10px}
   .sport-card{padding:16px 10px}
+  .sports-group-label{font-size:13px}
 
   /* Subscriptions */
   .sub-grid{grid-template-columns:1fr}
