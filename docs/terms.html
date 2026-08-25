@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src https://mercmink21.github.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="X-Content-Type-Options" content="nosniff">
+<meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
+<meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+<meta name="description" content="Clairvoyance Engine — Terms of Service.">
+<meta name="robots" content="noindex">
+<link rel="canonical" href="https://clairvoyanceengine.info/terms.html">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon-apple-touch.png">
+<title>Clairvoyance Engine — Terms of Service</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=JetBrains+Mono:wght@300;400;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --void:#0a0a0a;
+  --bg:#0f0f0f;
+  --card:rgba(15,5,28,0.72);
+  --border:rgba(255,255,255,.08);
+  --purple:#f000ff;
+  --purple-d:#8a009a;
+  --purple-dim:rgba(240,0,255,.12);
+  --cyan:#00f0ff;
+  --cyan-d:#00b8cc;
+  --t1:#f0f0f0;
+  --t2:#c0c0c0;
+  --t3:#787878;
+  --orb:'Orbitron',sans-serif;
+  --mono:'JetBrains Mono',monospace;
+  --tech:'Share Tech Mono',monospace;
+  --glass-blur:blur(18px) saturate(1.6);
+  --radius:12px;
+}
+
+html{scroll-behavior:smooth}
+
+body{
+  font-family:var(--mono);
+  color:var(--t1);
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  background-color:#16122a;
+  background-image:url('bg.jpg');
+  background-size:cover;
+  background-position:center center;
+  background-attachment:fixed;
+}
+
+/* ── Nav (same as index.html) ─────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(20px,5vw,60px);height:64px;
+  background:rgba(6,2,14,0.82);
+  backdrop-filter:var(--glass-blur);
+  -webkit-backdrop-filter:var(--glass-blur);
+  border-bottom:1px solid rgba(240,0,255,.2);
+  box-shadow:0 1px 0 rgba(0,240,255,.06),0 4px 32px rgba(0,0,0,.6);
+}
+.nav-brand{display:flex;align-items:center;gap:0;text-decoration:none}
+.nav-name{
+  font-family:var(--orb);font-size:clamp(16px,2.4vw,22px);font-weight:900;
+  letter-spacing:clamp(2px,0.6vw,6px);
+  color:var(--purple);
+  text-shadow:0 0 10px rgba(240,0,255,.9),0 0 28px rgba(240,0,255,.55),0 0 60px rgba(240,0,255,.2);
+  text-transform:uppercase;
+}
+.nav-back{
+  font-family:var(--tech);font-size:11px;letter-spacing:2px;font-weight:700;
+  color:var(--cyan);text-decoration:none;text-transform:uppercase;
+  text-shadow:0 0 8px rgba(0,240,255,.4);
+}
+.nav-back:hover{color:var(--purple);text-shadow:0 0 8px rgba(240,0,255,.5)}
+
+/* ── Document body ─────────────────────────────────────── */
+main{
+  max-width:760px;margin:0 auto;
+  padding:clamp(120px,14vw,150px) clamp(20px,5vw,40px) 100px;
+}
+.doc-eyebrow{
+  font-family:var(--tech);font-size:12px;letter-spacing:3px;color:var(--purple);
+  text-transform:uppercase;text-shadow:0 0 8px rgba(240,0,255,.4);
+}
+.doc-title{
+  font-family:var(--orb);font-size:clamp(28px,5vw,42px);font-weight:900;
+  color:var(--t1);letter-spacing:1px;margin-top:10px;margin-bottom:8px;
+}
+.doc-updated{font-family:var(--tech);font-size:12px;color:var(--t3);letter-spacing:1px;margin-bottom:8px}
+.doc-notice{
+  margin-top:24px;padding:16px 20px;background:rgba(240,0,255,.08);
+  border:1px solid rgba(240,0,255,.3);border-radius:8px;
+  font-size:13px;line-height:1.7;color:var(--t2);
+}
+.doc-notice strong{color:var(--purple)}
+.doc-crosslink{margin-top:16px;font-size:13px}
+.doc-crosslink a{color:var(--cyan);text-decoration:underline;text-underline-offset:3px}
+
+.doc-section{margin-top:40px}
+.doc-h2{
+  font-family:var(--orb);font-size:clamp(17px,2.2vw,20px);font-weight:700;
+  color:var(--t1);letter-spacing:.5px;margin-bottom:12px;
+  padding-bottom:8px;border-bottom:1px solid var(--border);
+}
+.doc-p{font-size:14px;line-height:1.85;color:var(--t2);margin-bottom:12px}
+.doc-p:last-child{margin-bottom:0}
+.doc-p strong{color:var(--t1)}
+.doc-p a{color:var(--cyan);text-decoration:underline;text-underline-offset:2px}
+
+footer{
+  padding:40px clamp(20px,5vw,60px) 50px;text-align:center;
+  border-top:1px solid var(--border);
+}
+.footer-name{font-family:var(--orb);font-size:14px;font-weight:900;letter-spacing:3px;color:var(--t3)}
+.footer-links{list-style:none;display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+.footer-links a{font-family:var(--tech);font-size:10px;letter-spacing:2px;color:var(--purple);text-decoration:none;text-transform:uppercase;text-shadow:0 0 8px rgba(240,0,255,.5)}
+.footer-links a:hover{color:var(--cyan);text-shadow:0 0 8px rgba(0,240,255,.4)}
+
+@media(max-width:560px){
+  main{padding-top:110px}
+  .doc-title{font-size:26px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">
+    <span class="nav-name">CLAIRVOYANCE</span>
+  </a>
+  <a href="index.html" class="nav-back">&larr; Back to site</a>
+</nav>
+
+<main>
+  <div class="doc-eyebrow">// Legal</div>
+  <h1 class="doc-title">Terms of Service</h1>
+  <div class="doc-updated">Last updated: August 25, 2026</div>
+
+  <div class="doc-notice">
+    <strong>Draft placeholder.</strong> This page is a standard-form scaffold, not
+    lawyer-reviewed language. Replace the bracketed and generic sections below with
+    reviewed legal text before treating this as your actual governing terms.
+  </div>
+
+  <div class="doc-crosslink">Also see the <a href="privacy.html">Privacy Policy</a>.</div>
+
+  <div class="doc-section">
+    <h2 class="doc-h2">1. Acceptance of Terms</h2>
+    <p class="doc-p">By accessing clairvoyanceengine.info or subscribing to any Clairvoyance
+    Engine product, you agree to these Terms of Service. If you do not agree, do not use
+    the service.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="doc-h2">2. Description of Service</h2>
+    <p class="doc-p">Clairvoyance Engine provides sports data analytics and statistical
+    projections — probabilistic model output delivered by email — for informational and
+    analytical purposes. It is not a sportsbook, does not accept wagers, and does not
+    hold, transmit, or process funds on behalf of any wagering activity.</p>
+    <p class="doc-p">Model outputs do not constitute financial or betting advice. Past
+    performance does not guarantee future results. See the disclaimer included with every
+    email and on the site footer.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="doc-h2">3. Eligibility</h2>
+    <p class="doc-p">You must be at least [18 / 21 — confirm the correct age for your
+    jurisdiction] years old to subscribe. By subscribing, you represent that you meet this
+    requirement and that use of this service is lawful in your jurisdiction.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="doc-h2">4. Subscriptions &amp; Payment</h2>
+    <p class="doc-p">Subscriptions are sold in 30-day access windows, priced by the number
+    of simultaneous sports/leagues selected. Payment is currently accepted via Venmo only;
+    access is activated manually once payment is confirmed received. Access does not
+    renew automatically — a new payment is required for each 30-day period.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="doc-h2">5. Refunds</h2>
+    <p class="doc-p">[Placeholder — decide and state your actual refund policy here, e.g.
+    whether payments are final, prorated for cancellation, or refundable under specific
+    conditions. This is a business decision, not something to leave as generic
+    boilerplate.]</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="doc-h2">6. No Guarantee of Results</h2>
+    <p class="doc-p">All picks, projections, and grades (PREMIUM, OPTIMAL, or otherwise)
+    represent the output of a statistical model at a point in time. They are estimates of
+    probability, not guarantees of outcome. You are solely responsible for any wagering
+    decisions you make, and for complying with the gambling laws of your jurisdiction.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="doc-h2">7. Account Access &amp; Termination</h2>
+    <p class="doc-p">Access is tied to the email address used at signup and expires
+    automatically at the end of each 30-day window unless renewed. We reserve the right
+    to suspend or terminate access for abuse, redistribution of paid content, or violation
+    of these terms.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="doc-h2">8. Prohibited Use</h2>
+    <p class="doc-p">You may not redistribute, resell, or publicly repost picks or content
+    delivered under a paid subscription, or attempt to scrape, automate, or circumvent
+    access controls on the service.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="doc-h2">9. Limitation of Liability</h2>
+    <p class="doc-p">The service is provided "as is," without warranties of any kind. To
+    the fullest extent permitted by law, Clairvoyance Engine is not liable for any losses,
+    including gambling losses, arising from use of the service or reliance on its
+    projections.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="doc-h2">10. Changes to These Terms</h2>
+    <p class="doc-p">These terms may be updated from time to time. Continued use of the
+    service after a change constitutes acceptance of the revised terms.</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="doc-h2">11. Governing Law</h2>
+    <p class="doc-p">[Placeholder — state the governing jurisdiction, e.g. "the laws of
+    the State of ___, without regard to conflict-of-law principles."]</p>
+  </div>
+
+  <div class="doc-section">
+    <h2 class="doc-h2">12. Contact</h2>
+    <p class="doc-p">Questions about these terms can be sent to
+    <a href="mailto:clairvoyanceengine@gmail.com">clairvoyanceengine@gmail.com</a>.</p>
+  </div>
+</main>
+
+<footer>
+  <span class="footer-name">CLAIRVOYANCE</span>
+  <ul class="footer-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="terms.html">Terms</a></li>
+    <li><a href="privacy.html">Privacy</a></li>
+  </ul>
+</footer>
+
+</body>
+</html>
