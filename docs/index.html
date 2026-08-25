@@ -505,10 +505,22 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 @media(max-width:768px){
   .sperf-name-full{display:none}
   .sperf-name-abbr{display:inline}
+  /* Stacked (name row, then stats row) rather than squeezed onto one
+     line -- All Time records can run 3 digits each way (e.g. "841W–383L",
+     "+323.7u"), which on a single nowrap line was crushing the league
+     name down to a couple of visible characters. Stacking is uniform by
+     construction: every row is exactly one name line + one stats line,
+     regardless of how wide the numbers get. */
+  .sperf-row{flex-direction:column;align-items:flex-start;gap:8px;padding:14px 18px;height:auto}
+  .sperf-name{font-size:15px}
+  .sperf-right{width:100%;justify-content:space-between;gap:10px}
+  .sperf-rec,.sperf-pct,.sperf-units{font-size:13px}
+  .sperf-pct{min-width:0}
+  .sperf-units{min-width:0}
 }
 .sperf-right{display:flex;gap:20px;align-items:center;flex-shrink:0}
 .sperf-rec{font-family:var(--mono);font-size:16px;color:var(--t2);white-space:nowrap}
-.sperf-pct{font-family:var(--mono);font-size:16px;font-weight:700;white-space:nowrap;min-width:50px;text-align:right}
+.sperf-pct{font-family:var(--mono);font-size:16px;font-weight:700;white-space:nowrap;min-width:62px;text-align:right}
 .sperf-units{font-family:var(--mono);font-size:16px;font-weight:700;white-space:nowrap;min-width:68px;text-align:right}
 
 /* HUD corner brackets on glass cards */
@@ -1726,14 +1738,15 @@ function closeNav(){ navLinks.classList.remove('open'); }
       stack.innerHTML = '<div class="perf-loading">NO SETTLED BETS FOR THIS PERIOD YET</div>';
       return;
     }
-    // Mobile-only abbreviations for labels too long to sit comfortably
-    // next to the record/win%/units columns on a narrow screen -- desktop
-    // keeps the full name, CSS swaps to the short one under the site's
-    // existing 768px breakpoint (see .sperf-name-abbr below).
-    const mobileAbbr = { 'Premier League': 'Prem.<br>League' };
+    // Mobile-only abbreviation, kept short even though name/stats now
+    // stack on separate lines (see .sperf-row's mobile rule) and have
+    // room for the full name -- desktop keeps the full name either way,
+    // CSS swaps to the short one under the site's existing 768px
+    // breakpoint (see .sperf-name-abbr below).
+    const mobileAbbr = { 'Premier League': 'Prem. League' };
     stack.innerHTML = leagues.map(lg => {
       const pc = pctColor(lg.pct);
-      const pctStr = lg.pct !== null ? (lg.pct * 100).toFixed(0) + '%' : '--';
+      const pctStr = lg.pct !== null ? (lg.pct * 100).toFixed(1) + '%' : '--';
       const nameHtml = mobileAbbr[lg.lbl]
         ? `<span class="sperf-name-full">${lg.lbl}</span><span class="sperf-name-abbr">${mobileAbbr[lg.lbl]}</span>`
         : lg.lbl;
