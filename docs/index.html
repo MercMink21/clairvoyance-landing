@@ -1007,6 +1007,7 @@ footer::before{
   .sub-grid{grid-template-columns:1fr}
   .sport-select-grid{grid-template-columns:repeat(2,1fr);gap:10px}
   .price-readout{flex-direction:column;align-items:flex-start}
+  .price-table-toggle{font-size:13px}
 
   /* Transparency */
   .trans-grid{grid-template-columns:1fr}
@@ -1304,9 +1305,6 @@ footer::before{
     <div id="ctaPlaceholder" class="sub-cta" style="max-width:280px;padding:13px 0;margin-top:18px;background:rgba(240,0,255,.12);color:#f000ff;border:1px solid rgba(240,0,255,.4);opacity:.4;cursor:default">SELECT SPORTS TO CONTINUE</div>
     <div id="mailOptsRow" class="mail-opts-row" style="display:none">
       <span class="mail-opts-lbl">Open with:</span>
-      <a href="#" id="ctaGmail" class="sub-cta mail-opt" target="_blank" rel="noopener">Gmail</a>
-      <a href="#" id="ctaOutlook" class="sub-cta mail-opt" target="_blank" rel="noopener">Outlook</a>
-      <a href="#" id="ctaYahoo" class="sub-cta mail-opt" target="_blank" rel="noopener">Yahoo</a>
       <a href="#" id="ctaDefault" class="sub-cta mail-opt">Mail App</a>
     </div>
   </div>
@@ -1334,9 +1332,6 @@ footer::before{
       var amount = document.getElementById('priceReadoutAmount');
       var placeholder = document.getElementById('ctaPlaceholder');
       var mailRow = document.getElementById('mailOptsRow');
-      var ctaGmail = document.getElementById('ctaGmail');
-      var ctaOutlook = document.getElementById('ctaOutlook');
-      var ctaYahoo = document.getElementById('ctaYahoo');
       var ctaDefault = document.getElementById('ctaDefault');
 
       function render(){
@@ -1355,11 +1350,11 @@ footer::before{
         placeholder.style.display = 'none';
         mailRow.style.display = '';
 
-        // Same subject/body regardless of which mail platform opens it --
-        // only the destination URL scheme differs per provider, since
-        // plain mailto: only reliably opens whatever desktop app is
-        // registered as the OS default (Mail.app on a Mac), not
-        // necessarily Gmail/Outlook web for someone who lives there.
+        // Just the device's default Mail app now (dropped Gmail/Outlook/
+        // Yahoo web-compose options -- most access is expected to be on
+        // phone, where the native Mail app is what's actually installed
+        // and where a plain mailto: link opens directly, no extra tap
+        // through a browser-based webmail compose screen).
         var subject = 'Clairvoyance Access Request';
         var body = 'I\'d like access to: ' + names + '\n' +
           'Sports: ' + n + ' | Price: $' + price + ' / 30 days\n\n' +
@@ -1367,12 +1362,6 @@ footer::before{
         var subjEnc = encodeURIComponent(subject);
         var bodyEnc = encodeURIComponent(body);
 
-        ctaGmail.href = 'https://mail.google.com/mail/?view=cm&fs=1&to=' + encodeURIComponent(TO_EMAIL) +
-          '&su=' + subjEnc + '&body=' + bodyEnc;
-        ctaOutlook.href = 'https://outlook.live.com/mail/0/deeplink/compose?to=' + encodeURIComponent(TO_EMAIL) +
-          '&subject=' + subjEnc + '&body=' + bodyEnc;
-        ctaYahoo.href = 'https://compose.mail.yahoo.com/?to=' + encodeURIComponent(TO_EMAIL) +
-          '&subject=' + subjEnc + '&body=' + bodyEnc;
         ctaDefault.href = 'mailto:' + TO_EMAIL + '?subject=' + subjEnc + '&body=' + bodyEnc;
       }
 
