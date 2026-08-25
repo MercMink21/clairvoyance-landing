@@ -128,6 +128,13 @@ footer{
 .footer-links a{font-family:var(--tech);font-size:10px;letter-spacing:2px;color:var(--purple);text-decoration:none;text-transform:uppercase;text-shadow:0 0 8px rgba(240,0,255,.5)}
 .footer-links a:hover{color:var(--cyan);text-shadow:0 0 8px rgba(0,240,255,.4)}
 
+/* Mobile Safari renders a `fixed` background-attachment inconsistently
+   as the address bar shows/hides, scaling it far larger than intended --
+   most visible on a short, mostly-empty page like this one. `scroll`
+   (the default) avoids that rendering bug entirely on phones. */
+@media(max-width:768px){
+  body{background-attachment:scroll}
+}
 @media(max-width:560px){
   main{padding-top:110px}
   .doc-title{font-size:26px}

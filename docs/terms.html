@@ -126,6 +126,13 @@ footer{
 .footer-links a{font-family:var(--tech);font-size:10px;letter-spacing:2px;color:var(--purple);text-decoration:none;text-transform:uppercase;text-shadow:0 0 8px rgba(240,0,255,.5)}
 .footer-links a:hover{color:var(--cyan);text-shadow:0 0 8px rgba(0,240,255,.4)}
 
+/* Mobile Safari renders a `fixed` background-attachment inconsistently
+   as the address bar shows/hides, scaling it far larger than intended --
+   most visible on a short, mostly-empty page like this one. `scroll`
+   (the default) avoids that rendering bug entirely on phones. */
+@media(max-width:768px){
+  body{background-attachment:scroll}
+}
 @media(max-width:560px){
   main{padding-top:110px}
   .doc-title{font-size:26px}
@@ -189,10 +196,9 @@ footer{
 
   <div class="doc-section">
     <h2 class="doc-h2">5. Refunds</h2>
-    <p class="doc-p">[Placeholder — decide and state your actual refund policy here, e.g.
-    whether payments are final, prorated for cancellation, or refundable under specific
-    conditions. This is a business decision, not something to leave as generic
-    boilerplate.]</p>
+    <p class="doc-p">All payments are final. We do not offer refunds for any reason,
+    including early cancellation. Once payment is received, you are granted access for
+    the full 30-day window regardless of how much of that period you actually use.</p>
   </div>
 
   <div class="doc-section">
