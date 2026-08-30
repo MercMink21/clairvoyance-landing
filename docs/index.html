@@ -448,7 +448,13 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 
 /* ── Engine Performance cards ─────────────────────────── */
 .perf-grid{
-  display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:32px;max-width:1200px;
+  /* 5 columns so TODAY/YESTERDAY/ROLLING 7D/THIS MONTH/LAST MONTH (the
+     first 5 of the 6 periods engine_performance.json now sends) fill
+     exactly one row on desktop, with ALL TIME (the 6th/last card) alone
+     on the row below via the :last-child rule underneath. A 4-column
+     grid here would leave LAST MONTH stranded alone on its own row
+     once TODAY was added as a 6th period. */
+  display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:32px;max-width:1200px;
 }
 .perf-grid>.perf-card:last-child{grid-column:1/-1}
 .perf-loading{
