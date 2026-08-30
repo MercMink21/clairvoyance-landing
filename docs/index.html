@@ -1693,43 +1693,64 @@ document.addEventListener('click', e => {
 });
 function closeNav(){ navLinks.classList.remove('open'); }
 
+// Shared re-fetch cadence for the two live sections below. The backend
+// itself only regenerates these two JSON files every 3 hours (9am-9pm
+// MT), so refetching faster than that can't surface anything newer --
+// this exists purely so a visitor who leaves the tab open sees an
+// update without having to manually reload the page. 15 min is frequent
+// enough that a real backend refresh shows up promptly without hammering
+// the endpoint for no reason.
+const PERF_REFRESH_MS = 15 * 60 * 1000;
+
 // ── Engine Performance section — fetches the JSON snapshot the backend's
 // daily social-cards automation writes (docs/engine_performance.json,
 // computed with the exact same hCalc() logic as the home page's own
 // Engine Performance boxes), so this stays in sync automatically with no
-// separate build step on this repo's side. ──
+// separate build step on this repo's side. Re-fetches on PERF_REFRESH_MS
+// (see above) so a long-lived open tab doesn't just freeze on whatever
+// was current when the page first loaded -- previously this only ever
+// fetched once, on load. ──
 (function(){
   const grid = document.getElementById('perfGrid');
   const updated = document.getElementById('perfUpdated');
   if(!grid) return;
   const pctColor = pct => pct === null ? 'var(--t3)' : pct >= .62 ? '#00da88' : pct >= .5 ? 'var(--cyan)' : '#ff2090';
-  fetch('https://mercmink21.github.io/clairvoyance-backend/engine_performance.json', {cache:'no-store'})
-    .then(r => r.ok ? r.json() : Promise.reject(r.status))
-    .then(data => {
-      const periods = data.periods || [];
-      grid.innerHTML = periods.map(p => {
-        const hasData = p.n > 0;
-        const barW = hasData ? Math.round((p.pct || 0) * 100) : 0;
-        const pc = pctColor(p.pct);
-        return `<div class="glass-card perf-card">
-          <div class="perf-card-lbl">${p.label}${p.sub ? '<span>'+p.sub+'</span>' : ''}</div>
-          ${hasData ? `
-          <div class="perf-card-rec">${p.w}W&#8211;${p.l}L</div>
-          <div class="perf-card-bar"><div class="perf-card-bar-fill" style="width:${barW}%;background:${pc}"></div></div>
-          <div class="perf-card-stats">
-            <span style="color:${pc}">${(p.pct*100).toFixed(1)}%</span>
-            <span style="color:${p.units>=0?'#00da88':'#ff2090'}">${p.units>=0?'+':''}${p.units.toFixed(1)}u</span>
-          </div>` : `
-          <div class="perf-card-rec">0W&#8211;0L</div>
-          <div class="perf-card-bar"></div>
-          <div class="perf-card-stats"><span style="color:var(--t3)">N/A</span><span style="color:var(--t3)">N/A</span></div>`}
-        </div>`;
-      }).join('');
-      if(updated && data.generated_at) updated.textContent = 'Last updated ' + data.generated_at;
-    })
-    .catch(() => {
-      grid.innerHTML = '<div class="perf-loading">PERFORMANCE DATA TEMPORARILY UNAVAILABLE</div>';
-    });
+  function loadEnginePerformance(){
+    fetch('https://mercmink21.github.io/clairvoyance-backend/engine_performance.json', {cache:'no-store'})
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(data => {
+        const periods = data.periods || [];
+        grid.innerHTML = periods.map(p => {
+          const hasData = p.n > 0;
+          const barW = hasData ? Math.round((p.pct || 0) * 100) : 0;
+          const pc = pctColor(p.pct);
+          return `<div class="glass-card perf-card">
+            <div class="perf-card-lbl">${p.label}${p.sub ? '<span>'+p.sub+'</span>' : ''}</div>
+            ${hasData ? `
+            <div class="perf-card-rec">${p.w}W&#8211;${p.l}L</div>
+            <div class="perf-card-bar"><div class="perf-card-bar-fill" style="width:${barW}%;background:${pc}"></div></div>
+            <div class="perf-card-stats">
+              <span style="color:${pc}">${(p.pct*100).toFixed(1)}%</span>
+              <span style="color:${p.units>=0?'#00da88':'#ff2090'}">${p.units>=0?'+':''}${p.units.toFixed(1)}u</span>
+            </div>` : `
+            <div class="perf-card-rec">0W&#8211;0L</div>
+            <div class="perf-card-bar"></div>
+            <div class="perf-card-stats"><span style="color:var(--t3)">N/A</span><span style="color:var(--t3)">N/A</span></div>`}
+          </div>`;
+        }).join('');
+        if(updated && data.generated_at) updated.textContent = 'Last updated ' + data.generated_at;
+      })
+      .catch(() => {
+        // Only show the error state on the FIRST load -- a transient
+        // failure on a later periodic refresh shouldn't blank out data
+        // that's already correctly on screen, it should just try again
+        // next interval.
+        if(!grid.dataset.loadedOnce) grid.innerHTML = '<div class="perf-loading">PERFORMANCE DATA TEMPORARILY UNAVAILABLE</div>';
+      })
+      .finally(() => { grid.dataset.loadedOnce = '1'; });
+  }
+  loadEnginePerformance();
+  setInterval(loadEnginePerformance, PERF_REFRESH_MS);
 })();
 
 // ── Sport Performance section — fetches the JSON snapshot the backend's
@@ -1785,20 +1806,32 @@ function closeNav(){ navLinks.classList.remove('open'); }
     });
   });
 
-  fetch('https://mercmink21.github.io/clairvoyance-backend/sport_performance.json', {cache:'no-store'})
-    .then(r => r.ok ? r.json() : Promise.reject(r.status))
-    .then(data => {
-      sperfData = data;
-      // Swap the LAST MONTH toggle label to the real month name (e.g.
-      // "JUL 2026") the same way the export card's own period buttons do.
-      const thisMonthBtn = toggle.querySelector('[data-period="thisMonth"]');
-      if(thisMonthBtn && data.thisMonth && data.thisMonth.label) thisMonthBtn.textContent = data.thisMonth.label;
-      if(updated && data.generated_at) updated.textContent = 'Last updated ' + data.generated_at;
-      renderPeriod();
-    })
-    .catch(() => {
-      stack.innerHTML = '<div class="perf-loading">SPORT PERFORMANCE DATA TEMPORARILY UNAVAILABLE</div>';
-    });
+  // Re-fetches on PERF_REFRESH_MS (see Engine Performance's own comment
+  // above) -- re-renders whatever period the visitor currently has
+  // selected (activePeriod is a closure variable, untouched by a
+  // periodic refetch), so toggling to e.g. THIS MONTH before a refresh
+  // fires doesn't get silently reset back to ALL TIME.
+  function loadSportPerformance(){
+    fetch('https://mercmink21.github.io/clairvoyance-backend/sport_performance.json', {cache:'no-store'})
+      .then(r => r.ok ? r.json() : Promise.reject(r.status))
+      .then(data => {
+        sperfData = data;
+        // Swap the LAST MONTH toggle label to the real month name (e.g.
+        // "JUL 2026") the same way the export card's own period buttons do.
+        const thisMonthBtn = toggle.querySelector('[data-period="thisMonth"]');
+        if(thisMonthBtn && data.thisMonth && data.thisMonth.label) thisMonthBtn.textContent = data.thisMonth.label;
+        if(updated && data.generated_at) updated.textContent = 'Last updated ' + data.generated_at;
+        renderPeriod();
+      })
+      .catch(() => {
+        // Only show the error state before any real data has ever
+        // loaded -- a transient failure on a later periodic refresh
+        // shouldn't blank out data already correctly on screen.
+        if(!sperfData) stack.innerHTML = '<div class="perf-loading">SPORT PERFORMANCE DATA TEMPORARILY UNAVAILABLE</div>';
+      });
+  }
+  loadSportPerformance();
+  setInterval(loadSportPerformance, PERF_REFRESH_MS);
 })();
 
 // ── Coverage section: picks-covered reveal ─────────────────────────
