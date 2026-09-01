@@ -490,7 +490,7 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
   font-family:var(--tech);font-size:15px;letter-spacing:2px;color:var(--purple);
   text-transform:uppercase;margin-top:40px;text-shadow:0 0 10px rgba(240,0,255,.4);
 }
-.sperf-toggle{display:flex;gap:8px;margin-top:14px;margin-bottom:18px}
+.sperf-toggle{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;margin-bottom:18px}
 .sperf-toggle-btn{
   font-family:var(--tech);font-size:13px;letter-spacing:1.5px;padding:9px 20px;
   border-radius:20px;border:1px solid rgba(240,0,255,.35);background:rgba(240,0,255,.06);
@@ -1205,6 +1205,7 @@ footer::before{
   <div class="sperf-hdr reveal">// Sport Performance — By League</div>
   <div class="sperf-toggle reveal" id="sperfToggle">
     <button type="button" class="sperf-toggle-btn" data-period="today">Today</button>
+    <button type="button" class="sperf-toggle-btn" data-period="lastMonth">Last Month</button>
     <button type="button" class="sperf-toggle-btn" data-period="thisMonth">This Month</button>
     <button type="button" class="sperf-toggle-btn act" data-period="allTime">All Time</button>
   </div>
@@ -1816,10 +1817,13 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
       .then(r => r.ok ? r.json() : Promise.reject(r.status))
       .then(data => {
         sperfData = data;
-        // Swap the LAST MONTH toggle label to the real month name (e.g.
-        // "JUL 2026") the same way the export card's own period buttons do.
+        // Swap the THIS MONTH / LAST MONTH toggle labels to the real month
+        // names (e.g. "SEP 2026" / "AUG 2026") the same way the export
+        // card's own period buttons do.
         const thisMonthBtn = toggle.querySelector('[data-period="thisMonth"]');
         if(thisMonthBtn && data.thisMonth && data.thisMonth.label) thisMonthBtn.textContent = data.thisMonth.label;
+        const lastMonthBtn = toggle.querySelector('[data-period="lastMonth"]');
+        if(lastMonthBtn && data.lastMonth && data.lastMonth.label) lastMonthBtn.textContent = data.lastMonth.label;
         if(updated && data.generated_at) updated.textContent = 'Last updated ' + data.generated_at;
         renderPeriod();
       })
