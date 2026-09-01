@@ -483,6 +483,13 @@ section{padding:clamp(60px,8vw,100px) clamp(20px,5vw,60px);max-width:1200px;marg
 }
 @media(max-width:768px){
   .perf-grid{grid-template-columns:repeat(2,1fr)}
+  /* The desktop :last-child rule above spans ALL TIME across the full
+     5-column row on purpose (it's alone on its own row there) -- at this
+     2-column mobile width that same rule made it span both columns,
+     stretching it noticeably wider than every other card instead of
+     just sitting in the grid like the rest. Reset it back to a normal
+     single cell here. */
+  .perf-grid>.perf-card:last-child{grid-column:auto}
 }
 
 /* ── Sport Performance (by league) ────────────────────── */
@@ -1239,7 +1246,7 @@ footer::before{
     <span class="sports-group-label">// BASKETBALL</span>
     <div class="sports-grid">
       <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U) + Player Props"><span class="sport-abbr">NBA</span><div class="sport-name">NAT'L BASKETBALL ASSOC.</div></div>
-      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U) + Player Props"><span class="sport-abbr">WNBA</span><div class="sport-name">WOMEN'S NAT'L BASKETBALL ASSOC.</div></div>
+      <div class="sport-card glass-card" data-picks="Game Lines (ML, Spread, O/U)"><span class="sport-abbr">WNBA</span><div class="sport-name">WOMEN'S NAT'L BASKETBALL ASSOC.</div></div>
     </div>
   </div>
 
