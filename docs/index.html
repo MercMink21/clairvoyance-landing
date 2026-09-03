@@ -1707,7 +1707,10 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
   if(!grid) return;
   const pctColor = pct => pct === null ? 'var(--t3)' : pct >= .62 ? '#00da88' : pct >= .5 ? 'var(--cyan)' : '#ff2090';
   function loadEnginePerformance(){
-    fetch('https://mercmink21.github.io/clairvoyance-backend/engine_performance.json', {cache:'no-store'})
+    // Subscriber-scoped snapshot (nfl/cfb/nba/mlb/nhl/soccer only) -- not
+    // the full engine_performance.json, which also includes personal-
+    // use-only WNBA/tennis/etc picks. Explicit request, 2026-09-03.
+    fetch('https://mercmink21.github.io/clairvoyance-backend/engine_performance_subscriber.json', {cache:'no-store'})
       .then(r => r.ok ? r.json() : Promise.reject(r.status))
       .then(data => {
         const periods = data.periods || [];
