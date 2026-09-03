@@ -1763,8 +1763,11 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
 
   // Not sold to subscribers (see the Coverage section above) -- hidden
   // from this public-facing breakdown even though the backend's own JSON
-  // still includes them for the personal-use dashboard.
-  const HIDDEN_LEAGUES = new Set(['WNBA', 'ATP', 'WTA']);
+  // still includes them for the personal-use dashboard. SHL/LIIGA/College
+  // Hockey added 2026-09-03 alongside auto-lock being turned on for them
+  // (they now route to the owner-only "other" email and will start
+  // producing real settled bets, which would otherwise leak in here).
+  const HIDDEN_LEAGUES = new Set(['WNBA', 'ATP', 'WTA', 'SHL', 'LIIGA', 'College Hockey']);
 
   function renderPeriod(){
     if(!sperfData) return;
