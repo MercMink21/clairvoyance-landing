@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src https://mercmink21.github.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: https:; connect-src https://purple-wraith.github.io; frame-ancestors 'none'; base-uri 'self'; form-action 'self';">
 <meta http-equiv="X-Content-Type-Options" content="nosniff">
 <meta http-equiv="Referrer-Policy" content="strict-origin-when-cross-origin">
 <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
@@ -1710,7 +1710,7 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
     // Subscriber-scoped snapshot (nfl/cfb/nba/mlb/nhl/soccer only) -- not
     // the full engine_performance.json, which also includes personal-
     // use-only WNBA/tennis/etc picks. Explicit request, 2026-09-03.
-    fetch('https://mercmink21.github.io/clairvoyance-backend/engine_performance_subscriber.json', {cache:'no-store'})
+    fetch('https://purple-wraith.github.io/clairvoyance-backend/engine_performance_subscriber.json', {cache:'no-store'})
       .then(r => r.ok ? r.json() : Promise.reject(r.status))
       .then(data => {
         const periods = data.periods || [];
@@ -1814,7 +1814,7 @@ const PERF_REFRESH_MS = 15 * 60 * 1000;
   // periodic refetch), so toggling to e.g. THIS MONTH before a refresh
   // fires doesn't get silently reset back to ALL TIME.
   function loadSportPerformance(){
-    fetch('https://mercmink21.github.io/clairvoyance-backend/sport_performance.json', {cache:'no-store'})
+    fetch('https://purple-wraith.github.io/clairvoyance-backend/sport_performance.json', {cache:'no-store'})
       .then(r => r.ok ? r.json() : Promise.reject(r.status))
       .then(data => {
         sperfData = data;
